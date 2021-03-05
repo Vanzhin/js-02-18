@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 
-$maxPageWidth: 1200px;
+$maxPageWidth: 1300px;
 
 * {
     margin: 0;
@@ -119,43 +119,40 @@ main {
         .panelcart {
             border: 2px solid;
             background-color: #ececec;
-            width: 600px;
+            width: 800px;
 
             display: flex;
             flex-wrap: wrap;
             justify-content: left;
-            flex-direction: row;
+            flex-direction: column;
 
             .panelcart__product {
                 display: flex;
                 flex-direction: row;
-                // align-items: left;
-                // padding: 20px;
-                margin-left: 5px;
-                margin-right: 5px;
-                margin-top: 5px;
-                margin-bottom: 5px;
+                margin-left: 10px;
+                margin-right: 10px;
+                margin-top: 10px;
+                margin-bottom: 10px;
                 height: 90px;
-                // width: 300px;
                 background-color: #fff;
                 color: black;
-                // border-radius: 10px;
 
                 img {
                     margin: 5px;
                     display: flex;
-                    width: 90px;
-                    height: 90px;
-                    max-width: 20%;
-                    max-height: 20%;
+                    width: 30%;
+                    height: 80%;
                 }
 
                 .panelcart__product-details {
                     display: flex;
                     flex-direction: column;
+                    font-weight: bold;
+                    margin-left: 10px;
 
                     .panelcart__product-title {
                         margin: 5px;
+                        margin-top: 15px;
                     }
 
                     .panelcart__product-price {

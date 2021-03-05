@@ -20,7 +20,7 @@
     text-decoration: none;
     color: #f16d7f;
     background-color: white;
-    border: 1px solid #f16d7f;
+    border: 2px solid #f16d7f;
 }
 .cart-button:hover{
     transform: scale(1.15);

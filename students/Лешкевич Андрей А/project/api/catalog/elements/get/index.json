@@ -1,0 +1,109 @@
+{
+    "status": 200,
+    "catalog": [
+        {
+           "id":1,
+           "name":"Mango People T-shirt #1",
+           "type":[
+              {
+                 "img":"img/catalog_item_01.png",
+                 "price":52.00,
+                 "star":4.5,
+                 "color":"red",
+                 "size":"XLL"
+              }
+           ]
+        },
+        {
+           "id":2,
+           "name":"Mango People T-shirt #2",
+           "type":[
+              {
+                 "img":"img/catalog_item_02.png",
+                 "price":32.00,
+                 "star":4.5,
+                 "color":"red",
+                 "size":"XLL"
+              }
+           ]
+        },
+        {
+           "id":3,
+           "name":"Mango People T-shirt #3",
+           "type":[
+              {
+                 "img":"img/catalog_item_03.png",
+                 "price":42.00,
+                 "star":4.5,
+                 "color":"red",
+                 "size":"XLL"
+              }
+           ]
+        },
+        {
+           "id":4,
+           "name":"Mango People T-shirt #4",
+           "type":[
+              {
+                 "img":"img/catalog_item_04.png",
+                 "price":62.34,
+                 "star":4.5,
+                 "color":"red",
+                 "size":"XLL"
+              }
+           ]
+        },
+        {
+           "id":5,
+           "name":"Mango People T-shirt #5",
+           "type":[
+              {
+                 "img":"img/catalog_item_05.png",
+                 "price":54.00,
+                 "star":4.5,
+                 "color":"red",
+                 "size":"XLL"
+              }
+           ]
+        },
+        {
+           "id":6,
+           "name":"Mango People T-shirt #6",
+           "type":[
+              {
+                 "img":"img/catalog_item_06.png",
+                 "price":53.00,
+                 "star":4.5,
+                 "color":"red",
+                 "size":"XLL"
+              }
+           ]
+        },
+        {
+           "id":7,
+           "name":"Mango People T-shirt #7",
+           "type":[
+              {
+                 "img":"img/catalog_item_07.png",
+                 "price":58.60,
+                 "star":4.5,
+                 "color":"red",
+                 "size":"XLL"
+              }
+           ]
+        },
+        {
+           "id":8,
+           "name":"Mango People T-shirt #8",
+           "type":[
+              {
+                 "img":"img/catalog_item_08.png",
+                 "price":50.00,
+                 "star":4.5,
+                 "color":"red",
+                 "size":"XLL"
+              }
+           ]
+        }
+     ]
+}

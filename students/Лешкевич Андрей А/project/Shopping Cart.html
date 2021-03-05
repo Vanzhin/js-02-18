@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Brand shop - Some Product Page</title>
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/v4-shims.min.css"
+        integrity="sha512-NfhLGuxy6G12XHj7/bvm0RC3jmR25RdpImn8P19aIMmN5pndO0fvIg78ihN2WIJtVRs+AYVrnYF4AipVikGPLg=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/solid.min.css"
+        integrity="sha512-xIEmv/u9DeZZRfvRS06QVP2C97Hs5i0ePXDooLa5ZPla3jOgPT/w6CzoSMPuRiumP7A/xhnUBxRmgWWwU26ZeQ=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/fontawesome.min.css"
+        integrity="sha512-shT5e46zNSD6lt4dlJHb+7LoUko9QZXTGlmWWx0qjI9UhQrElRb+Q5DM7SVte9G9ZNmovz2qIaV7IWv0xQkBkw=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/brands.min.css"
+        integrity="sha512-dBL5cY4qTt42J1cfabCHTYR7KMztyd+n4t2GhD6EH/MKWJIIHuEYckJ1nHEpTwIaiDkrjzbc6WyiSkdLP+3INQ=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/progressive-image.js/dist/progressive-image.css">
+    <script src="https://cdn.jsdelivr.net/npm/progressive-image.js/dist/progressive-image.js"></script>
+    <script type="text/javascript" src="js/helpers.js"></script>
+    <script type="text/javascript" src="js/cart.js"></script>
+    <script type="text/javascript" src="js/catalog.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript">
+        "use strict";
+        var cart, catalog, prodCatalog = [],
+            urlCart = "api/cart/get/Shopping Cart.json",
+            urlCatalog = "api/catalog/elements/get/Shopping Cart.json",
+            urlCatalogDisplayed = "api/catalog/displayed/get/Shopping Cart.json";
+
+        function go2StepTwo() {
+            document.getElementById("StepTwo").open = true;
+            document.getElementById("StepOne").open = false;
+        }
+
+        function go2StepThree() {
+            document.getElementById("StepThree").open = true;
+            document.getElementById("StepTwo").open = false;
+        }
+
+        function go2StepFour() {
+            document.getElementById("StepFour").open = true;
+            document.getElementById("StepThree").open = false;
+        }
+        document.addEventListener("DOMContentLoaded", pageInit);
+
+    </script>
+</head>
+
+<body>
+    <header class="header">
+        <section class="header-top-wrap wrap">
+            <section class="logo"><a href="index.html"><img src="img/logo.png"
+                        alt=""><span>BRAN<span>D</span></span></a></section>
+            <section class="search">
+
+                <div class="btn-browse">
+                    <div class="btn-browse__hover-wrap"><a href="#" class="btn-browse__link"><span
+                                class="btn-browse__text">Browse</span><span class="btn-browse__icon"><i
+                                    class="fa fa-caret-down"></i></span>
+                        </a>
+                        <div class="btn-browse__ddc">
+                            <div class="btn-browse__ddc-nav__wrap">
+                                <h3>Women</h3>
+                                <ul class="btn-browse__ddc-nav">
+                                    <li class="btn-browse__ddc-item"><a href="#"
+                                            class="btn-browse__ddc-link">Dresses</a></li>
+                                    <li class="btn-browse__ddc-item"><a href="#" class="btn-browse__ddc-link">Tops</a>
+                                    </li>
+                                    <li class="btn-browse__ddc-item"><a href="#"
+                                            class="btn-browse__ddc-link">Sweaters/Knits</a></li>
+                                    <li class="btn-browse__ddc-item"><a href="#"
+                                            class="btn-browse__ddc-link">Jackets/Coats</a></li>
+                                    <li class="btn-browse__ddc-item"><a href="#"
+                                            class="btn-browse__ddc-link">Blazers</a></li>
+                                    <li class="btn-browse__ddc-item"><a href="#" class="btn-browse__ddc-link">Denim</a>
+                                    </li>
+                                    <li class="btn-browse__ddc-item"><a href="#"
+                                            class="btn-browse__ddc-link">Leggings/Pants</a></li>
+                                    <li class="btn-browse__ddc-item"><a href="#"
+                                            class="btn-browse__ddc-link">Skirts/Shorts</a></li>
+                                    <li class="btn-browse__ddc-item"><a href="#"
+                                            class="btn-browse__ddc-link">Accessories</a></li>
+                                </ul>
+                            </div>
+                            <div class="btn-browse__ddc-nav__wrap">
+                                <h3>Men</h3>
+                                <ul class="btn-browse__ddc-nav">
+                                    <li class="btn-browse__ddc-item"><a href="#" class="btn-browse__ddc-link">Tees/Tank
+                                            tops</a></li>
+                                    <li class="btn-browse__ddc-item"><a href="#"
+                                            class="btn-browse__ddc-link">Shirts/Polos</a></li>
+                                    <li class="btn-browse__ddc-item"><a href="#"
+                                            class="btn-browse__ddc-link">Sweaters</a></li>
+                                    <li class="btn-browse__ddc-item"><a href="#"
+                                            class="btn-browse__ddc-link">Sweatshirts/Hoodies</a></li>
+                                    <li class="btn-browse__ddc-item"><a href="#"
+                                            class="btn-browse__ddc-link">Blazers</a></li>
+                                    <li class="btn-browse__ddc-item"><a href="#"
+                                            class="btn-browse__ddc-link">Jackets/vests</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <form action="#" class="form-search clear-fix"><input name="search" type="text"
+                            class="form-search__input" placeholder="Search for Item..."><a href="#"
+                            class="form-search__btn clear-fix"><i class="fa fa-search"></i></a></form>
+                </div>
+            </section>
+            <section class="cart">
+                <div id="cartSmall" class="btn-cart__wrap">
+                    <a href="Shopping%20Cart.html" class="btn-cart"><img src="img/cart_black.png" alt="">
+                    </a>
+                    <div class="btn-cart__count">0</div>
+                    <div class="btn-cart__ddc">
+                        <ul class="btn-cart__ddc-list">
+                            <!-- Replaced by JavaScript
+                            <li class="btn-cart__ddc-item">
+                                <div class="col"><a href="#"><img src="img/cart_item_01.png" alt=""></a></div>
+                                <div class="col">
+                                    <p>Rebox Zane</p>
+                                    <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o" aria-hidden="true"></i></p>
+                                    <div>
+                                        <p class="price-count">1 <span class="x-txt">x</span> $250</p>
+                                        <p class="sub-total clear-fix"> = $250</p>
+                                    </div>
+                                </div>
+                                <div class="col"><a href="#"><i class="fas fa-plus-circle"></i></a><a href="#"><i class="fa fa-times-circle"></i></a><a href="#"><i class="fas fa-minus-circle"></i></a></div>
+                            </li>
+                            <li class="btn-cart__ddc-item">
+                                <div class="col"><a href="#"><img src="img/cart_item_02.png" alt=""></a></div>
+                                <div class="col">
+                                    <p>Rebox Zane</p>
+                                    <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o" aria-hidden="true"></i></p>
+                                    <div>
+                                        <p class="price-count">1 <span class="x-txt">x</span> $250</p>
+                                        <p class="sub-total clear-fix"> = $250</p>
+                                    </div>
+                                </div>
+                                <div class="col"><a href="#"><i class="fas fa-plus-circle"></i></a><a href="#"><i class="fa fa-times-circle"></i></a><a href="#"><i class="fas fa-minus-circle"></i></a></div>
+                            </li>
+                            -->
+                        </ul>
+                        <div class="btn-cart__ddc-total">
+                            <div class="total-grand"><span>TOTAL</span><span class="total-grand-summ">$0.00</span></div>
+                            <div class="btn-sqr_bw"><a href="Checkout.html" class="btn-sqr_bw__link"><span
+                                        class="btn-sqr_bw__text">Checkout</span></a>
+                            </div>
+                            <div class="btn-sqr_dl"><a href="Shopping%20Cart.html" class="btn-sqr_dl__link"><span
+                                        class="btn-sqr_dl__text">Go to cart</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-account"><a href="#" class="btn-account__link clear-fix"><span
+                            class="btn-account__text">My Account</span><span class="btn-account__icon"><i
+                                class="fa fa-caret-down"></i></span>
+
+                    </a>
+                </div>
+            </section>
+        </section>
+        <div class="header-hl"></div>
+        <nav class="header-nav-wrap wrap">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <div class="nav-item__hover-wrap"><a href="index.html" class="nav-link">Home</a>
+                        <!-- <div class="nav-item__ddc"></div> -->
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-item__hover-wrap"><a href="Product.html" class="nav-link">Man</a>
+                        <div class="nav-item__ddc">
+                            <div class="nav-item__ddc-list__wrap">
+                                <h3>Women</h3>
+                                <ul class="nav-item__ddc-list">
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Dresses</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Tops</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Sweaters/Knits</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Jackets/Coats</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Blazers</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Denim</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Leggings/Pants</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Skirts/Shorts</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Accessories </a></div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="nav-item__ddc-list__wrap">
+                                <h3>Women</h3>
+                                <ul class="nav-item__ddc-list">
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Dresses</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Tops</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Sweaters/Knits</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Jackets/Coats</a></div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="nav-item__ddc-list__wrap">
+                                <h3>Women</h3>
+                                <ul class="nav-item__ddc-list">
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Dresses</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Tops</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Sweaters/Knits</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Jackets/Coats</a></div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="nav-item__ddc-list__wrap">
+                                <h3>Women</h3>
+                                <ul class="nav-item__ddc-list">
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Dresses</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Tops</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Sweaters/Knits</a></div>
+                                    </li>
+                                    <li class="nav-item__ddc-item">
+                                        <div class="nav-item__ddc-item__hover-wrap"><a href="#"
+                                                class="nav-item__ddc-link">Jackets/Coats</a></div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="nav-item__ddc-list__wrap__sale"><a href="#"
+                                    class="nav-item__ddc-list__wrap__sale__link"><img src="img/sales_banner.png"
+                                        alt=""></a></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-item__hover-wrap"><a href="Single%20Page.html" class="nav-link">Women</a>
+                        <!-- <div class="nav-item__ddc"></div> -->
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-item__hover-wrap"><a href="Product.html" class="nav-link">Kids</a>
+                        <!-- <div class="nav-item__ddc"></div> -->
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-item__hover-wrap"><a href="Product.html" class="nav-link">Accoseriese</a>
+                        <!-- <div class="nav-item__ddc"></div> -->
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-item__hover-wrap"><a href="Product.html" class="nav-link">Featured</a>
+                        <!-- <div class="nav-item__ddc"></div> -->
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-item__hover-wrap"><a href="Product.html" class="nav-link">Hot&nbsp;Deals</a>
+                        <!-- <div class="nav-item__ddc"></div> -->
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="top-ribbon top-ribbon-nomargin">
+            <div class="wrap top-ribbon-wrap">
+                <h1>New Arrivals</h1>
+                <div class="breadcrumbs">
+                    <a href="Home">Home</a> / <a href="#">Men</a> / <span class="current">New Arrivals</span>
+                </div>
+            </div>
+        </section>
+        <section class="shopping-cart">
+            <div class="shopping-cart-wrap wrap">
+                <!-- Replaced due to Lesson-07 task
+                <section>
+                -->
+                <details class="col detail-animo" id="StepOne" open>
+                    <summary>Cart Details</summary>
+
+                    <div id="cartBig" class="table">
+                        <div class="table-header table-line">
+                            <div class="table-line-item">Product Details</div>
+                            <div class="table-line-item">unite Price</div>
+                            <div class="table-line-item">Quantity</div>
+                            <div class="table-line-item">shipping</div>
+                            <div class="table-line-item">Subtotal</div>
+                            <div class="table-line-item">ACTION</div>
+                        </div>
+                        <!-- Replaced by JavaScript
+                        <div class="product-item table-line">
+                            <div class="table-line__wrap">
+                                <div class="table-line-item table-line-item-prod">
+                                    <div class="col"><a href="" class="item-img"><img src="img/catalog_item_15.png" alt=""></a></div>
+                                    <div class="col">
+                                        <h3>Mango People T-shirt</h3>
+                                        <p><span class="item-title">
+                                                Color:</span> Red</p>
+                                        <p><span class="item-title">Size:</span> Xll</p>
+                                    </div>
+                                </div>
+                                <div class="table-line-item table-line-item-price">$150</div>
+                                <div class="table-line-item table-line-item-quant"><input type="number" value="2"></div>
+                                <div class="table-line-item table-line-item-ship">FREE</div>
+                                <div class="table-line-item table-line-item-subt">$300</div>
+                                <div class="table-line-item table-line-item-act"><a href="#"><i class="fa fa-times-circle"></i></a></div>
+                            </div>
+                        </div>
+                        <div class="product-item table-line">
+                            <div class="table-line__wrap">
+                                <div class="table-line-item table-line-item-prod">
+                                    <div class="col"><a href="" class="item-img"><img src="img/catalog_item_16.png" alt=""></a></div>
+                                    <div class="col">
+                                        <h3>Mango People T-shirt</h3>
+                                        <p><span class="item-title">
+                                                Color:</span> Red</p>
+                                        <p><span class="item-title">Size:</span> Xll</p>
+                                    </div>
+                                </div>
+                                <div class="table-line-item table-line-item-price">$150</div>
+                                <div class="table-line-item table-line-item-quant"><input type="number" value="2"></div>
+                                <div class="table-line-item table-line-item-ship">FREE</div>
+                                <div class="table-line-item table-line-item-subt">$300</div>
+                                <div class="table-line-item table-line-item-act"><a href="#"><i class="fa fa-times-circle"></i></a></div>
+                            </div>
+                        </div>
+
+                        <div class="product-item table-line">
+                            <div class="table-line__wrap">
+                                <div class="table-line-item table-line-item-prod">
+                                    <div class="col"><a href="" class="item-img"><img src="img/catalog_item_17.png" alt=""></a></div>
+                                    <div class="col">
+                                        <h3>Mango People T-shirt</h3>
+                                        <p><span class="item-title">
+                                                Color:</span> Red</p>
+                                        <p><span class="item-title">Size:</span> Xll</p>
+                                    </div>
+                                </div>
+                                <div class="table-line-item table-line-item-price">$150</div>
+                                <div class="table-line-item table-line-item-quant"><input type="number" value="2"></div>
+                                <div class="table-line-item table-line-item-ship">FREE</div>
+                                <div class="table-line-item table-line-item-subt">$300</div>
+                                <div class="table-line-item table-line-item-act"><a href="#"><i class="fa fa-times-circle"></i></a></div>
+                            </div>
+                        </div>
+                        -->
+                        <div class="table-footer table-line">
+                            <div class="col">
+
+                                <div class="btn-sqr_dl"><a href="#" onclick="cart.clear();return false;"
+                                        class="btn-sqr_dl__link"><span class="btn-sqr_dl__text">cLEAR SHOPPING
+                                            CART</span></a>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <!-- Replaced due to Lesson-07 task
+                                <div class="btn-sqr_dl"><a href="" class="btn-sqr_dl__link"><span class="btn-sqr_dl__text">cONTINUE sHOPPING</span></a>
+                                </div>                                
+                                -->
+                                <div class="btn-sqr_dl"><a href="#" onclick="go2StepTwo();return false;"
+                                        class="btn-sqr_dl__link"><span class="btn-sqr_dl__text">Continue</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Replaced due to Lesson-07 task
+                </section>
+                -->
+                </details>
+                <section>
+                    <form id="form-shipping" action="#" class="form-shipping">
+                        <!-- Replaced due to Lesson-07 task
+                        <div class="col">
+                            <h3>Shipping Adress</h3>
+                        -->
+                        <details class="col detail-animo" id="StepTwo">
+                            <summary>Shipping Adress</summary>
+                            <div class="select_wrap">
+                                <details class="cust-select">
+                                    <summary><span></span><span>Bangladesh</span></summary>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Bangladesh</a></li>
+                                        <li><a href="#">England</a></li>
+                                        <li><a href="#">USA</a></li>
+                                        <li><a href="#">Canada</a></li>
+                                    </ul>
+                                </details>
+                            </div>
+                            <div class="splt-form splt-form-search"><input type="text" placeholder="State" name="search"
+                                    class="splt-form-search-inp splt-form-search-borders splt-form-search-s2s"></div>
+                            <div class="splt-form splt-form-search"><input type="text" placeholder="Postcode / Zip"
+                                    name="search"
+                                    class="splt-form-search-inp splt-form-search-borders splt-form-search-s2s"></div>
+                            <!-- Replaced due to Lesson-07 task
+                            <div class="btn-sqr_dl"><a href="" class="btn-sqr_dl__link"><span class="btn-sqr_dl__text">get a quote</span></a>
+                            </div>
+                            -->
+                            <div class="btn-sqr_dl"><a href="#" onclick="go2StepThree();return false;"
+                                    class="btn-sqr_dl__link"><span class="btn-sqr_dl__text">Continue</span></a>
+                            </div>
+                            <!-- Replaced due to Lesson-07 task
+                        </div>
+                        -->
+                        </details>
+                        <!-- Replaced due to Lesson-07 task
+                        <div class="col">
+                            <h3>coupon discount</h3>
+                        -->
+                        <details class="col detail-animo" id="StepThree">
+                            <summary>coupon discount</summary>
+                            <div class="splt-form splt-form-search"><input type="text" placeholder="Coupon code"
+                                    name="search"
+                                    class="splt-form-search-inp splt-form-search-borders splt-form-search-s2s"></div>
+                            <!-- Replaced due to Lesson-07 task
+                            <div class="btn-sqr_dl"><a href="" class="btn-sqr_dl__link"><span class="btn-sqr_dl__text">Apply coupon</span></a>
+                            </div>
+                            -->
+                            <div class="btn-sqr_dl"><a href="#" onclick="go2StepFour();return false;"
+                                    class="btn-sqr_dl__link"><span class="btn-sqr_dl__text">Continue</span></a>
+                            </div>
+                            <!-- Replaced due to Lesson-07 task
+                        </div>
+                        -->
+                        </details>
+                        <!-- Replaced due to Lesson-07 task
+                        <div class="col">
+                           -->
+                        <details class="col detail-animo" id="StepFour">
+                            <summary>checkout</summary>
+                            <p class="total-sub">Sub total <span>$0</span></p>
+                            <p class="total-grand">GRAND TOTAL <span class="brand">$0</span></p>
+
+                            <div class="btn-sqr_wb"><a href="" class="btn-sqr_wb__link"><span
+                                        class="btn-sqr_wb__text">proceed to checkout</span></a>
+                            </div>
+                            <!-- Replaced due to Lesson-07 task
+                        </div>
+                        -->
+                        </details>
+                    </form>
+                </section>
+            </div>
+        </section>
+        <div class="footer-baloon"></div>
+    </main>
+
+    <footer>
+        <section class="subscribe">
+            <div class="wrap warp-subscribe">
+                <div class="cont">
+                    <div class="col">
+                        <div class="item">
+                            <img src="img/comment_ellipse.png" alt="">
+                            <div class="cont">
+                                <p>“Vestibulum quis porttitor dui! Quisque viverra nunc mi,
+                                    a pulvinar purus condimentum a. Aliquam condimentum mattis neque sed pretium”</p>
+                                <p><span>Bin Burhan</span><br>Dhaka, Bd</p>
+                                <div class="slide-selection">
+                                    <a href="#" class="slide-selection-btn"></a>
+                                    <a href="#" class="slide-selection-btn slide-selection-btn__active"></a>
+                                    <a href="#" class="slide-selection-btn"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="item">
+                            <div class="cont">
+                                <h3>Subscribe</h3>
+                                <p>FOR OUR NEWLETTER AND PROMOTION</p>
+                                <div class="btn-subs">
+                                    <form action="#" class="form-subs"><input name="subscribe" type="email"
+                                            class="form-subs__input" placeholder="Enter Your Email"><a href="#"
+                                            class="form-subs__btn clear-fix">Subscribe</a></form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="footer">
+            <div class="wrap footer-wrap">
+                <div class="cont">
+                    <div class="col logo">
+                        <section class="logo"><a href="#"><img src="img/logo.png"
+                                    alt=""><span>BRAN<span>D</span></span></a></section>
+                        <p>Objectively transition extensive data rather than cross functional solutions. Monotonectally
+                            syndicate multidisciplinary materials before go forward benefits. Intrinsicly syndicate an
+                            expanded array of processes and cross-unit partnerships.<br><br>
+                            Efficiently plagiarize 24/365 action items and focused infomediaries.
+                            Distinctively seize superior initiatives for wireless technologies. Dynamically optimize.
+                        </p>
+                    </div>
+                    <div class="col">
+                        <h2>COMPANY</h2>
+                        <ul class="footer-nav">
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">Home</a></li>
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">Shop</a></li>
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">About</a></li>
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">How It Works</a></li>
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h2>INFORMATION</h2>
+                        <ul class="footer-nav">
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">Tearms & Condition</a></li>
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">Privacy Policy</a></li>
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">How to Buy</a></li>
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">How to Sell</a></li>
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">Promotion</a></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h2>SHOP CATEGORY</h2>
+                        <ul class="footer-nav">
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">Men</a></li>
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">Women</a></li>
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">Child</a></li>
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">Apparel</a></li>
+                            <li class="footer-nav-item"><a href="#" class="footer-nav-link">Brows All</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="copyright">
+            <div class="wrap copyright-wrap">
+                <div class="cont">
+                    <div class="text">© 2017 Brand All Rights Reserved.</div>
+                    <ul class="icon-nav">
+                        <li class="icon-nav-item"><a href="#" class="icon-nav-link"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li class="icon-nav-item"><a href="#" class="icon-nav-link"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li class="icon-nav-item"><a href="#" class="icon-nav-link"><i class="fa fa-linkedin"
+                                    aria-hidden="true"></i></a></li>
+                        <li class="icon-nav-item"><a href="#" class="icon-nav-link"><i
+                                    class="fa fa-pinterest-p"></i></a></li>
+                        <li class="icon-nav-item"><a href="#" class="icon-nav-link"><i class="fa fa-google-plus"
+                                    aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </footer>
+</body>
+
+</html>

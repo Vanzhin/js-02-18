@@ -1,0 +1,38 @@
+.goods{
+    background: rgba(16, 112, 177, 0.2);
+    border: 1px dotted #eee;
+    box-shadow: 5px 20px 50px rgba(16, 112, 177, 0.2);
+    border-collapse: collapse;
+    margin-top: 40px;
+    padding: 34px 50px;
+    height: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-button{
+    margin-top: 10px;
+    margin-left: 85%;
+    padding: 0px 40px;
+    height: 70%;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0.05em;
+    color: #1F3F68;
+}
+
+.hat{
+    min-height: 100px;
+    background: linear-gradient(0deg, #EBF3FB 8.84%, rgba(152, 195, 232, 0) 60%);
+    box-sizing: border-box;
+}
+
+.hat_h1{
+    font-size: 64px;
+    line-height: 74px;
+    letter-spacing: 0.04em;
+    color: #1F3F68;
+    margin-bottom: 12px;
+    text-align: center;
+}

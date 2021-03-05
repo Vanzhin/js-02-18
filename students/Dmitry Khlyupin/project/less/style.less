@@ -24,7 +24,11 @@ header {
     background-color: @mainOrange;
     height: 60px;
     padding: 0 10%;
+    box-shadow:0px 5px 9px 0px rgba(0,0,0,0.39);
 
+}
+main {
+    padding: 30px 10%;
 }
 
 .logo {
@@ -45,7 +49,7 @@ header {
     border: 1px solid @mainWhite;
     font-family: 'Montserrat', sans-serif;
     color: @mainWhite;
-    padding: 5px 30px;
+    padding: 0px 30px;
     font-size: 14px;
     height: 30px;
     border-radius: 15px;
@@ -63,6 +67,14 @@ header {
     padding-right: 10px;
 }
 
+.card-button::after {
+    display: block;
+    content: '\f0d7';
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Brands';
+    font-weight: 900;
+    padding-left: 10px;
+}
+
 .card-button:hover {
     background-color: @mainWhite;
     color: @mainOrange;
@@ -72,20 +84,26 @@ header {
     background-color: @lightGrey;
 
 }
-
+.card-button:hover::after {
+    display: block;
+    content: '\f0d8';
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Brands';
+    font-weight: 900;
+    padding-left: 10px;
+}
 .card-button:active,
 .card-button:hover {
     outline: none;
 }
 
-.goods {
-    padding: 30px 10%;
+.goods-list {
+    
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
 
-.item {
+.goods-item {
     padding: 20px;
     margin: 20px 10px;
     border: 1px solid @mainOrange;

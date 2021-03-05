@@ -1,0 +1,1850 @@
+
+body 
+    font-family: Lato
+    font-size: 14px
+    min-width: 320px
+
+h2 
+    font-size: 30px
+    font-weight: 700
+    letter-spacing: 0.025em
+    color: #222222
+    margin-top: 15px
+    margin-bottom: 15px
+
+a 
+    text-decoration: none
+    transition-duration: 0.3s
+
+p 
+    margin: 0
+
+main 
+    display: flex
+    flex-direction: column
+    min-height: 100%
+
+.container 
+    max-width: 1140px
+    margin: 0 auto
+
+%flex 
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: space-between
+    align-items: center
+
+.flex 
+    @extend %flex
+
+.logo 
+    @extend %flex
+
+    img 
+        width: 59px
+        height: 51px
+        margin-right: 15px
+
+    &__title 
+        font-size: 27px
+        line-height: 32px
+        font-weight: 300
+        text-transform: uppercase
+        letter-spacing: 0.025em
+        color: #222222
+
+        span 
+            font-weight: 900
+            color: #f16d7f
+
+.middle 
+    @extend %flex
+
+.fa 
+    &-caret-down 
+        font-size: 14px
+        font-weight: 400
+        letter-spacing: 0.025em
+        color: #838383
+        margin-left: 8px
+
+.header 
+    border: 1px solid #ececec
+
+    & .container 
+        height: 100px
+
+    &__logo 
+
+    &__middle 
+
+    .middle__cats 
+        @extend %flex
+        background-color: #cdcdcc
+        background-image: linear-gradient(180.0deg, #f9f9f9 0%, #f5f5f5 100%)
+        border: 1px solid #e6e6e6
+        border-radius: 3px 0px 0px 3px
+        transition-duration: 0.3s
+
+        &:hover 
+            background: #cdcdcc
+
+        .middle__list 
+            .middle__list-item 
+                .middle__list-item 
+            
+            .middle__list 
+                .middle__list-item 
+
+    .middle__selected 
+        @extend %flex
+        padding: 14px 9px 14px 15px
+
+        &:hover 
+            cursor: pointer
+
+    .middle__actual 
+        font-size: 14px
+        font-weight: 300
+        letter-spacing: 0.025em
+        color: #222222
+
+    .middle__search 
+
+    input 
+        width: 317px
+        background-color: #ffffff
+        border: 1px solid #e6e6e6
+        font-size: 14px
+        padding: 14px 16px 14px 16px
+        font-weight: 300
+        letter-spacing: 0.025em
+        color: #a4a4a4
+        border-right: none
+
+        transition-duration: 0.3s
+
+        &:hover 
+            background: #fefefe 
+
+    .middle__search-button 
+        background: #ffffff
+        border-radius: 0px 3px 3px 0px
+        border: 1px solid #e6e6e6
+        padding: 14px 11px 14px 11px
+        cursor: pointer
+        transition-duration: 0.3s
+
+        &:hover 
+            background: #f5f5f5
+
+        &:active 
+            opacity: 0.4
+        
+        .fa 
+            &-search 
+                font-size: 14px
+                font-weight: 400
+                letter-spacing: 0.025em
+                color: #a4a4a4
+
+    &__right 
+        @extend %flex
+        position: relative
+
+    &__cart 
+        img 
+            margin-right: 26px
+            width: 32px
+            height: 29px   
+
+    &__user-menu 
+        &.top-user-menu 
+
+    .top-user-menu__selected 
+        background-color: #f16d7f
+        font-size: 15px
+        font-weight: 400
+        letter-spacing: 0.025em
+        color: #ffffff
+        padding: 12px 19px 12px 19px
+        cursor: pointer
+        text-decoration: none
+        display: block
+        transition-duration: 0.3s
+
+        &:hover 
+            background-color: #e15c6e
+        
+
+        .fa 
+            &-caret-down 
+                color: #ffffff
+    
+    .top-cart 
+        position: relative
+        cursor: pointer
+
+        &__items 
+            position: absolute
+            top: -8px
+            right: 14px
+            width: 19px
+            height: 19px
+            background-color: #f16d7f
+            border-radius: 100%
+            font-size: 12px
+            line-height: 20px
+            font-weight: 700
+            letter-spacing: 0.025em
+            color: #ffffff
+            text-align: center
+
+    &__cart-togle
+
+.cart-togle
+    width: 260px
+    padding: 15px
+    background: #fff
+    border: 1px solid #ececec
+    border-radius: 10px
+    z-index: 999
+    position: absolute
+    left: -15px
+    top: 50px
+    display: none
+
+    &__item
+        @extend %flex
+        flex-wrap: nowrap
+        padding-bottom: 10px
+        margin-bottom: 10px
+        border-bottom: 1px solid #ececec
+
+    &__image
+        width: 80px
+        margin-right: 5px
+
+    &__cont
+        align-self: flex-start
+        margin-top: 5px
+
+    &__title
+        font-weight: bold
+        font-size: 15px
+
+    &__atr
+        font-size: 14px
+        color: #f16d7f
+        margin-top: 15px
+        @extend %flex
+        justify-content: flex-start
+
+    &__count
+        &::after
+            content: ' x'
+
+    &__prise
+        margin-left: 4px
+
+    &__close
+        align-items: center
+        display: flex
+        padding: 0 0 0 10px
+
+    &__close-icon
+        width: 20px
+        height: 20px
+        justify-content: center
+        align-items: center
+        display: flex
+        border-radius: 100%
+        color: #fff
+        background: #c0c0c0
+        cursor: pointer
+
+    &__total-prise
+        @extend %flex
+        padding: 10px 0 20px 0
+        font-size: 20px
+        font-weight: bold
+
+    &__button
+
+        &.button
+            background: #fff
+            width: 100%
+            border: 1px solid #eaeaea
+            color: #777777
+            display: block
+            padding: 15px 0
+            text-align: center
+            text-transform: uppercase
+
+            &_active
+                border: 1px solid #f16d7f
+                color: #f16d7f
+                margin-bottom: 10px
+
+
+
+.menu 
+    &__list 
+        height: 51px
+        @extend %flex
+        justify-content: center
+
+        .active 
+            &::before 
+                content: ""
+                position: absolute
+                bottom: 0
+                left: 0
+                height: 3px
+                background-color: #ef5b70
+                width: 100%
+
+    &__item 
+        padding-left: 10px
+        height: 100%
+        padding-right: 10px
+        position: relative
+        transition-duration: 0.3s
+
+        &:hover::before 
+            content: ""
+            position: absolute
+            bottom: 0
+            left: 0
+            height: 3px
+            background-color: #ef5b70
+            width: 100%
+
+        a 
+            font-size: 14px
+            font-weight: 700
+            text-transform: uppercase
+            color: #222222
+            text-decoration: none
+            display: block
+            width: 100%
+            height: 100%
+            line-height: 51px
+
+.top-slider 
+    background-color: #e8e8e8
+
+    #viewport 
+
+    #slidewrapper 
+
+    .slide 
+        position: relative
+
+        img 
+            width: 100%
+
+    & .container 
+        position: absolute
+        top: 50%
+        left: 50%
+        margin-left: -552px
+        margin-top: -46px
+    
+
+    .slide__text 
+        font-size: 60px
+        line-height: 0.7
+        font-weight: 900
+        letter-spacing: 0.025em
+        color: #222222
+
+        &_small 
+            font-size: 40px
+        
+
+        &_pink 
+            color: #f16d7f
+        
+
+        &:before 
+            content: ""
+            position: absolute
+            top: 0
+            left: -18px
+            width: 12px
+            height: 92px
+            background-color: #f16d7f
+        
+.top-banners 
+    padding-top: 98px
+    padding-bottom: 50px
+
+    .container 
+        @extend %flex
+
+    &__col 
+        width: calc(50% - 20px)
+    
+
+    &__item 
+        position: relative
+        margin-bottom: 20px
+
+        img 
+            width: 100%
+        
+    &__right 
+
+    &__tex 
+        position: absolute
+        top: 26px
+        left: 0
+        background-color: #ffffff
+        padding: 16px 19px 16px 20px
+        font-size: 30px
+        color: #f16d7f
+        font-weight: 900
+        margin: 0
+
+        span 
+            font-size: 18px
+            line-height: 1.2
+            text-transform: uppercase
+            letter-spacing: 0.025em
+            color: #222222
+
+.block 
+    @extend %flex
+
+    &__item 
+        width: calc(25% - 25px)
+        margin-top: 60px
+        position: relative
+        transition-duration: 0.3s
+
+        &:hover .block__item-hover 
+            display: block
+        
+
+        &:hover 
+            box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.15)
+
+    img 
+        width: 100%
+
+    &__img 
+        position: relative
+    
+    &__title 
+        font-size: 13px
+        font-weight: 400
+        text-transform: uppercase
+        color: #222222
+        margin: 19px 14px 17px 14px
+
+    &__prise 
+        font-size: 16px
+        font-weight: 700
+        text-transform: uppercase
+        color: #f16d7f
+        margin: 0 14px 21px 14px
+
+    &__item-hover 
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        text-align: center
+        background-color: rgba(58, 56, 56, 0.83)
+        display: none
+
+        a 
+            @extend %flex
+            position: absolute
+            top: 50%
+            left: 50%
+            margin-left: -62px
+            margin-top: -20px
+            width: 123px
+            height: 39px
+            border: 1px solid #ffffff
+            color: #fff
+            font-size: 13px
+            font-weight: 700
+            transition-duration: 0.3s
+
+            &:hover 
+                background: #000
+            
+
+            span 
+                margin-right: 13px
+
+    &__cart-icon 
+        width: 23px
+        height: 22px
+        background-image: url(image/cart_min.png)
+        background-repeat: no-repeat
+        background-size: cover
+        margin-left: 12px
+    
+    a 
+        text-decoration: none
+
+.product 
+    padding-bottom: 50px
+    padding-top: 50px
+
+    .container 
+
+    h2.title 
+        text-align: center
+
+    span.title 
+        text-align: center
+        display: block
+        font-size: 14px
+        font-weight: 400
+        letter-spacing: 0.025em
+        color: #9f9f9f
+    
+    &__button 
+        margin-top: 60px
+    
+    &__aside 
+
+    &__main 
+
+    &__bottom 
+        @extend %flex
+        width: 100%
+        margin-top: 40px
+        align-items: stretch
+        margin-bottom: 60px
+
+        &_button 
+            font-size: 16px
+            font-weight: 300
+            color: #ef5b70
+            border: 1px solid #ef5b70
+            border-radius: 3px
+            padding: 16px 43px
+
+.nav-page 
+    padding: 15px
+    border: 1px solid #ebebeb
+    border-radius: 3px
+
+    &__list 
+        @extend %flex
+    
+    &__item 
+        margin-right: 16px
+        position: relative
+
+        &:last-child 
+            margin-right: 0
+
+        &.active 
+            a 
+                color: #ef5b70
+
+        a 
+            font-size: 16px
+            font-weight: 300
+            color: #c4c4c4
+        
+        &:nth-child(7) 
+            margin-right: 0
+
+            &::after 
+                content: "......"
+                font-size: 16px
+                font-weight: 300
+                color: #c4c4c4
+
+.two-col 
+    .container 
+        @extend %flex
+        align-items: flex-start
+
+    .aside 
+        width: 263px
+
+        &__nav 
+
+    .block 
+        justify-content: flex-start
+
+    .page-body 
+        width: calc(100% - 263px - 55px)
+
+        .block__item 
+            width: calc(33.333333% - 20px)
+            margin-right: 30px
+            margin-top: 36px
+
+            &:nth-child(3),
+            &:nth-child(6),
+            &:nth-child(9),
+            &:nth-child(12),
+            &:nth-child(15),
+            &:nth-child(18),
+            &:nth-child(21),
+            &:nth-child(24),
+            &:nth-child(27),
+            &:nth-child(30) 
+                margin-right: 0
+
+.range 
+    &__controls 
+        position: relative
+
+        .scale 
+            height: 6px
+            background: #f0f0f0
+            border-radius: 3px
+        
+
+        .bar 
+            width: 50%
+            height: 6px
+            background: #f16d7f
+            margin-left: 20%
+        
+
+        .toggle 
+            position: absolute
+            top: -4px
+            width: 14px
+            height: 14px
+            border: none
+            padding: 0
+            background-color: #f16d7f
+            border-radius: 100%
+            cursor: pointer
+        
+        .toggle-min 
+            left: 19%
+        
+
+        .toggle-max 
+            left: 66%
+
+    &__value 
+        @extend %flex
+        margin-top: 17px
+
+        span 
+            font-size: 14px
+            line-height: 26px
+            font-weight: 400
+            color: #6f6e6e
+
+.product__filter 
+    @extend %flex
+    align-items: flex-start
+
+.filter 
+    width: calc(33.333333% - 20px)
+    margin-right: 30px
+    margin-bottom: 35px
+
+    &:nth-child(3),
+    &:nth-child(6),
+    &:nth-child(9),
+    &:nth-child(12),
+    &:nth-child(15),
+    &:nth-child(18),
+    &:nth-child(21),
+    &:nth-child(24),
+    &:nth-child(27),
+    &:nth-child(30) 
+        margin-right: 0
+    
+    h2 
+        font-size: 14px
+        margin-bottom: 25px
+        font-weight: 700
+        text-transform: uppercase
+        color: #6f6e6e
+    
+    .filter-nav 
+        &__list 
+            display: flex
+            flex-wrap: wrap
+        
+        &__item 
+            position: relative
+
+            &:last-child::after 
+                content: ""
+            
+
+            &::after 
+                content: "|"
+                color: #dfdfdf
+                margin: 0 12px
+                font-size: 14px
+            
+
+            a 
+                font-size: 14px
+                line-height: 26px
+                font-weight: 400
+                color: #6f6e6e
+            
+    .size 
+        display: flex
+        flex-wrap: wrap
+
+        input 
+            margin-right: 5px
+        
+        lable 
+            width: 25%
+            margin-bottom: 15px
+            font-size: 14px
+            font-weight: 400
+            text-transform: uppercase
+            color: #6f6e6e
+        
+.sort-block 
+    width: 100%
+    background-color: #f3f3f3
+    display: flex
+    padding: 10px 9px 10px 9px
+
+    &__attribute 
+        @extend %flex
+        background-color: #ffffff
+        border: 1px solid #ebebeb
+        margin-right: 10px
+
+        &:last-child 
+            margin-right: 0
+
+    &__name 
+        padding: 10px 14px
+        border-right: 1px solid #ebebeb
+        font-size: 14px
+        font-weight: 400
+        color: #6f6e6e
+    
+    &__vakue 
+        padding: 9px 14px
+        border: none
+        font-size: 14px
+        font-weight: 400
+        color: #6f6e6e
+    
+    option 
+        font-size: 14px
+        font-weight: 400
+        color: #6f6e6e
+
+.nav-aside 
+    padding-bottom: 20px
+
+    &__title 
+        padding: 15px 12px
+        margin: 0
+        font-size: 14px
+        font-weight: 700
+        text-transform: uppercase
+        color: #6f6e6e
+        border-bottom: 1px solid #eee
+        border-left: 5px solid #ef5b70
+        cursor: pointer
+        @extend %flex
+
+        &.active 
+            color: #ef5b70
+
+    &__list 
+        margin-top: 20px
+
+    &__item 
+        a 
+            display: block
+            font-size: 14px
+            font-weight: 400
+            color: #6f6e6e
+            margin-bottom: 20px
+            margin-left: 20px
+
+            &:first-child 
+                margin-top: 20px
+
+.center 
+    text-align: center
+
+a.button,
+.button 
+    background-color: #f16d7f
+    padding: 12px 22px 12px 22px
+    text-decoration: none
+    display: inline-block
+    transition-duration: 0.3s
+
+    &:hover 
+        opacity: 0.8
+
+    &_bold 
+        font-size: 16px
+        font-weight: 700
+        letter-spacing: 0.025em
+        color: #ffffff
+    
+
+    .fa 
+        font-size: 15px
+        font-weight: 400
+        letter-spacing: 0.025em
+        color: #ffffff
+        margin-left: 9px
+    
+span.pink 
+    color: #f16d7f
+
+.bottom-promo 
+    padding-bottom: 97px
+
+    .container 
+        @extend %flex
+        align-items: stretch
+    
+    &__left 
+        position: relative
+        width: 65%
+    
+    &__back 
+        position: absolute
+        width: 100%
+        height: 100%
+        z-index: 1
+        top: 0
+        left: 0
+    
+    &-img 
+        width: 100%
+        height: 100%
+    
+    &__title 
+        position: absolute
+        top: 146px
+        left: 40px
+        font-size: 53.7px
+        line-height: 0.8
+        font-weight: 700
+        letter-spacing: 0.025em
+        color: #ffffff
+        z-index: 2
+        margin: 0
+
+    &__small 
+        font-size: 32.2px
+    
+    &__right 
+        width: 35%
+
+        &.promo 
+            flex-direction: column
+
+    &_full 
+        background-color: #222224
+        padding: 0
+
+        .bottom-promo__right.promo 
+            flex-direction: row
+            flex-wrap: nowrap
+        
+
+        .bottom-promo__right 
+            width: 100%
+    
+        .promo__item 
+            flex-direction: column
+            padding: 80px 0
+            text-align: center
+
+            &:nth-child(2) 
+                padding: 80px 80px
+
+        .promo__icon 
+            width: 100%
+            text-align: center
+            margin-bottom: 18px
+        
+
+        .promo__icon img 
+            margin-right: 0
+
+.promo 
+    @extend %flex
+    align-items: stretch
+    background-color: #222224
+
+    &__item 
+        @extend %flex
+        flex-wrap: nowrap
+        align-items: flex-start
+        padding: 25px 38px
+
+    &__icon 
+        img 
+            margin-right: 33px
+        
+    &__title 
+        font-size: 20px
+        line-height: 1.2
+        font-weight: 700
+        letter-spacing: 0.025em
+        color: #fbfbfb
+        margin-left: 3px
+        margin-bottom: 20px
+
+    &__text 
+        font-size: 14px
+        line-height: 24px
+        font-weight: 300
+        letter-spacing: 0.025em
+        color: #fbfbfb
+
+.top-footer 
+    position: relative
+
+    &__back 
+
+    img &__back 
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 0
+        left: 0
+        z-index: 1
+
+    &__img 
+        position: relative
+        width: 100%
+        min-height: 438px
+        background-color: #eee
+        background-image: url(image/sub.jpg), url(image/sub_back.png)
+        background-repeat: no-repeat
+        background-size: cover
+
+    .container 
+        @extend %flex
+        z-index: 2
+        position: absolute
+        top: 0
+        left: 50%
+        margin-left: -570px
+        height: 100%
+        flex-wrap: nowrap
+
+    &__col 
+        width: calc(50% - 1px)
+        border-right: 1px solid #fff
+        display: flex
+        flex-direction: column
+        justify-content: center
+        height: 100%
+
+        &:last-child 
+            border-right: none
+    
+        &.reviews 
+    
+    .reviews__slider 
+
+    .reviews__slide 
+        @extend %flex
+        align-items: flex-start
+        flex-wrap: nowrap
+
+        img 
+            width: 83px
+            margin-right: 28px
+
+    .reviews__text 
+
+    p 
+        font-size: 16px
+        line-height: 26px
+        font-weight: 400
+        font-style: italic
+        letter-spacing: 0.025em
+        color: #222224
+        margin-bottom: 24px
+    
+
+    h4 
+        font-size: 12px
+        line-height: 14px
+        font-weight: 300
+        color: #222224
+
+        span 
+            font-family: Lato
+            font-size: 16px
+            line-height: 26px
+            font-weight: 700
+            letter-spacing: 0.025em
+            color: #f16d7f
+
+    .reviews__nav 
+        margin-left: 110px
+
+        span 
+            display: inline-block
+            margin-right: 15px
+            width: 38px
+            height: 4px
+            background-color: #d6d6d6
+            cursor: pointer
+            transition-duration: 0.3s
+
+            &:hover 
+                background-color: #f16d7f
+            
+        
+
+        span.active 
+            background-color: #f16d7f
+
+    &__sub 
+
+.subscribe 
+    text-align: center
+
+    &__title 
+        font-size: 24px
+        font-weight: 400
+        text-transform: uppercase
+        letter-spacing: 0.025em
+        color: #222224
+        margin-bottom: 44px
+
+        span 
+            font-size: 14px
+            line-height: 24px
+            text-transform: none
+        
+    &__form 
+        display: flex
+        justify-content: center
+
+        input 
+            width: 300px
+            padding: 0 21px
+            background-color: #e1e1e1
+            border-radius: 23px 0 0 23px
+            opacity: 0.67
+            font-size: 14px
+            font-weight: 400
+            letter-spacing: 0.025em
+            color: #222224
+            border: none
+            height: 46px
+            transition-duration: 0.3s
+
+            &:hover 
+                background: #fff
+
+        .button 
+            border: 0
+            padding: 0 18px
+            background-color: #f16d7f
+            border-radius: 0px 23px 23px 0px
+            font-size: 14px
+            font-weight: 400
+            letter-spacing: 0.025em
+            color: #ffffff
+
+.foot 
+    .foot-top 
+        padding-top: 123px
+        padding-bottom: 80px
+    
+
+    .container 
+        @extend %flex
+        align-items: flex-start
+    
+
+    .foot-top__main 
+        width: calc(46% - 60px)
+        padding-right: 60px
+
+        p 
+            font-size: 14px
+            line-height: 24px
+            font-weight: 300
+            letter-spacing: 0.025em
+            color: #898989
+            margin-bottom: 15px
+
+    .foot-top__col 
+        width: calc(18% - 10px)
+        margin-left: 10px
+
+        &.foot-col 
+
+        .foot-col__title 
+            font-size: 18px
+            line-height: 26px
+            margin-bottom: 30px
+            margin-top: 5px
+            font-weight: 700
+            letter-spacing: 0.025em
+            color: #f16d7f
+
+        .foot-col__menu 
+
+        &_col__link 
+
+        a 
+            font-size: 16px
+            line-height: 40px
+            font-weight: 400
+            letter-spacing: 0.025em
+            color: #898989
+            text-decoration: none
+
+    .foot-top__logo 
+        margin-bottom: 29px
+        justify-content: flex-start
+    
+    img 
+
+    .logo__title 
+
+    span 
+
+    p 
+
+    .foot-bot 
+        width: 100%
+        background-color: #e6e6e6
+        padding: 20px 0
+
+        .container 
+            @extend %flex
+
+    .foot-bot__info 
+        font-size: 16px
+        line-height: 42px
+        font-weight: 400
+        letter-spacing: 0.025em
+        color: #7a7a7a
+    
+    .foot-bot__social 
+
+.social 
+    @extend %flex
+
+    &__icon 
+        display: inline-block
+        width: 32px
+        background-color: #ffffff
+        font-size: 16px
+        line-height: 32px
+        font-weight: 400
+        letter-spacing: 0.025em
+        color: #b2b2b2
+        text-align: center
+        text-decoration: none
+        height: 32px
+        margin-right: 8px
+        transition-duration: 0.3s
+
+        &:last-child 
+            margin-right: 0
+        
+        &:hover 
+            background-color: #f16d7f
+            color: #f7f7f8
+
+        &:active 
+            opacity: 0.29
+        
+.top-page 
+    background-color: #f8f3f4
+
+    .container 
+        @extend %flex
+        min-height: 150px
+    
+    &__title 
+        font-size: 24px
+        font-weight: 900
+        text-transform: uppercase
+        color: #f16d7f
+    
+
+    a 
+        font-size: 14px
+        line-height: 20px
+        font-weight: 300
+        text-transform: uppercase
+        color: #636363
+
+        &:last-child 
+            font-weight: 700
+            color: #f16d7f
+
+.shop-table 
+    padding-top: 80px
+
+    .container 
+
+    table 
+        width: 100%
+        border-spacing: 0px
+        border-collapse: collapse
+    
+    tr 
+        td 
+            border-bottom: 1px solid #eee
+            padding: 18px 0
+
+            input 
+                width: 50px
+                height: 30px
+                background-color: #ffffff
+                border: 1px solid #eaeaea
+                padding: 2px 10px
+                text-align: center
+            
+            a 
+                font-size: 16px
+                font-weight: 400
+                text-transform: uppercase
+                color: #c0c0c0
+            
+        &:first-child 
+            font-size: 13px
+            line-height: 20px
+            font-weight: 700
+            text-transform: uppercase
+            letter-spacing: -0.015em
+            color: #222222
+            text-align: center
+        
+        &:first-child td:first-child 
+            text-align: left
+        
+        &:not(:first-child) 
+            font-size: 13px
+            font-weight: 400
+            color: #656565
+            text-align: center
+
+        .flex 
+            justify-content: flex-start
+            align-items: flex-start
+            flex-wrap: nowrap
+        
+        .table__col 
+            margin-left: 21px
+            text-align: left
+
+            h4 
+                font-size: 13px
+                font-weight: 400
+                text-transform: uppercase
+                color: #222222
+                margin: 10px 0 30px 0
+            
+
+            p 
+                font-size: 13px
+                line-height: 20px
+                font-weight: 400
+                color: #575757
+
+                span 
+                    font-weight: 300
+                    color: #6f6e6e
+                
+    &__bottom 
+        @extend %flex
+        margin-top: 50px
+    
+    &__button 
+        font-size: 14px
+        line-height: 1.2
+        font-weight: 700
+        text-transform: uppercase
+        color: #4a4a4a
+        background-color: #ffffff
+        border: 1px solid #eaeaea
+        padding: 19px 38px
+        cursor: pointer
+
+.cart-bottom 
+    padding-top: 60px
+    padding-bottom: 70px
+
+    .container 
+        @extend %flex
+        align-items: flex-start
+    
+    &__col 
+        width: calc(33% - 30px)
+
+        p 
+            margin-bottom: 24px
+            font-size: 14px
+            font-weight: 300
+            color: #000000
+
+    &__title 
+        font-size: 16px
+        margin: 0
+        font-weight: 700
+        text-transform: uppercase
+        color: #222222
+        margin-bottom: 22px
+
+    .std-form 
+        input 
+            font-size: 13px
+            font-weight: 300
+            color: #b1b1b1
+            background-color: #ffffff
+            border: 1px solid #eaeaea
+            padding: 15px 18px
+            width: calc(100% - 38px)
+            margin-bottom: 20px
+
+        select 
+            font-size: 13px
+            font-weight: 300
+            color: #b1b1b1
+            background-color: #ffffff
+            border: 1px solid #eaeaea
+            padding: 15px 13px
+            width: 100%
+            margin-bottom: 20px
+
+        input[type="button"] 
+            border: 1px solid #eaeaea
+            font-size: 11px
+            font-weight: 700
+            text-transform: uppercase
+            color: #4a4a4a
+            padding: 12px 15px
+            cursor: pointer
+            width: auto
+
+    .totel-p 
+        background-color: #f5f3f3
+
+        &__body 
+            padding: 42px 44px
+            text-align: right
+
+        &__sub-text 
+            font-size: 11px
+            font-weight: 400
+            text-transform: uppercase
+            color: #4a4a4a
+            margin-bottom: 11px
+    
+        &__sub-prise 
+            margin-left: 3px
+
+        &__grand-text 
+            font-size: 16px
+            font-weight: 700
+            text-transform: uppercase
+            color: #222222
+            padding-bottom: 20px
+            border-bottom: 1px solid #eeeeee
+
+        &__grand-prise 
+            margin-left: 3px
+            color: #f16d7f
+        
+    &__button 
+        margin-top: 20px
+
+        &.main-button 
+            background-color: #f16d7f
+            font-size: 16px
+            font-weight: 700
+            text-transform: uppercase
+            color: #ffffff
+            width: 100%
+            padding: 19px 0
+            border: none
+            cursor: pointer
+        
+.single-slider 
+    position: relative
+    background-color: #f7f7f7
+    border-bottom: 1px solid #eaeaea
+    border-top: 1px solid #eaeaea
+    padding-top: 10px
+    padding-bottom: 42px
+
+    #viewport 
+
+    #slidewrapper 
+        &.container 
+
+    .slide 
+        text-align: center
+        width: 100%
+    
+    .slide-img 
+
+    &__prev 
+        position: absolute
+        top: 50%
+        margin-top: -24px
+        left: 0
+        width: 47px
+        height: 47px
+        background-color: rgba(42, 42, 42, 0.14)
+        text-align: center
+        font-size: 24px
+        line-height: 47px
+        font-weight: 400
+        color: #ffffff
+        cursor: pointer
+
+    &__next 
+        position: absolute
+        top: 50%
+        margin-top: -24px
+        right: 0
+        width: 47px
+        height: 47px
+        background-color: rgba(42, 42, 42, 0.14)
+        text-align: center
+        font-size: 24px
+        line-height: 47px
+        font-weight: 400
+        color: #ffffff
+        cursor: pointer
+
+.single 
+    margin-top: -90px
+    border: 1px solid #eaeaea
+    background: #ffffff
+    z-index: 1
+
+    article 
+        text-align: center
+        padding-bottom: 40px
+        border-bottom: 1px solid #eaeaea
+  
+    &__bottom 
+        padding: 0 50px
+    
+    &__container 
+        max-width: 620px
+        margin: 0 auto
+        padding: 70px 0 120px 0
+
+    &__h3 
+        font-size: 14px
+        font-weight: 700
+        color: #f16d7f
+        margin: 0
+        padding-bottom: 15px
+        position: relative
+
+        &::before 
+            content: ""
+            position: absolute
+            width: 148px
+            height: 1px
+            background-color: #eaeaea
+            bottom: 1px
+            left: 50%
+            margin-left: -74px
+        
+        &::after 
+            content: ""
+            position: absolute
+            width: 64px
+            height: 3px
+            background-color: #ef5b70
+            bottom: 0
+            left: 50%
+            margin-left: -32px
+        
+    &__h2 
+        font-size: 18px
+        font-weight: 900
+        text-transform: uppercase
+        color: #4d4d4d
+        margin: 17px 0 55px 0
+
+    p 
+        font-size: 14px
+        line-height: 24px
+        font-weight: 300
+        color: #5e5e5e
+    
+    .specifications 
+        @extend %flex
+        justify-content: center
+        margin-top: 25px
+    
+    .specifications__item 
+        font-size: 14px
+        font-weight: 300
+        color: #b9b9b9
+        font-weight: 700
+        margin-right: 40px
+
+        &:last-child 
+            margin-right: 0
+
+    .specifications__name 
+
+    .specifications__value 
+        color: #2f2f2f
+    
+    &__price 
+        font-size: 24px
+        font-weight: 700
+        color: #ef5b70
+        text-align: center
+        margin-top: 35px
+
+    .parameters 
+        @extend %flex
+        padding-top: 60px
+    
+    .parameters__item 
+        min-width: 144px
+
+        &:last-child 
+            margin-right: 0
+
+    h4 
+        font-size: 14px
+        margin-top: 0
+        margin-bottom: 15px
+        font-weight: 700
+        color: #2f2f2f
+    
+    select 
+        width: 100%
+        padding: 12px 15px
+        border: 1px solid #eaeaea
+        font-size: 13px
+        font-weight: 400
+        color: #bcbcbc
+
+        option 
+            padding: 12px 15px
+
+            .red 
+                display: block
+                width: 10px
+                height: 10px
+                background: #000
+
+    a &__button 
+        @extend %flex
+        justify-content: center
+        margin-top: 25px
+        padding: 17px 10px
+        border: 1px solid #ef5b70
+        text-align: center
+        font-size: 16px
+        font-weight: 700
+        color: #ef5b70
+
+        .cart-icon 
+            width: 26px
+            height: 24px
+            margin-right: 15px
+            background-image: url(image/cart2.png)
+            background-repeat: no-repeat
+            background-size: cover
+    
+    .cart-icon 
+
+.checkout 
+    padding: 50px 0 90px 0
+
+    .container 
+
+    &__title 
+        font-size: 16px
+        font-weight: 700
+        text-transform: uppercase
+        color: #222222
+        border-bottom: 1px solid #e8e8e8
+        margin: 0
+        padding: 33px 0
+
+    &__title + .actove 
+        border-bottom: none
+
+    &__block 
+        border-bottom: 1px solid #e8e8e8
+        padding: 30px 30px 70px 30px
+        @extend %flex
+        align-items: flex-start
+
+    &__col 
+        width: 49%
+
+        h3 
+            font-size: 13px
+            text-transform: uppercase
+            color: #222222
+            margin-top: 0
+            margin-bottom: 15px
+        
+        p 
+            margin-top: 0
+            margin-bottom: 15px
+            font-size: 13px
+            font-weight: 400
+            color: #b3b2b2
+
+            .fa-angle-double-right 
+                margin-right: 4px
+
+        .radiobutton 
+            margin-top: 30px
+            margin-bottom: 30px
+        
+        lable 
+            display: block
+            font-size: 12px
+            line-height: 1.2
+            font-weight: 700
+            text-transform: uppercase
+            color: #222222
+            margin-top: 20px
+
+    &__button 
+        background-color: #ffffff
+        border: 1px solid #eaeaea
+        font-size: 14px
+        font-weight: 700
+        text-transform: uppercase
+        color: #4a4a4a
+        padding: 18px 54px
+        cursor: pointer
+        margin-top: 30px
+    
+    &__col 
+        &.authorization 
+
+        h3 
+
+        p 
+
+        input 
+
+    span 
+
+    lable 
+        input 
+    
+
+    br 
+
+    .authorization 
+        .input-text 
+            margin-top: 10px
+            margin-bottom: 16px
+            font-size: 12px
+            font-weight: 400
+            color: #222222
+
+            span 
+                font-size: 17px
+                font-weight: 400
+                color: #ff0d0d
+
+        input 
+            border: 1px solid #eaeaea
+            font-size: 14px
+            font-weight: 400
+            text-transform: uppercase
+            color: #4a4a4a
+            padding: 15px
+            width: 360px
+            margin-bottom: 10px
+
+        .text-comment 
+            margin-top: 10px
+            margin-bottom: 16px
+            font-size: 13px
+            font-weight: 400
+            color: #ff0d0d
+
+    .bottom 
+        @extend %flex
+        justify-content: flex-start
+        padding-top: 28px
+
+        .checkout__button 
+            margin: 0
+        
+
+        a.checkout__a 
+            margin-left: 30px
+            font-size: 14px
+            font-weight: 400
+            color: #222222
+
+@media screen and (max-width: 1140px) 
+    .container 
+        width: calc(100% - 20px)
+    
+    .top-footer .container 
+        left: 20px
+        margin-left: 0
+    
+
+    .foot .foot-top__col 
+        width: auto
+        margin-left: 20px
+        width: auto
+        max-width: 50%
+    
+    .header input 
+        width: auto
+    
+    .bottom-promo__right 
+        width: 50%
+    
+    .bottom-promo__left 
+        width: 50%
+    
+    .top-slider .container 
+        left: 35px
+        margin-left: 0
+        width: calc(100% - 55px)
+
+@media screen and (max-width: 768px) 
+    .bottom-promo__right 
+        width: 100%
+    
+    .bottom-promo__left 
+        width: 100%
+ 
+    .top-footer .container 
+        height: auto
+        flex-wrap: wrap
+        padding-top: 30px
+    
+    .top-footer__col 
+        border: none
+        width: 100%
+        width: calc(100% - 20px)
+
+    .top-banners__col 
+        width: calc(50% - 5px)
+    
+    .block__item 
+        width: calc(50% - 10px)
+        margin-top: 40px
+    
+    .block 
+        justify-content: space-around
+    
+    .foot .foot-top__main 
+        width: 100%
+    
+    .foot .foot-top__col 
+        width: calc(33.333% - 10px)
+        margin-left: 0
+
+    .foot .foot-top 
+        padding-top: 50px
+        padding-bottom: 30px
+    
+    .logo 
+        justify-content: center
+        width: 100%
+        margin-top: 10px
+        margin-bottom: 10px
+    
+    .middle 
+        justify-content: center
+        width: 100%
+        margin-bottom: 10px
+    
+    .header__right 
+        justify-content: center
+        width: 100%
+        padding-bottom: 10px
+    
+    .header .container 
+        height: auto
+
+    .menu__list 
+        height: auto
+    
+    .top-slider .slide__text 
+        font-size: 45px
+    
+    .top-slider .slide__text_small 
+        font-size: 26px
+    
+    .top-slider .slide__text:before 
+        height: 70px
+
+@media screen and (max-width: 668px) 
+    .top-banners__col 
+        width: 100%
+    
+    .block__item 
+        width: 100%
+        margin-top: 20px
+        text-align: center
+
+    .block img 
+        width: 100%
+        max-width: 320px
+
+    .subscribe__form input 
+        width: auto
+
+    .top-slider .slide__text 
+        font-size: 35px
+    
+    .top-slider .slide__text_small 
+        font-size: 20px
+    
+    .top-banners 
+        padding-top: 40px
+        padding-bottom: 10px
+
+    .bottom-promo__title 
+        top: 35px
+
+    .subscribe__title 
+        color: #fff
+        text-shadow: 0 1px 1px #000
+
+    .top-footer__img 
+        min-height: 570px
+
+    .subscribe__title 
+        margin-bottom: 20px
+
+@media screen and (max-width: 468px) 
+    .foot .foot-top__col 
+        width: auto
+    
+    .header input 
+        padding: 14px 5px 14px 10px

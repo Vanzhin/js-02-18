@@ -44,3 +44,35 @@ header {
     height: 300px;
     margin: 0px 30px;
 }
+
+.basket-blok {
+    background-color: #5A98D0;
+}
+
+.basket-item {
+    display: flex;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.button-remove {
+    margin: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    font-weight: 900;
+    padding-top: -5px;
+    border: crimson;
+    background-color: crimson;
+    color: honeydew;
+}
+.button-remove p{
+    margin: 0;
+    margin-left: -1px;
+    margin-top: -4px;
+    padding: 0;
+}
+.button-remove:hover{
+    background-color: red;
+    cursor: pointer;
+}

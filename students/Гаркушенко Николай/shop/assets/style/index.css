@@ -9,6 +9,8 @@
 }
 
 .visible {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -19,9 +21,15 @@ body {
 }
 
 header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background: #f9f1e7;
   padding: 10px 10px;
 }
@@ -44,32 +52,59 @@ header .cart-button {
 
 main {
   margin: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 main .app__container {
   margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  max-width: 1200px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  max-width: 1300px;
   border: 2px solid;
 }
 
 main .app__container .showcase {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
-  flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   font-family: "Roboto", "Courier New", Courier, monospace;
   font-size: 16px;
 }
 
 main .app__container .showcase .showcase__product {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 20px;
   margin-left: 5px;
   margin-right: 5px;
@@ -85,6 +120,8 @@ main .app__container .showcase .showcase__product {
 
 main .app__container .showcase .showcase__product img {
   margin: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 120px;
   height: 120px;
@@ -116,20 +153,33 @@ main .app__container .showcase .showcase__product button {
 main .app__container .panelcart {
   border: 2px solid;
   background-color: #ececec;
-  width: 600px;
+  width: 800px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
-  flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 main .app__container .panelcart .panelcart__product {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  margin-left: 5px;
-  margin-right: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   height: 90px;
   background-color: #fff;
   color: black;
@@ -137,20 +187,28 @@ main .app__container .panelcart .panelcart__product {
 
 main .app__container .panelcart .panelcart__product img {
   margin: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  width: 90px;
-  height: 90px;
-  max-width: 20%;
-  max-height: 20%;
+  width: 30%;
+  height: 80%;
 }
 
 main .app__container .panelcart .panelcart__product .panelcart__product-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-weight: bold;
+  margin-left: 10px;
 }
 
 main .app__container .panelcart .panelcart__product .panelcart__product-details .panelcart__product-title {
   margin: 5px;
+  margin-top: 15px;
 }
 
 main .app__container .panelcart .panelcart__product .panelcart__product-details .panelcart__product-price {

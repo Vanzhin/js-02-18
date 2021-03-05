@@ -1,3 +1,11 @@
+*,p{
+    margin: 0;
+    padding: 0;
+}
+button{
+    
+    outline: none;
+}
 .cart-button-block{
     margin-top: 20px;
     position: relative;
@@ -49,10 +57,13 @@
     width: 100px;
     background-color: rgb(165, 222, 224);
     margin: 10px;
-   
     text-align: center;
     padding: 0 0 20px 0;
 }
+.goods-item p, .goods-item h3{
+    margin: 10px;
+}
+
 .goods-item:hover {
     outline: 2px solid rgb(67, 28, 206);
 }
@@ -72,4 +83,43 @@
 }
 .wrap_catalog{
     margin-top: 30px;
+}
+
+.basket-blok, .basket{
+    margin: 0 auto 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.basket-item{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 10px 0;
+    
+}
+
+.basket-item p, .basket-item h3{
+    margin: 10px;
+}
+.basket-button{
+    margin: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    font-weight: 900;
+    padding-top: -5px;
+    border:rgb(12, 12, 12) ;
+    background-color: rgb(12, 12, 12);
+    color: honeydew;
+    text-align: center;
+}
+.basket-button p{
+    margin: 0;
+    margin-top: -4px;
+    padding: 0;
+}
+.basket-button:hover{
+    background-color: cornflowerblue;
+    cursor: pointer;
 }

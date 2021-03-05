@@ -1,0 +1,15 @@
+{
+    "status": 200,
+    "cart": [
+      {
+         "id":1,
+         "type":0,
+         "quantity":1
+      },
+      {
+         "id":4,
+         "type":0,
+         "quantity":2
+      }
+   ]
+}

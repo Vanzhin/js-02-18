@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2 - Сеть фастфуда</title>
+</head>
+<body>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            position: relative;
+            height: 100%;
+            min-height: 100vh;
+        }
+        .hamburger {
+            width: 70%;
+            margin-left: 5%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .hamburger-size {
+            width: 33%;
+        }
+        .hamburger-stuffing {
+            width: 33%;
+        }
+        .hamburger-pr {
+            width: 33%;
+        }
+        .panel {
+            width: 70%;
+            margin-left: 5%;
+            display: flex;
+            justify-content: center;
+        }
+        .hamburgerList {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 20%;
+            height: calc(100% - 40px);
+            background-color: #eee;
+            padding: 20px;
+            border-left: 1px solid #000;
+            overflow: auto;
+        }
+        button {
+            width: 90%;
+            height: 40px;
+            margin-bottom: 5px;
+            background: yellow;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        button.active {
+            box-shadow: 10px 0 0 0 #000;
+        }
+        .panel button {
+            background: green;
+            color: #fff;
+        }
+        .hamburger-item {
+            display: flex;
+            border-bottom: 1px solid #bbb;
+            align-items: stretch;
+            justify-content: space-between;
+        }
+        .hamburger-delete {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10px;
+            background: red;
+            color: #fff;
+            cursor: pointer;
+        }
+        .hamburgerList-top {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 5px solid #bbb;
+            padding: 10px 0;
+            font-size: 16px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+    <div class="hamburger">
+        <div class="hamburger-size">
+            <button id="size1" class="active">Большой</button>
+            <button id="size2">Маленький</button>
+        </div>
+        <div class="hamburger-stuffing">
+            <button id="stuffing1" class="active">С сыром</button>
+            <button id="stuffing2">С салатом</button>
+            <button id="stuffing3">С картофелем</button>
+        </div>
+        <div class="hamburger-pr">
+            <button id="pr1" class="active">Без приправы и соуса</button>
+            <button id="pr2">Посыпанный приправой</button>
+            <button id="pr3">Политый майонезом</button>
+        </div>
+    </div>
+    <div class="panel">
+        <button id="add">Заказать</button>
+    </div>
+    <div class="hamburgerList">
+        <div class="hamburgerList-top">
+            <div class="price"></div>
+            <div class="calories"></div>
+        </div>
+        <div class="hamburgerList-bottom">
+            <p>Возьми себе бургер!</p>
+            <div class="delete"></div>
+        </div>
+    </div>
+
+    <script>
+        let size = 'Большой';
+        let stuffing = 'С сыром';
+        let spice = 'Без приправы и соуса';
+        let hamburgerArr = [];
+
+        document.getElementById('size1').onclick = function() {
+            this.classList.add('active');
+            document.getElementById('size2').classList.remove('active');
+            size = 'Большой';
+        }
+
+        document.getElementById('size2').onclick = function() {
+            this.classList.add('active');
+            document.getElementById('size1').classList.remove('active');
+            size = 'Маленький';
+        }
+
+        document.getElementById('stuffing1').onclick = function() {
+            this.classList.add('active');
+            document.getElementById('stuffing2').classList.remove('active');
+            document.getElementById('stuffing3').classList.remove('active');
+            stuffing = 'С сыром';
+        }
+
+        document.getElementById('stuffing2').onclick = function() {
+            this.classList.add('active');
+            document.getElementById('stuffing1').classList.remove('active');
+            document.getElementById('stuffing3').classList.remove('active');
+            stuffing = 'С салатом';
+        }
+
+        document.getElementById('stuffing3').onclick = function() {
+            this.classList.add('active');
+            document.getElementById('stuffing1').classList.remove('active');
+            document.getElementById('stuffing2').classList.remove('active');
+            stuffing = 'С картофелем';
+        }
+
+        document.getElementById('stuffing1').onclick = function() {
+            this.classList.add('active');
+            document.getElementById('stuffing2').classList.remove('active');
+            document.getElementById('stuffing3').classList.remove('active');
+            stuffing = 'С сыром';
+        }
+
+        document.getElementById('pr1').onclick = function() {
+            this.classList.add('active');
+            document.getElementById('pr2').classList.remove('active');
+            document.getElementById('pr3').classList.remove('active');
+            spice = 'Без приправы и соуса';
+        }
+
+        document.getElementById('pr2').onclick = function() {
+            this.classList.add('active');
+            document.getElementById('pr1').classList.remove('active');
+            document.getElementById('pr3').classList.remove('active');
+            spice = 'Посыпанный приправой';
+        }
+
+        document.getElementById('pr3').onclick = function() {
+            this.classList.add('active');
+            document.getElementById('pr1').classList.remove('active');
+            document.getElementById('pr2').classList.remove('active');
+            spice = 'Политый майонезом';
+        }
+
+        document.getElementById('add').onclick = function() {
+            list.HamburgerAdd(size, stuffing, spice);
+            list.render();
+        }
+
+        class Hamburger {
+            constructor(index, size, stuffing, spice) {
+                this.index = index;
+                this.size = size;
+                this.stuffing = stuffing;
+                this.spice = spice;
+            }
+            render() {
+                return `
+                    <div class="hamburger-item" id="${this.index}">
+                        <div>
+                            <div>Гамбургер #${this.index}</div>
+                            <div class="block__prise">${this.size}</div>
+                            <div class="block__prise">${this.stuffing}</div>
+                            <div class="block__prise">${this.spice}</div>
+                        </div>
+                        <div class="hamburger-delete delete" onclick="list.delete(${this.index})">Отменить</div>
+                    </div>
+                    <br>
+                `;
+            }
+        }
+
+        class HamburgerList {
+            constructor() {
+                this.hamburgersArr = [];
+                this.hamburger = {}
+            }
+            HamburgerAdd(size, stuffing, spice) {
+                let hamburger = {
+                    size: size,
+                    stuffing: stuffing,
+                    spice: spice
+                };
+                this.hamburgersArr.push( hamburger );
+            }
+            render() {
+                let listHtml = '';
+                let index = '0';
+                this.hamburgersArr.forEach(hamburger => {
+                    index++;
+                    const hamburgerItem = new Hamburger(index, hamburger.size, hamburger.stuffing, hamburger.spice);
+                    listHtml += hamburgerItem.render();
+                });
+                document.querySelector('.hamburgerList-bottom').innerHTML = listHtml;
+                this.calculate();
+            }
+            calculate() {
+                let price = 0;
+                let calories = 0;
+                this.hamburgersArr.forEach(hamburger => {
+                    if (hamburger.size === 'Большой') {
+                        price += 100;
+                        calories += 40;
+                    } else if (hamburger.size === 'Маленький') {
+                        price += 50;
+                        calories += 20;
+                    }
+
+                    if (hamburger.size === 'С сыром') {
+                        price += 10;
+                        calories += 20;
+                    } else if (hamburger.size === 'С салатом') {
+                        price += 20;
+                        calories += 5;
+                    } else if (hamburger.size === 'С картофелем') {
+                        price += 15;
+                        calories += 10;
+                    }
+
+                    if (hamburger.spice === 'Посыпанный приправой') {
+                        price += 15;
+                    } else if (hamburger.spice === 'Политый майонезом') {
+                        price += 20;
+                        calories += 5;
+                    }
+                });
+                document.querySelector('.price').innerHTML = `Цена: ${price}`;
+                document.querySelector('.calories').innerHTML = `Калорийность: ${calories}`;
+            }
+            delete(id) {
+                this.hamburgersArr.splice (id-1, 1);
+                this.render();
+            }
+        }
+        
+        const list = new HamburgerList();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+header {
+    background-color: aqua;
+    height: 70px;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .card-button {
+    float: right;
+    outline: none;
+    font-weight: 700;
+    color: white;
+    padding: 0.8rem 1rem calc(0.8em + 3px);
+    border-radius: 3px;
+    background: red;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+  }
+  
+  .logo {
+    text-align: center;
+    font-size: 50px;
+  }
+  
+  .goods {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2rem;
+  }
+  
+  .item {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    padding: 0px 60px;
+  }

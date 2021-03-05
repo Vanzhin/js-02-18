@@ -17,7 +17,10 @@ const goods = [
   { id: 16, title: "Ноутбук", price: 35000, imageList: [] },
 ];
 
-const cartGoods = [];
+const cartGoods = [
+  { id: 15, title: "Мышь", price: 700, imageList: [] },
+  { id: 16, title: "Ноутбук", price: 35000, imageList: [] },
+];
 
 //show case
 const getMainProductImage = (goodImages) => {
@@ -25,7 +28,7 @@ const getMainProductImage = (goodImages) => {
   return imageName;
 };
 
-const renderShowCase = (htmlIdElement, goodList) => {
+const renderShowCase = (htmlIdElement, goodList = []) => {
   const createProductListHtmlElement = (good) =>
     `<div class="showcase__product">
     <img src="assets/img/${getMainProductImage(good.imageList)}">
@@ -43,20 +46,19 @@ const renderShowCase = (htmlIdElement, goodList) => {
 };
 
 //cart panel
-
 const renderPanelCartHtmlElement = (htmlIdElement, cartGoods) => {
   const createPanelCartProducsListHtmlElement = (good) =>
-    `<div class="panelcart__product">
+    `<div class="panelcart__product" >
       <img src="assets/img/${getMainProductImage(good.imageList)}">
       <div class="panelcart__product-details">
         <div class="panelcart__product-title">${good.title}</div>
         <div class="panelcart__product-price">${good.price}</div>
-      </div
+      </div>
     </div>`;
 
-  const cartProductList = cartGoods.map((good) =>
-    createPanelCartProducsListHtmlElement(good).join("")
-  );
+  const cartProductList = cartGoods
+    .map((good) => createPanelCartProducsListHtmlElement(good))
+    .join("");
 
   const panelCartElement = document.getElementById(htmlIdElement);
   cartProductList.length > 0

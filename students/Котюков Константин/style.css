@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0C0F11;
+    font-family: Roboto, sans-serif;
+    color: #fff;
+}
+
+header {
+    height: 50px;
+    display: flex;
+    align-items: center; 
+    border-bottom: solid red 3px;
+    padding: 0 40px;
+}
+
+.card-button {
+    font-family: inherit;          
+    margin-left: auto;
+    position: relative;
+    display: inline-block;
+    width: 10em;
+    height: 2.5em;
+    line-height: 2.5em;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #777;
+    color: #fff;
+    outline: none;
+    border: 2px solid #F64C2B;
+    border-radius: 5px;
+    box-shadow: 0 0 0 60px rgba(0, 0, 0, 0) inset, .1em .1em .2em #800;
+    background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
+}
+
+.card-button:active {
+    top: .1em;
+    left: .1em;
+    box-shadow: 0 0 0 60px rgba(0, 0, 0, .05) inset;
+}
+
+.goods {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    margin: 0 auto;
+    height: 400px;
+}
+
+.item {
+    border: solid red 3px;
+    width: 165px;
+    text-align: center;
+}
+
+.item:hover {
+    background: red;
+}
