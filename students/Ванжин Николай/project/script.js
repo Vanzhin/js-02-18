@@ -24,9 +24,6 @@ const request = (path = '', method = 'GET', body) => {
 
 		xhr.send(body);
 	});
-
-
-
 }
 
 
@@ -113,7 +110,7 @@ class Basket {
 		this.basketGoods = [];
 		this.itemToCart = 0;
 	}
-	ButtonClick() {
+	ButtonClick() {//навешиваю обработчик событий на боди
 		document
 			.querySelector("body")
 			.addEventListener('click', (event) => this.buttonItemHandler(event));
@@ -140,9 +137,8 @@ class Basket {
 				basketlist.renderItemInButton();
 			});
 		}
-
-
 	}
+
 	fetchData(callback) {
 		request('getBasket.json').then((basketGoods) => {
 			this.basketGoods = basketGoods;
@@ -169,7 +165,7 @@ class Basket {
 
 	}
 
-	removeItem(callback) {
+	removeItem(callback) {// удаляю товар из корзины
 		if (this.itemToCart > 0) {
 			request('deleteFromBasket.json').then((deleteItem) => {
 				this.itemToCart -= deleteItem.result;
