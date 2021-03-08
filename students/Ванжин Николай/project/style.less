@@ -26,15 +26,40 @@ header {
         color: cadetblue;
     }
 
-    .card-button {
-        min-height: 40px;
-        min-width: 100px;
-        font-size: 14px;
-        color: cornsilk;
-        background-color: cadetblue;
-        border: none;
-        border-radius: 10px;
+    .cart-button {
+        position: relative;
+
+        .cart-btn {
+            position: relative;
+
+            min-height: 40px;
+            min-width: 100px;
+            font-size: 14px;
+            color: cornsilk;
+            background-color: cadetblue;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .cart-qiantity {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgb(216, 154, 131);
+            top: -5px;
+            right: -5px;
+            font-size: 12px;
+            color: cadetblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition-property: opacity;
+            transition-duration: 0.3s;
+        }
     }
+
 }
 
 main {
@@ -75,6 +100,57 @@ main {
 
             p {
                 margin: 10px;
+            }
+
+            .buy {
+                min-width: 30%;
+                max-width: 45%;
+                border-radius: 5px;
+                font-size: 14px;
+                color: cornsilk;
+                background-color: rgb(141, 115, 165);
+                border: none;
+                min-height: 15%;
+                margin-bottom: 20px;
+            }
+        }
+
+    }
+
+    .basket {
+        display: flex;
+        background-color: @color-blue;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        border-radius: 5px;
+        color: cornsilk;
+
+
+
+        .basket-item-wrap {
+            min-width: 50%;
+
+
+            .basket-item {
+                min-width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+
+
+            }
+
+            .delete-btn {
+                min-width: 30%;
+                max-width: 60%;
+                min-height: 100%;
+                border-radius: 5px;
+                font-size: 14px;
+                color: cornsilk;
+                background-color: rgb(141, 115, 165);
+                border: none;
+                min-height: 30px;
             }
         }
 
