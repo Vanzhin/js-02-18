@@ -63,13 +63,48 @@ str.match(regexp);
 const str1 = str.replace(regexp, '"\$1\"');
 console.log(str1);
 
+class formInformation {
 
-const regexpName = new RegExp('([a-zа-я ]+?)', 'gi');
+	constructor(nameInfo = "", telInfo = "", emailInfo = "", commentInfo = "") {
+		this.nameInfo = nameInfo;
+		this.telInfo = telInfo;
+		this.emailInfo = emailInfo;
+		this.commentInfo = commentInfo;
+	}
+	buttonClick() {
+		document.querySelector(".contact-info>button").addEventListener("click", () => {
+			this.isValidInfo();
+		})
+	}
+	isValidInfo() {
+		this.getInfo();
+		if (!regexpName.test(this.nameInfo)) {
+			document.getElementById("your-name").style = "background: red;"
+			console.log("поле ввода имени необходимо заполнять только буквами")
+		};
+		if (!regexpTel.test(this.telInfo)) {
+			document.getElementById("your-tel").style = "background: red;"
+			console.log("поле ввода телефона необходимо заполнять в формате +7(000)000-0000")
+
+		};
+		if (!regexMail.test(this.emailInfo)) {
+			document.getElementById("your-email").style = "background: red;"
+			console.log("поле ввода почты необходимо заполнять в формате name@email.ru")
+
+		};
+	}
+	getInfo() {
+		this.nameInfo = document.getElementById("your-name").value;
+		this.telInfo = document.getElementById("your-tel").value;
+		this.emailInfo = document.getElementById("your-email").value;
+		this.commentInfo = document.getElementById("your-comments").value;
+	}
+};
+
+const regexpName = new RegExp('^[A-zА-яЁё]+$');
 const regexpTel = /(^\+7\(\d{3}\)\d{3}-\d{4}$)/;
 const regexMail = /^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})$/;
-//метод проверки имени
-(document.getElementById("your-name").value).match(regexpName).length === document.getElementById("your-name").value.length;
-//метод проверки телефона
-regexpTel.test(document.getElementById("your-tel").value);
-//метод проверки почты
-regexMail.test(document.getElementById("your-email").value);
+
+const val = new formInformation();
+
+val.buttonClick();
