@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1714fe2-caa1-4423-a6de-443bf78bc40d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/students/Тарабрин Михаил/pw_3/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/students/Тарабрин Михаил/pw_3/script.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/students/Тарабрин Михаил/pw_3/static/Shopping_Basket-512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/students/Тарабрин Михаил/pw_3/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/students/Тарабрин Михаил/pw_3/todo.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/students/Тарабрин Михаил/pw_3/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/students/Тарабрин Михаил/pw_3/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +88,8 @@
       <workItem from="1614421190335" duration="195000" />
       <workItem from="1614421394360" duration="108000" />
       <workItem from="1614699921195" duration="1116000" />
+      <workItem from="1615305642465" duration="710000" />
+      <workItem from="1615388757465" duration="130000" />
     </task>
     <task id="LOCAL-00001" summary="1hw">
       <created>1614239138034</created>
