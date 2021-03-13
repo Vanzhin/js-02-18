@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 04</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/job1.js" defer></script>
+    <script type="text/javascript" src="js/job2.js" defer></script>
+</head>
+
+<body>
+    <hr>
+    <p id="text_orig" class="text_orig"></p>
+    <h1>Задание №1</h1>
+    <p>Простая замена, совершенно естественно, что результат не очень</p>
+
+    <button onclick="job1()">Выполнить</button>
+    <div id="result-01"></div>
+
+    <hr>
+    <h1>Задание №2</h1>
+    <p>Вариант с опережающими проверками, аналогичноого эфекта можно добиться и патерном с альтернативами, но в таком
+        случае это будет условный многоступенчатый матчинг</p>
+
+    <button onclick="job2()">Выполнить</button>
+    <div id="result-02"></div>
+
+    </div>
+    <hr>
+    <h1>Задание №3</h1>
+    <p>Возможности валидации в формах с использованием паттернов</p>
+    <form action="#">
+        <label for="name">Имя:</label><input required type="text" name="name" pattern="\w+"><br>
+        <label for="phone">Телефон</label><input required type="tel" name="phone"
+            pattern="\+\d\(\d{3}\)\d{3}-\d{4}"><br>
+        <label for="email">E-mail</label><input required type="email" name="email" pattern="my[.-]?mail@mail.ru"><br>
+        <label for="text">Текст</label><input required type="text" name="text"><br>
+        <button>Submit</button>
+    </form>
+    <script type="text/javascript">
+        "use strict";
+        var text = `Wayne recalled crying after that first year of organized hockey when he didn't get a trophy at the year-end banquet.
+"Wayne, keep practising and one day you're gonna have so many trophies we're not going to have room for them all," his dad said.
+Walter preached an old fashioned ethic -- hard work pays off.
+After a bad game when he was 11, Wayne got a chewing out from his dad: "People are going to judge you on how you perform every night. Never forget that."
+The NHL star recalls getting a similar earful when he was 21, during the 1983 Stanley Cup playoffs.
+"I don't know where I'd be without him, but I know it wouldn't be in the NHL," Wayne said in his autobiography.
+"I just think I told him to play good," said Walter.
+At times, hockey got in the way. Walter recalled missing the 1972 birth of Brent, their youngest, because Wayne was playing at a big minor tournament south of the border.
+"Phyllis remembers that when I walked into her room in the maternity ward, the first thing I said to her was 'We won, we won!"' he wrote. "She looked at me like I was crazy and said 'It's a boy, Walter.' I guess I have to admit that sometimes I took my devotion as a hockey dad a little too far!
+"But of course, I welcomed my brand new son with open arms -- another budding hockey player, after all."`;
+        document.getElementById("text_orig").innerHTML = text.replace(/\r\n|\r|\n/gm, "<br />").replace(/\"/gm, `'<span class="hidden">"</span>`);
+    </script>
+</body>
+
+</html>

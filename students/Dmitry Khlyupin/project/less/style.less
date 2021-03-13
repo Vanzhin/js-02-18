@@ -44,7 +44,7 @@ main {
 
 }
 
-.card-button {
+.card-button, .addToCart {
     background-color: @mainOrange;
     border: 1px solid @mainWhite;
     font-family: 'Montserrat', sans-serif;
@@ -75,12 +75,13 @@ main {
     padding-left: 10px;
 }
 
-.card-button:hover {
+.card-button:hover, .addToCart:hover {
     background-color: @mainWhite;
     color: @mainOrange;
+    border: 1px solid @mainOrange;
 }
 
-.card-button:active {
+.card-button:active, .addToCart:active {
     background-color: @lightGrey;
 
 }
@@ -115,4 +116,9 @@ main {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+.itemImg {
+    min-width: 200px;
+    min-height: 200px;
+    border: 1px solid @lightGrey;
 }

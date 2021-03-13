@@ -1,6 +1,4 @@
-*,
-*::before,
-*::after {
+* {
 	box-sizing: border-box;
 }
 
@@ -13,14 +11,14 @@ body {
 	background-color: #f9fafc;
 }
 
-.container {
+.wrap {
 	max-width: 960px;
 	margin: 0 auto;
 }
 
 .header {
 	width: 100%;
-	background-color: lightgray;
+	background-color: rgb(26, 47, 102);
 	border-bottom: 1px solid gray;
 }
 
@@ -31,9 +29,13 @@ body {
 	min-height: 50px;
 }
 
+.logo {
+	color: #fff;
+}
+
 .basket-btn {
 	background-color: #f9fafc;
-	border: 2px solid gray;
+	border: 2px solid rgb(136, 130, 165);
 	padding: 5px 10px;
 	border-radius: 20px;
 	cursor: pointer;
@@ -41,12 +43,12 @@ body {
 }
 
 .basket-btn:hover {
-	background-color: lightgray;
+	background-color: rgb(67, 74, 116);
 }
 
 .basket-btn:active {
-	background-color: gray;
-	color: #fff;
+	background-color: rgb(123, 137, 184);
+	color: rgb(26, 47, 102);
 }
 
 .basket-btn:focus {
@@ -60,11 +62,18 @@ body {
 }
 
 .item {
+	text-align: center;
 	min-width: 200px;
 	min-height: 150px;
-	background-color: lightgray;
-	border: 1px solid gray;
-	border-radius: 5px;
+	background-color: rgb(186, 181, 212);
+	border: 1px solid rgb(31, 31, 37);
+	border-radius: 15px;
 	padding: 20px 30px;
 	margin: 20px;
+}
+
+.total-price {
+	font-size: 30px;
+	font-weight: 700;
+	text-align: center;
 }

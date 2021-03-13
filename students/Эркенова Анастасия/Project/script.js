@@ -1,3 +1,26 @@
+const API_ROOT = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+const request = (path = '', method = 'GET', body) => {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log({ response: xhr.responseText });
+                    resolve(JSON.parse(xhr.responseText));
+                } else {
+                    console.error(xhr.responseText);
+                    reject(xhr.responseText);
+                }
+            }
+        }
+
+        xhr.open(method, `${API_ROOT}/${path}`);
+
+        xhr.send(body);
+    });
+}
+
 class GoodsItem {
     constructor(item) {
         this.item = item;
@@ -5,26 +28,60 @@ class GoodsItem {
 
     render() {
         return `
-            <div class="item">
-                <h2>${this.item.title}</h2>
+            <div class="item" data-id="${this.item.id_product}">
+                <h2>${this.item.product_name}</h2>
                 <p>${this.item.price}</p>
+                <button class="add-to-basket" name="add-to-basket">Add to basket</button>
             </div>
         `;
     }
 }
 
 class GoodsList {
-    constructor() {
+    constructor(basket) {
+        this.basket = basket;
         this.goods = [];
+
+        document.querySelector('.goods').addEventListener('click', (event) => {
+            console.log(event)
+            if (event.target.name === 'add-to-basket') {
+                console.log('button click')
+                const itemId = event.target.parentElement.dataset.id;
+                const item = this.goods.find((goodsItem) => goodsItem.id_product === parseInt(itemId));
+                console.log(item, itemId)
+                if (typeof item !== 'undefined') {
+                    this.addToBasket(item);
+                } else {
+                    console.error(`Can't find element with id ${itemId}`);
+                }
+            }
+        });
+
     }
 
+
     fetchData() {
-        this.goods = [
-            { title: 'Монитор', price: 50000 },
-            { title: 'Клавиатура', price: 1500 },
-            { title: 'Мышь', price: 700 },
-            { title: 'Ноутбук', price: 35000 },
-        ];
+        return new Promise((resolve, reject) => {
+            request('catalogData.json')
+                .then((goods) => {
+                    this.goods = goods;
+                    resolve();
+                })
+                .catch((error) => {
+                    console.log(`Can't fetch data`, error);
+                    reject(error);
+                })
+        });
+    }
+    inCartButton() {
+        const btn = document.createElement('div')
+        btn.classList.add('btn')
+        btn.innerHTML = 'Купить'
+        btn.addEventListener('click', () => {
+            const basket = new Cart()
+            basket.addItem(this)
+        })
+        return btn
     }
 
     render() {
@@ -34,24 +91,37 @@ class GoodsList {
         });
         document.querySelector('.goods').innerHTML = goodsString.join('');
     }
+    addToBasket(item) {
+        this.basket.addItem(item);
+    }
 }
 
 
 class Cart {
-    items = []
 
-    constructor(items = []) {
-        this.items = items
-    }
-    addItem() {
-        // добавление итема в корзину
-    }
-    removeItem() {
-        // убрать итем из корзины
+    constructor() {
+        this.goods = [];
     }
     fetchData() {
-        // запрос данных с сервера
+        request('getBasket.json')
+            .then((goods) => {
+                this.goods = goods.contents;
+                console.log(this.goods);
+            })
+            .catch((error) => {
+                console.log(`Can't fetch basket data`, error);
+            });
     }
+    addItem(item) {
+        this.goods.push(item);
+        console.log(this.goods);
+
+    }
+    removeItem(id) {
+        this.goods = this.goods.filter((goodsItem) => goodsItem.id_product !== parseInt(id));
+        console.log(this.goods);
+    }
+
 
     render() {
 
@@ -65,8 +135,6 @@ class Cart {
         totalPrice.classList.add('totalPrice')
         return totalPrice
     }
-    // показалось логичным добавить метод, определяющий суммарную стоимость всех товаров
-    // не для GoodList, а для корзины (Cart)
 }
 
 
@@ -97,7 +165,11 @@ class CartItem {
     }
 }
 
+const basket = new Cart();
+basket.fetchData();
 
-const list = new GoodsList();
-list.fetchData();
-list.render();
+const list = new GoodsList(basket);
+list.fetchData()
+    .then(() => {
+        list.render();
+    });

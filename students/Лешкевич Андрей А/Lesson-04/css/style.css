@@ -1,0 +1,20 @@
+.text_orig:hover .hidden{
+    display: inline;
+}
+#result-01:hover .hidden{
+    display: inline;
+}
+#result-02:hover .hidden{
+    display: inline;
+}
+.hidden{
+    color: red;
+    display: none;
+}
+input:invalid {
+    border: 2px dashed red;
+  }
+  
+  input:valid {
+    border: 2px solid black;
+  }

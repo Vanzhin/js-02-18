@@ -10,6 +10,13 @@ class CPoductCatalogHTML {
             this.items = init;
             this.clear();
             this.listFillByItems();
+            this.html.addEventListener('click', (event) => {
+                let target = event.path.find(obj => { return obj.name === 'btn-add-item' });
+                if (target) {
+                    cart.addAct(target);
+                    event.preventDefault();
+                }
+            });
         } else {
             return null;
         }
@@ -18,10 +25,10 @@ class CPoductCatalogHTML {
         this.html.innerHTML = '';
     }
     listFillByItems() {
-        this.html.innerHTML = this.items.map(item => this.itemGen(this.catalog.find(obj => { return obj.id === item }))).join('');
+        this.html.innerHTML = this.items.map(item => this.itemGen(this.catalog.find(obj => { return obj.id === item.id }), item.type)).join('');
     }
 
-    itemGen(_obj,_t = 0) {
+    itemGen(_obj, _t = 0) {
         return (_obj ? `<li data-catalog-item="${_obj.id}" data-catalog-item-t="${_t}" class="products-grid_item">
                         <div class="top-block">
                             <!--<img src="${_obj.type[_t].img}" alt="">-->
@@ -29,7 +36,8 @@ class CPoductCatalogHTML {
                                 <img src="img/tiny.a1.07.jpg" class="preview" alt="image" />                               
                             </div>
                             <div class="hovered">
-                                <div class="btn-sqr_adcw"><a href="cart/addItem/${_obj.id}/${_t}" onclick="cart.addAct(this);return false;" class="btn-sqr_adcw__link clear-fix">
+                                <div class="btn-sqr_adcw">
+                                    <a href="cart/addItem/${_obj.id}/${_t}" class="btn-sqr_adcw__link clear-fix" name="btn-add-item">
                                         <div class="btn-sqr_adcw__wrap"><img src="img/cart_white.png" alt="" class="btn-sqr_adcw__icon"><span class="btn-sqr_adcw__text">Add to Cart</span></div>
                                     </a>
                                 </div>

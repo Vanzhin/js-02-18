@@ -48,26 +48,20 @@ class GoodsList {
         this.goods = [];
     }
 
-    fetchGoods()  {
-        makeGETRequest(`${API_URL}/catalogData.json`)
-        .then(
-            (goodsData) => {
-                this.goods = JSON.parse(goodsData);
-                list.render();
-                
-                return makeGETRequest(`${API_URL}/getBasket.json`);
-            }
-        )
-        .then(
-            (basketData) => {
-                basketData = JSON.parse(basketData)
-                basket.goods = basketData.contents;
-                basket.quantity = basketData.countGoods;
-                basket.renderQuantity();
-            }
-        )
-        .catch((errMessage) => {
-            console.log(errMessage);
+    fetchData()  {
+        return new Promise((resolve, reject) => {
+            makeGETRequest(`${API_URL}/catalogData.json`)
+            .then(
+                (goodsData) => {
+                    this.goods = JSON.parse(goodsData);
+                    list.render();
+                    resolve();
+                }
+            )
+            .catch((error) => {
+                console.log(error);
+                reject()
+            })
         })
     }
 
@@ -99,6 +93,21 @@ class Basket {
         button.addEventListener('click', () => {
             this.buttonClik();
         });
+    }
+
+    fetchData()  {
+        makeGETRequest(`${API_URL}/getBasket.json`)
+        .then(
+            (basketData) => {
+                basketData = JSON.parse(basketData)
+                basket.goods = basketData.contents;
+                basket.quantity = basketData.countGoods;
+                basket.renderQuantity();
+            }
+        )
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     countBasketPrice() {
@@ -218,6 +227,14 @@ class GoodsBasket extends GoodsItem {
 
 
 const list = new GoodsList();
-list.fetchGoods();
-
 const basket = new Basket();
+
+list.fetchData()
+.then(
+    () => {
+        basket.fetchData();
+    }
+)
+.catch((errMessage) => {
+    console.log(errMessage);
+})

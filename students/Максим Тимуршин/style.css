@@ -74,22 +74,3 @@ body {
 	font-weight: 700;
 	text-align: center;
 }
-
-
-/*Стили для бургера*/
-.burger {
-	display: block;
-	margin: 0 auto;
-	border: 1px solid gray;
-	max-width: 300px;
-	text-align: center;
-}
-
-.burger-options {
-	display: flex;
-	flex-direction: column;
-}
-
-.burger label {
-	cursor: pointer;
-}

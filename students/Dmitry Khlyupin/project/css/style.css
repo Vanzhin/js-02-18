@@ -30,7 +30,8 @@ main {
   color: #190b09;
   transform: rotate(45deg);
 }
-.card-button {
+.card-button,
+.addToCart {
   background-color: #ef5221;
   border: 1px solid #ffffff;
   font-family: 'Montserrat', sans-serif;
@@ -58,11 +59,14 @@ main {
   font-weight: 900;
   padding-left: 10px;
 }
-.card-button:hover {
+.card-button:hover,
+.addToCart:hover {
   background-color: #ffffff;
   color: #ef5221;
+  border: 1px solid #ef5221;
 }
-.card-button:active {
+.card-button:active,
+.addToCart:active {
   background-color: #eceae7;
 }
 .card-button:hover::after {
@@ -93,4 +97,9 @@ main {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+.itemImg {
+  min-width: 200px;
+  min-height: 200px;
+  border: 1px solid #eceae7;
 }

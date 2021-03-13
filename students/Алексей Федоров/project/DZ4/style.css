@@ -1,0 +1,26 @@
+p{ margin: 0;}
+
+form label  {
+    width: 160px;
+    display: inline-block;
+    margin: 6px;
+}
+.search{
+    position: relative;
+}
+.hint{
+    position: absolute;
+    border: 1px solid black;
+    left: 160px;
+    background-color: rgb(241, 236, 236);
+    padding: 5px;
+}
+
+.red{
+    outline-color: rgb(223, 20, 20);
+    border-color: rgb(223, 20, 20);
+}
+.zg {
+    background-color: darkseagreen;
+    padding: 5px;
+}

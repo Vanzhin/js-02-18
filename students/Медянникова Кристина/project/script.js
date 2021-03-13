@@ -30,11 +30,14 @@ function makeGETRequest(path = '', method = 'GET', body) {
  // класса GoodsItem и запрашивать его разметку
 class GoodsItem {
     constructor(title, price) {
-        this.item.title = title;
-        this.item.price = price;
+        this.item = {
+            title: title,
+            price: price,
+        };
     }
     render() {
-        return `<div class='goods-item'>
+        //this.item.id_product или title ??
+        return `<div class='goods-item' data-id='${this.item.id_product}'> 
             <h3 class=product-title>${this.item.title}</h3> 
             <p class=product-price>${this.item.price} $</p>
             <button class="by-btn">В корзину</button>
@@ -45,10 +48,25 @@ class GoodsItem {
 
  // Метод вывод списка товаров. Для каждого элемента массива goods будем создавать экземпляр   
 class GoodsList {
-    constructor() {
+    constructor(basket) {
+        this.basket = basket;
         //пустой объект куда мы будем отрисовывать список товаров
         this.goods = [];
-}
+
+        //метод варината обработки клика по кнопки можно добавить один раз для всех элементов или повесили событие слушателя "клик"
+        document.querySelector('.goods-list').addEventListener('click', (event) => {
+            if (event.target.name === 'by-btn') {
+                //console.log('button click');
+                const itemId = event.target.parentElement.dataset.id;
+                const item = this.goods.find((goodsItem) => goodsItem.id_product === parseInt(itemId));
+                if (typeof item !== 'undefined') {
+                    this.addToBasketItem(item); 
+                } else {
+                    console.error(`Can't find element with id ${itemId}`);
+                }
+            }
+        });
+    }
 //метод "получить данные"
    fetchData() {
         this.goods = [
@@ -56,18 +74,18 @@ class GoodsList {
           { title: 'Mango People T-shirt', price: 150 },
           { title: 'Mango People T-shirt', price: 150 },
         ];
-}
+    }
     render() {
         let goodsList = '';
         //Метод forEach() вызывает func для каждого элемента и ничего не возвращает.
         this.goods.forEach(({title, price}) => {
-            const goodsItem = new GoodsItem(title, price);
+            const item = new GoodsItem(title, price);
             goodsList += item.render();
         });
         document.querySelector('.goods-list').innerHTML = goodsList;
       //document.querySelector('.goods-list').innerHTML = goodsString.join('');
-}
-
+    }
+ 
 }
 //корзина
 class Basket {
@@ -76,17 +94,19 @@ class Basket {
         this.basketGoods = [];
     }
     //метод "добавить в корзину"
-    addToBasketItem() {
+    addToBasketItem(item) {
+        //this.basket.addItem(item);
         let toBasketItem;
         list.goods.forEach(function(item){
-            toBasketItem = {
-                title: item.title,
-                price: item.price,
-            }
-        });
-        //this.basketGoods.push добавить элементы окрзины в конец
-        this.basketGoods.push (toBasketItem);
-    } 
+        toBasketItem = {
+             title: item.title,
+             price: item.price,
+        }
+    });
+         //this.basketGoods.push добавить элементы окрзины в конец
+         this.basketGoods.push (toBasketItem);
+    }
+
     //метод "удалить товар с корзины"
     deleteBasketItem() {
         let BasketItem;
@@ -140,4 +160,4 @@ const list = new GoodsList();
 const basket= new Basket();
 list.fetchData();
 list.render();
-list.totalBasketPrice();
+//list.totalBasketPrice();
