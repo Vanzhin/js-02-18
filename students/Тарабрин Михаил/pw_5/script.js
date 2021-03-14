@@ -58,7 +58,7 @@ new Vue({
             }
         },
         isVisibleCart() {
-            let modal= document.querySelector('.modal');
+            let modal = document.querySelector('.modal');
             let visible = modal.style.display;
             modal.style.display = 'block';
             if (visible === 'block') {

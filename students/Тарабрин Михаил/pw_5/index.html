@@ -15,11 +15,11 @@
     <header>
         <span class="logo">eShop</span>
         <input type="text" class="search" v-model="searchValue"/>
-        <button v-on:click="renderCart" class="cart-button cartButton">Корзина</button>
+        <button v-on:click="isVisibleCart" class="cart-button cartButton">Корзина</button>
 
         <div id="myModal" class="modal">
             <div class="modal-content">
-                <span @click="closeModal" class="close">&times;</span>
+                <span v-on:click="isVisibleCart" class="close">&times;</span>
                 <div class="item" v-for="item in basketGoods">
                     <p>Наименование: {{item.product_name}}</p>
                     <p>Цена за штуку: {{item.price}}</p>
