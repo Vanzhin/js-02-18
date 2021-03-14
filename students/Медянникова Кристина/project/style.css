@@ -12,7 +12,18 @@
     margin-left: 50px;
     margin-top: 20px;
 }
-.cart-button{
+.basket{
+    width: 300px;
+    box-shadow: 0 3px 6px rgba(0,0,0,.2);
+    background: #fff;
+    padding: 10px 15px;
+    top: 100px;
+}
+.basket-item{
+    margin-bottom: 10px;
+    transition: 0.5s;
+}
+.basket-button{
     width: 100px;
     height: 30px;
     margin-top: 30px;
@@ -22,17 +33,18 @@
     background-color: white;
     border: 2px solid #f16d7f;
 }
-.cart-button:hover{
+.basket-button:hover{
     transform: scale(1.15);
     background-color: #f16d7f;
     color: white;
 }
-.goods-list{
+.goods_list{
     justify-content: space-between;
     display: flex;
     margin-top: 30px;
 }
-.goods-item{
+
+.item{
     width: 200px;
     height: 120px;
     margin-left: 50px;
@@ -41,7 +53,7 @@
     text-align: center;
     padding: 20px 20px;
 }
-.goods-item:hover{
+.item:hover{
     transform: scale(1.15);
 }
 .product-title{
@@ -68,4 +80,30 @@
     transform: scale(1.15);
     background-color: #f16d7f;
     color: white;
+}
+.search{
+    width: 300px;
+    height: 35px;
+    margin-top: 30px;
+}
+.removeButton{
+    text-decoration: none;
+    color: #f16d7f;
+    background-color: white;
+    border: 1px solid #f16d7f;
+    margin-top: 25px;
+}
+.removeButton:hover {
+    transform: scale(1.15);
+    background-color: #f16d7f;
+    color: white;
+}
+.there_data{
+    font-family: Lato;
+    font-size: 13px;
+    line-height: 1.2;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-right: 200px;
+    margin-top: 80px;
 }
