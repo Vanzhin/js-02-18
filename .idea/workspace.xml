@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1714fe2-caa1-4423-a6de-443bf78bc40d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/students/Тарабрин Михаил/pw_5/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/students/Тарабрин Михаил/pw_5/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/students/Тарабрин Михаил/pw_5/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/students/Тарабрин Михаил/pw_3/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/students/Тарабрин Михаил/pw_3/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,17 +46,18 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/students/Тарабрин Михаил/pw_3" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/students/Тарабрин Михаил/pw_5" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/students/Тарабрин Михаил/pw_5" />
+      <recent name="C:\Users\Dima\PhpstormProjects\js-02-18\students\Лядский Дмитрий" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Dima\PhpstormProjects\js-02-18\students\Лядский Дмитрий\Project" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Dima\PhpstormProjects\js-02-18\students\Лядский Дмитрий" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.index.html">
@@ -90,6 +92,8 @@
       <workItem from="1614699921195" duration="1116000" />
       <workItem from="1615305642465" duration="710000" />
       <workItem from="1615388757465" duration="130000" />
+      <workItem from="1615638138004" duration="1812000" />
+      <workItem from="1615724594102" duration="1635000" />
     </task>
     <task id="LOCAL-00001" summary="1hw">
       <created>1614239138034</created>
