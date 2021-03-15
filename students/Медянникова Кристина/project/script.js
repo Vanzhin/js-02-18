@@ -1,6 +1,6 @@
 'use strict';
 
-const API_ROOT = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+/*const API_ROOT = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 const request = (path = '', method = 'GET', body) => {
      //Объект Promise (промис) используется для отложенных и асинхронных вычислений.
     return new Promise((resolve, reject) => {
@@ -26,7 +26,7 @@ const request = (path = '', method = 'GET', body) => {
         xhr.send(body);
     });
 }
-
+*/
 
 new Vue({
     el: '#app',
@@ -38,7 +38,7 @@ new Vue({
         ],
         searchValue: '',
         basketGoods: [],  
-        isVisibleCart: false,
+        isVisibleBasket: false,
     },
 
     created() {
@@ -53,25 +53,23 @@ new Vue({
             );
         },
         total() {
-            return this.goods_list.reduce(
-                (accumulator, currentElement) => accumulator + currentElement.price,
+            return this.basketGoods.reduce(
+                (accumulator, currentElement) => accumulator + (currentElement.price * quantity),
                 0
             );
+        }
     },
-    },
-
     methods: {
         async fetchGoods() {
             try {
-              //const res = await fetch(`${API_ROOT}/catalogData.json`);
+                //const res = await fetch(`${API_ROOT}/catalogData.json`);
                 const goods_list = await res.json();
                 this.goods_list = goods_list;
             } catch (err) {
-                console.log(`Не могу получить данные`, error);
+                console.log(`Can't fetch data`, error);
                 throw new Error(error);
             }
         },
-
         fetchBasket() {
             request('getBasket.json')
                 .then((goods_list) => {
@@ -79,10 +77,9 @@ new Vue({
                     console.log('basket', this.basketGoods);
                 })
                 .catch((error) => {
-                    console.log(`Не могу получить данные корзины`, error);
+                    console.log(`Can't fetch basket data`, error);
                 });
         },
-
         addItem(item) {
             request('addToBasket.json')
                 .then((response) => {
@@ -95,11 +92,10 @@ new Vue({
                         }
                         console.log(this.basketGoods);
                     } else {
-                        console.error(`Не могу добавить товар в корзинуt`, item, this.basketGoods);
+                        console.error(`Can't add item to basket`, item, this.basketGoods);
                     }
                 })
         },
-
         removeItem(id) {
             request('deleteFromBasket.json')
                 .then((response) => {
@@ -107,9 +103,9 @@ new Vue({
                         this.basketGoods = this.basketGoods.filter((goodsItem) => goodsItem.id_product !== parseInt(id));
                         console.log(this.basketGoods);
                     } else {
-                        console.error(`Невозможно удалить товар из корзины`, item, this.basketGoods);
+                        console.error(`Can't remove item from basket`, item, this.basketGoods);
                     }
-                });    
-        },  
-
-}),
+                });
+        }
+    },
+});

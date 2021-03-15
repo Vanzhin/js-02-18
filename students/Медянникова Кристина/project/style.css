@@ -16,8 +16,10 @@
     width: 300px;
     box-shadow: 0 3px 6px rgba(0,0,0,.2);
     background: #fff;
-    padding: 10px 15px;
-    top: 100px;
+    top: 150px;
+    position: absolute;
+    padding: 30px 30px;
+    left: 70%;
 }
 .basket-item{
     margin-bottom: 10px;
@@ -37,6 +39,10 @@
     transform: scale(1.15);
     background-color: #f16d7f;
     color: white;
+}
+.basket-button:focus {
+    outline: none;
+    background: #f16d7f;
 }
 .goods_list{
     justify-content: space-between;
@@ -100,10 +106,16 @@
 }
 .there_data{
     font-family: Lato;
+    text-transform: uppercase;
+    margin-top: 80px;
+    position: absolute;
+    left: 45%;
+    font-size: 25px;
+}
+.total_amount{
+    font-family: Lato;
     font-size: 13px;
     line-height: 1.2;
     font-weight: 400;
     text-transform: uppercase;
-    margin-right: 200px;
-    margin-top: 80px;
 }
