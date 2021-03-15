@@ -16,9 +16,18 @@
 
         <span class="logo">eShop</span>
         <input type="text" class="search" v-model="searchValue"/>
+
+        <!-- один из способов, через стрелочную функцию -->
         <button v-on:click="isVisibleCart" class="cart-button cartButton">Корзина</button>
+
+        <!-- второй способ, который вызывает функцию, меняющий аттрибут стиля -->
+        <!-- <button v-on:click="bananaChanger" class="cart-button cartButton">Корзина</button> -->
+
+        <!-- третий способ, через стрелочную функцию 
+        закрывать в таком случае можно также, через неё-->
+        <!-- <button v-on:click="() => banana = 'display:block' " class="cart-button cartButton">Корзина</button> -->
         
-        <div id="myModal" class="modal">
+        <div id="myModal" class="modal" v-bind:style="banana">
             <div class="modal-content">
                 <span v-on:click="isVisibleCart" class="close">&times;</span>
                 <div class="item" v-for="item in basketGoods">
