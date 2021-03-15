@@ -57,7 +57,7 @@ new Vue({
                 (accumulator, currentElement) => accumulator + currentElement.price,
                 0
             );
-        },  
+    },
     },
 
     methods: {
