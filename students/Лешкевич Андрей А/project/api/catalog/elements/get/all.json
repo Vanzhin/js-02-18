@@ -11,7 +11,14 @@
                  "star":4.5,
                  "color":"red",
                  "size":"XLL"
-              }
+              },              
+              {
+               "img":"img/catalog_item_01.png",
+               "price":57.00,
+               "star":5,
+               "color":"black",
+               "size":"XLL"
+            }
            ]
         },
         {

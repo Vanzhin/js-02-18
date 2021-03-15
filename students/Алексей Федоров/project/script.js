@@ -2,25 +2,7 @@
 
 const API_ROOT = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
-/*
-const request = (path = '', callback, method = 'GET', body) => {
-    const xhr = new XMLHttpRequest();
-    
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                console.log({ response: xhr.responseText });
-                callback(JSON.parse(xhr.responseText));
-            } else {
-                console.error(xhr.responseText);
-            }
-        }
-    }
-    
-    xhr.open(method, `${API_ROOT}/${path}`);
-    
-    xhr.send(body);
-}*/
+
  
 const request = (path = '', method = 'GET', body) => {
     
@@ -44,15 +26,14 @@ const request = (path = '', method = 'GET', body) => {
 }
 
 class GoodsItem {   // товар
-    constructor(title, price){
-        this.product_name = title;
-        this.price = price;
+    constructor(item){
+        this.item = item;
     }
 
     render (a) { return `
         <div class="goods-item">
-            <h3>${this.product_name}</h3>
-            <p>${this.price}$</p>
+            <h3>${this.item.product_name}</h3>
+            <p>${this.item.price}$</p>
             <button class="product-button" type="button" data="${a}">Добавить</button>
         </div>`;
     }
@@ -60,24 +41,31 @@ class GoodsItem {   // товар
 }
 
 class GoodsList {   // список товаров
-    constructor() {
+    constructor(basket) {
         this.goods = [];
+        this.basket = basket;
+        this.filteredGoods = [];
+
+        document.querySelector('.search').addEventListener('input', (event) => {
+            this.filterGoods(event.target.value);
+        });
     }
 
     fetchData() {
-        request('catalogData.json').then( (goods) => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            request('catalogData.json')
+            .then( (goods) => {
                 this.goods = goods;
+                this.filteredGoods = goods;
                 console.log(this.goods);
                 resolve();
-            });
-            
-        }, (error) => {
-               console.log(error);
-        }).then(() => {
-            this.render();
-        })
-       
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error);
+            })
+           
+    });
     }
 
     fetchGoods()  {
@@ -92,8 +80,8 @@ class GoodsList {   // список товаров
     render() {  // отрисовка списка товаров
         let listHtml = '';
         let counter = 0;
-        this.goods.forEach(good => {
-            const goodItem = new GoodsItem(good.product_name, good.price);
+        this.filteredGoods.forEach(good => {
+            const goodItem = new GoodsItem(good);
             listHtml += goodItem.render(counter);
             ++counter;
         });
@@ -104,7 +92,11 @@ class GoodsList {   // список товаров
         });        
     }
 
-    
+    filterGoods(searchValue) {
+        const regexp = new RegExp(searchValue, 'i');
+        this.filteredGoods = this.goods.filter((goodsItem) => regexp.test(goodsItem.product_name));
+        this.render();
+    }
     
 }
 
@@ -133,31 +125,33 @@ class Basket {  // корзина
 
     buttonClik() {  // клик по кнопке корзина
        
-        request('getBasket.json').then( (goods) => {
-            this.bask = goods;
-            console.log(this.bask);
-            if (!this.open) {
-                this.open = true;
-                this.render();
-                document.querySelector('.cart-button-counter').style.display='none';
-            } else {
-                this.open = false;
-                document.querySelector('.basket').innerHTML = ""; 
-                document.querySelector('.cart-button-counter').style.display='block';
-                this.renderQuantity(); // отрисовка колличества товаров на кнопке
-            }
-        }, (error) => {
-            console.log(error);
-        });
-       /*
-       */
+        request('getBasket.json')
+            .then( (goods) => {
+                this.goods = goods.contents;
+                console.log(this.goods);
+                if (!this.open) {
+                    this.open = true;
+                    this.render();
+                    document.querySelector('.cart-button-counter').style.display='none';
+                } else {
+                    this.open = false;
+                    document.querySelector('.basket').innerHTML = ""; 
+                    document.querySelector('.cart-button-counter').style.display='block';
+                    this.renderQuantity(); // отрисовка колличества товаров на кнопке
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+       
     }
 
     render() {   // отрисовка корзины
         let listHtml = '';
         let counter = 1;
-        this.bask.contents.forEach(good => {
-            const goodItem = new GoodsBasket(good.product_name, good.price, good.quantity);
+        this.goods.forEach(good => {
+            console.log(good);
+            const goodItem = new GoodsBasket(good);
             listHtml += goodItem.render(counter);
             counter++;
         });
@@ -170,25 +164,13 @@ class Basket {  // корзина
         document.querySelector('.basket').insertAdjacentHTML("afterbegin", listHtml);
         document.querySelector('.basket').addEventListener('click',(event) => {basket.goodsRemoveBasket(event)});
         
-        /*
-        this.goods.forEach(good => {
-            const goodItem = new GoodsBasket(good.product_name, good.price, good.quantity);
-            //goodItem.quantity(good.quantity);
-            listHtml += goodItem.render();
-        });
-        this.countBasketPrice(); 
-        document.querySelector('.basket').innerHTML = "";  
-        
-        listHtml += this.renderTotal(); //добавление в разметку общего количества и стоимости
-
-        document.querySelector('.basket').insertAdjacentHTML("afterbegin", listHtml);
-        */
+       
     }
     
     // отрисовка количества товаров и общей стоимости товаров в корзине
     renderTotal() {
         let listHtml;
-        if (this.bask.countGoods===0){
+        if (this.quantity===0){
             listHtml = `
             <div class="basket-item">
                 <p> Корзина пуста </p>
@@ -196,7 +178,7 @@ class Basket {  // корзина
         } else {
             listHtml = `
             <div class="basket-item">
-                <p> В корзине ${this.bask.countGoods} шт. на сумму ${this.bask.amount}$ </p>
+                <p> В корзине ${this.quantity} шт. на сумму ${this.price}$ </p>
             </div>`;
         }
         return listHtml;
@@ -212,10 +194,6 @@ class Basket {  // корзина
         if (count === null) return;
         request('addToBasket.json').then( (goods) => {
            
-           
-            
-           // let count = event.target.getAttribute('data');
-           // if (count === null) return;
             console.log(goods);
             let productName = list.goods[count].product_name;
             
@@ -263,17 +241,17 @@ class Basket {  // корзина
 
 }
 
-class GoodsBasket extends GoodsItem {   // товар для корзины
-   constructor(product_name,price,quantity){
-        super(product_name,price);
-        this.quantity = quantity;
+class GoodsBasket {   // товар для корзины
+   constructor(it) {
+    this.item = it;
+        
     }
 
     render(a) { return `
         <div class="basket-item">
-            <h3>${this.product_name}</h3>
-            <p>${this.price}$</p>
-            <p>${this.quantity}</p>
+            <h3>${this.item.product_name}</h3>
+            <p>${this.item.price}$</p>
+            <p>${this.item.quantity}</p>
             <button class="basket-button" type="button" data="${a}">x</button>
         </div>`;
     }
@@ -281,9 +259,12 @@ class GoodsBasket extends GoodsItem {   // товар для корзины
 }
 
 const basket = new Basket();
-const list = new GoodsList();
+const list = new GoodsList(basket);
 
-list.fetchData();
+list.fetchData()
+    .then(() => {
+        list.render();
+    });
 
 
 

@@ -123,3 +123,6 @@ button{
     background-color: cornflowerblue;
     cursor: pointer;
 }
+.search{
+    margin: 0 auto 0 auto;
+}

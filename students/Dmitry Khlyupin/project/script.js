@@ -19,18 +19,20 @@
 
 
 function makeGetRequest(url) {
-    return new Promise ((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
         xhr.send();
 
         xhr.onreadystatechange = function () {
-            if(xhr.readyState === 4) {
-                resolve(xhr.responseText);
-            } 
-
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    resolve(xhr.responseText);
+                } else {
+                    reject(xhr.responseText);
+                }
+            }
         }
-        
     });
 }
 
@@ -42,42 +44,81 @@ const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-sto
 
 
 class GoodsItem {
-    constructor (product_name, price) {
-        this.product_name = product_name;
-        this.price = price;
+    constructor(item) {
+        this.item = item;
+
     }
     render() {
+        
         return `
-        <div class="goods-item">
+        <div class="goods-item" data-id="${this.item.id_product}" >
+            <img src="#" class="itemImg" alt="No image">
+            </img>
             <h3>
-                ${this.product_name}
+                ${this.item.product_name}
             </h3>
             <p>
-                ${this.price}
+                ${this.item.price}
             </p>
+            <div class="addToCart">
+                В корзину
+            </div>
         </div>
         `;
     }
 }
 
 class GoodsList {
-    constructor(){
+    constructor(cart) {
+        this.cart = cart;
         this.goods = [];
-    }
+        document.querySelector('.goods-list').addEventListener('click', (event) => {
+            console.log(event);
+            if (event.target.className === "addToCart") {
+                const itemId = +event.target.parentElement.dataset.id;
+                const item = this.goods.find((goodsItem) => goodsItem.id_product === itemId);
+                if (typeof item !== 'undefined') {
+                    this.addToCart(item);
+                } else {
+                    console.error(`Нет элемента с ID = ${itemId}`);
+                }
 
-    fetchGoods(callback) {
-        makeGetRequest(`${API_URL}/catalogData.json`).then((goods) => {
-            this.goods = JSON.parse(goods);
-            console.log('Загрузка завершена...')
-            callback();
-        });
-        console.log('Идет загрузка...');
+            }
+        })
+    }
+    //  ----------- Callback-метод -------------
+    // fetchGoods(callback) {
+    //     makeGetRequest(`${API_URL}/catalogData.json`)
+    //         .then((goods) => {
+    //             this.goods = JSON.parse(goods);
+    //             console.log('Загрузка списка товаров завершена...')
+    //             callback();
+    //         })
+    //         .catch(() => {console.log('Невозможно загрузить список товаров!')});
+    //     console.log('Идет загрузка списка товаров...');
+    // }
+
+    // ----------Promise-метод -------------
+    fetchGoods() {
+        return new Promise((resolve, reject) => {
+            makeGetRequest(`${API_URL}/catalogData.json`)
+                .then((goods) => {
+                    this.goods = JSON.parse(goods);
+                    resolve();
+                    console.log('Загрузка списка товаров завершена')
+                })
+                .catch((error) => {
+                    console.log(`${error}: Невозможно загрузить список товаров.`);
+                    reject(error);
+                });
+            console.log('Идет загрузка списка товаров');
+        })
     }
 
     render() {
         let listHtml = '';
         this.goods.forEach(good => {
-            const goodItem = new GoodsItem(good.product_name,good.price);
+            const goodItem = new GoodsItem(good);
             listHtml += goodItem.render();
         });
 
@@ -91,47 +132,106 @@ class GoodsList {
 
 
     // метод возвращающий стоимость всех товаров
-    calcFullPrice() {   
-        return this.goods.reduce((acc, curr) => {return acc + curr.price}, 0);
+    calcFullPrice() {
+        return this.goods.reduce((acc, curr) => {
+            return acc + curr.price
+        }, 0);
+    }
+
+    addToCart(item) {
+        this.cart.addItemToCart(item);
     }
 }
 
 class Cart {
     constructor() {
-        this.goods = [];
+        this.goods = {};
     }
     // Опишем методы корзины:
-    fetchCart(callback) { // Получение корзины с сервера
-        makeGetRequest(`${API_URL}/getBasket.json`).then((goods) => {
-            this.goods = JSON.parse(goods);
-            console.log('Загрузка завершена...')
-            callback();
+
+    // ------- callback-метод --------
+    // fetchCart(callback) { // Получение корзины с сервера
+    //     makeGetRequest(`${API_URL}/getBasket.json`).then((goods) => {
+    //         this.goods = JSON.parse(goods);
+    //         console.log('Загрузка корзины завершена...')
+    //         callback();
+    //     });
+    //     console.log('Идет загрузка корзины...');
+    // }
+
+    // ------- Promise-метод ---------
+    fetchCart() {
+        return new Promise((resolve, reject) => {
+            makeGetRequest(`${API_URL}/getBasket.json`)
+                .then((goods) => {
+                    this.goods = JSON.parse(goods);
+                    resolve();
+                    console.log('Загрузка корзины завершена...')
+                })
+                .catch((error) => {
+                    console.log(`${error}: Невозможно загрузить товары корзины.`);
+                    reject(error);
+                });
+            console.log('Идет загрузка корзины...');
         });
-        console.log('Идет загрузка...');
     }
 
 
-    renderCart() {  // - метод для отрисовки корзины
+    renderCart() { // - метод для отрисовки корзины
         console.log(this.goods)
-    };     
-
-    addItemToCart() { // - метод для добавления элемента в корзину
-
     };
 
-    removeItemFromCart() { // - метод удаления элемента из корзины
-
+    addItemToCart(item) { // - метод для добавления элемента в корзину
+        makeGetRequest(`${API_URL}/addToBasket.json`)
+            .then((response) => {
+                if (response.result !== 0) {
+                    const itemIndex = this.goods.contents.findIndex((goodsItem) => goodsItem.id_product === item.id_product);
+                    if (itemIndex > -1) {
+                        this.goods.contents[itemIndex].quantity += 1;
+                    } else {
+                        this.goods.contents.push({
+                            ...item,
+                            quantity: 1
+                        });
+                    }
+                    this.calcItems();
+                    this.renderCart();
+                } else {
+                    console.log(`Не получается загрузить корзину на сервер...`)
+                }
+            })
     };
 
-    calcItems() {  // - метод для подсчета количества элементов в корзине и их стоимости 
+    removeItemFromCart(id) { // - метод удаления элемента из корзины
+        const itemIndex = this.goods.contents.findIndex((goodsItem) => goodsItem.id_product === id);
+        if (itemIndex > -1) {
+            if (this.goods.contents[itemIndex].quantity > 1) {
+                this.goods.contents[itemIndex].quantity -= 1;
+            } else {
+                this.goods.contents = this.goods.contents.filter((item) => item.id_product !== +id);
+            }
+        } else {
+            console.log(`Нет такого элемента в корзине`)
+        }
+        this.calcItems();
+        this.renderCart();
+    };
 
+    calcItems() { // - метод для подсчета количества элементов в корзине и их стоимости 
+        this.goods.amount = this.goods.contents.reduce((acc, curr) => {
+            return acc + curr.price*curr.quantity
+        }, 0);
+        this.goods.countGoods = this.goods.contents.reduce((acc,curr) => {
+            return acc + curr.quantity;
+        }, 0)
     };
 
     clearCart() { // - метод для очистки корзины
-
+        this.goods.contents = [];
+        this.renderCart();
     };
 
-    cartToBuy() {  // - метод продолжения покупки
+    cartToBuy() { // - метод продолжения покупки
 
     };
 
@@ -150,11 +250,11 @@ class CartItem {
 
     };
 
-    changeItemChars() {  // - Изменение характеристик элемента (например, размера)
+    changeItemChars() { // - Изменение характеристик элемента (например, размера)
 
     };
 
-    renderItem() {  // - отрисовка элемента
+    renderItem() { // - отрисовка элемента
 
     };
 
@@ -163,13 +263,15 @@ class CartItem {
     };
 }
 
-
-const list = new GoodsList();
-list.fetchGoods(() => {
-    list.render();
-});
-
 const cart = new Cart();
-cart.fetchCart(() => cart.renderCart());
+const list = new GoodsList(cart);
+list.fetchGoods()
+    .then(() => {
+        list.render();
+    });
 
 
+cart.fetchCart()
+    .then(() => {
+        cart.renderCart();
+    });

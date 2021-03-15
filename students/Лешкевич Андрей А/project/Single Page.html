@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;200;300;400;500;600;700;800&display=swap"
@@ -26,19 +28,17 @@
         crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/progressive-image.js/dist/progressive-image.css">
     <script src="https://cdn.jsdelivr.net/npm/progressive-image.js/dist/progressive-image.js"></script>
-    <script type="text/javascript" src="js/helpers.js"></script>
-    <script type="text/javascript" src="js/cart.js"></script>
-    <script type="text/javascript" src="js/catalog.js"></script>
-    <script type="text/javascript" src="js/slider.js"></script>
-    <script type="text/javascript" src="js/init.js"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" src="js/helpers.js" defer></script>
+    <script type="text/javascript" src="js/cart.js" defer></script>
+    <script type="text/javascript" src="js/catalog.js" defer></script>
+    <script type="text/javascript" src="js/slider.js" defer></script>
+    <script type="text/javascript" src="js/init.js" defer></script>
+    <script type="text/javascript" defer>
         "use strict";
         var slider, cart, catalog, prodCatalog = [],
             urlCart = "api/cart/get/Single Page.json",
             urlCatalog = "api/catalog/elements/get/Single Page.json",
             urlCatalogDisplayed = "api/catalog/displayed/get/Single Page.json";
-        document.addEventListener("DOMContentLoaded", pageInit);
-
     </script>
 </head>
 

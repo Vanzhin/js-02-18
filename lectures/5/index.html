@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+    <script src="script.js" defer></script>
+    <style>
+        .red {
+            background-color: red;
+        }
+        .green {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h3 v-bind:class="isFooValid ? foo  : Math.random().toString()">
+            foo is {{ foo }}
+        </h3>
+        <input type="text" v-model="foo" /><br />
+        <input type="text" v-on:input="(e) => foo = e.target.value" v-bind:value="foo" />
+        <p v-if="isFooValid">foo.length is more than 1</p>
+        <hr>
+        <ul>
+           <li v-for="item, index in someArray">
+               {{ item }}, {{ index }}
+           </li> 
+        </ul>
+        <hr>
+        <ul>
+           <li v-for="key, value in someObject">
+               {{ key }}: {{ value }}
+           </li> 
+        </ul>
+        <hr>
+        <button v-on:click.prevent="handleButtonClick">Some button</button>
+        <button @click="handleButtonClick">Some button</button>
+        <hr>
+        <div v-bind:class="['static-class', { red: isFooValid, green: foo.length > 3 }]">
+            block
+        </div>
+        <hr>
+        <input type="text" v-model.lazy="foo" /><br />
+        <input type="text" v-on:blur="e => foo = e.target.value" v-bind:value="foo" />
+        <hr>
+        {{ fullName }}
+    </div>
+</body>
+</html>
