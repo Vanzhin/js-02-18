@@ -27,6 +27,7 @@ new Vue({
         goods: [],
         searchValue: '',
         basketGoods: [],
+        banana: "display:none",
     },
     created() {
         this.fetchGoods();
@@ -55,6 +56,14 @@ new Vue({
             } catch (error) {
                 console.log(`Can't fetch data`, error);
                 throw new Error(error);
+            }
+        },
+        // дублирует isVisibleCart, работает с внутр. аттрибутом
+        bananaChanger() {
+            if (this.banana == "display:none") {
+                this.banana = "display:block"
+            } else {
+                this.banana = "display:none"
             }
         },
         isVisibleCart() {
