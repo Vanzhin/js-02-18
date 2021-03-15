@@ -10,26 +10,44 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/vue@next"></script>
     <script src="https://kit.fontawesome.com/422f9eb0c9.js" crossorigin="anonymous"></script>
 
     <!-- <link rel="stylesheet" href="./fontawesome/css/all.css"> -->
 </head>
 
 <body>
-    <header>
-        <div class="logo"><a href="#">eShop</a> </div>
-        <div class="searchContainer">
-            <input type="text" class="goods-search" />
-            <button class="search-button" type="button">Искать</button>
-        </div>
-        <div class="card-button">
-            Корзина</div>
+    <div id="app">
+        <header>
+            <div class="logo"><a href="#">eShop</a> </div>
+            <div class="searchContainer">
+                <input type="text" class="goods-search" />
+                <button class="search-button" type="button">Искать</button>
+            </div>
+            <div class="card-button">
+                Корзина</div>
 
-    </header>
-    <main>
-        <div class="goods-list"></div>
-        <div class="description"></div>
-    </main>
+        </header>
+        <main>
+            <div class="goods-list">
+                <div class="goods-item" v-for="item in goods">
+                    <!-- <img src="./img/${this.item.id_product}.jpg" class="itemImg" alt="No image">
+                    </img> -->
+                    <h3>
+                        {{item.product_name}}
+                    </h3>
+                    <p>
+                        {{item.price}}
+                    </p>
+                    <div class="addToCart">
+                        В корзину
+                    </div>
+                </div>
+
+            </div>
+            <div class="description"></div>
+        </main>
+    </div>
 </body>
 
 </html>

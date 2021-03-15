@@ -1,49 +1,4 @@
-// function makeGetRequest(url, callback) {
-//     let xhr;
-
-//     if (window.XMLHttpRequest) {
-//         xhr = new XMLHttpRequest();
-//     } else if (window.ActiveXObject) {
-//         xhr = new ActiveXObject("Microsoft.XMLHTTP");
-//     }
-
-//     xhr.onreadystatechange = function () {
-//         if (xhr.readyState === 4) {
-//             callback(xhr.responseText);
-//         }
-//     }
-
-//     xhr.open('GET', url, true);
-//     xhr.send();
-// }
-
-// ----- makeGetRequest() с помощью промисов ----------
-
-// function makeGetRequest(url) {
-//     return new Promise((resolve, reject) => {
-//         let xhr = new XMLHttpRequest();
-//         xhr.open('GET', url, true);
-//         xhr.send();
-
-//         xhr.onreadystatechange = function () {
-//             if (xhr.readyState === 4) {
-//                 if (xhr.status === 200) {
-//                     resolve(xhr.responseText);
-//                 } else {
-//                     reject(xhr.responseText);
-//                 }
-//             }
-//         }
-//     });
-// }
-
 const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
-
-
-
-
-
-
 class GoodsItem {
     constructor(item) {
         this.item = item;
@@ -71,69 +26,29 @@ class GoodsItem {
 
 class GoodsList {
     constructor(cart) {
-        this.cart = cart;
-        this.goods = [];
-        this.filteredGoods = [];
-        document.querySelector('.goods-list').addEventListener('click', (event) => {
-            console.log(event);
-            if (event.target.className === "addToCart") {
-                const itemId = +event.target.parentElement.dataset.id;
-                const item = this.goods.find((goodsItem) => goodsItem.id_product === itemId);
-                if (typeof item !== 'undefined') {
-                    this.addToCart(item);
-                } else {
-                    console.error(`Нет элемента с ID = ${itemId}`);
-                }
+        // this.cart = cart;
+        // this.goods = [];
+        // this.filteredGoods = [];
+        // document.querySelector('.goods-list').addEventListener('click', (event) => {
+        //     console.log(event);
+        //     if (event.target.className === "addToCart") {
+        //         const itemId = +event.target.parentElement.dataset.id;
+        //         const item = this.goods.find((goodsItem) => goodsItem.id_product === itemId);
+        //         if (typeof item !== 'undefined') {
+        //             this.addToCart(item);
+        //         } else {
+        //             console.error(`Нет элемента с ID = ${itemId}`);
+        //         }
 
-            }
-        })
-        document.querySelector('.search-button').addEventListener('click', (event) => {
-            console.log(event);
-            const value = document.querySelector('.goods-search').value;
-            this.filterGoods(value);
-        })
+        //     }
+        // })
+        // document.querySelector('.search-button').addEventListener('click', (event) => {
+        //     console.log(event);
+        //     const value = document.querySelector('.goods-search').value;
+        //     this.filterGoods(value);
+        // })
     }
-    //  ----------- Callback-метод -------------
-    // fetchGoods(callback) {
-    //     makeGetRequest(`${API_URL}/catalogData.json`)
-    //         .then((goods) => {
-    //             this.goods = JSON.parse(goods);
-    //             console.log('Загрузка списка товаров завершена...')
-    //             callback();
-    //         })
-    //         .catch(() => {console.log('Невозможно загрузить список товаров!')});
-    //     console.log('Идет загрузка списка товаров...');
-    // }
 
-    // ----------Promise-метод -------------
-    // fetchGoods() {
-    //     return new Promise((resolve, reject) => {
-    //         makeGetRequest(`${API_URL}/catalogData.json`)
-    //             .then((goods) => {
-    //                 this.goods = JSON.parse(goods);
-    //                 resolve();
-    //                 console.log('Загрузка списка товаров завершена')
-    //             })
-    //             .catch((error) => {
-    //                 console.log(`${error}: Невозможно загрузить список товаров.`);
-    //                 reject(error);
-    //             });
-    //         console.log('Идет загрузка списка товаров');
-    //     })
-    // }
-
-    async newFetchGoods() {
-        try {
-            console.log(`Загрузка товаров...`)
-            const request = await fetch(`${API_URL}/catalogData.json`);
-            const goods = await request.json();
-            this.goods = goods;
-            this.filteredGoods = goods;
-            console.log(`Загрузка товаров завершена!`)
-        } catch (err) {
-            console.log(`Невозможно загрузить товары!`, err);
-        }
-    }
 
     render() {
         let listHtml = '';
@@ -172,36 +87,6 @@ class Cart {
     constructor() {
         this.goods = {};
     }
-    // Опишем методы корзины:
-
-    // ------- callback-метод --------
-    // fetchCart(callback) { // Получение корзины с сервера
-    //     makeGetRequest(`${API_URL}/getBasket.json`).then((goods) => {
-    //         this.goods = JSON.parse(goods);
-    //         console.log('Загрузка корзины завершена...')
-    //         callback();
-    //     });
-    //     console.log('Идет загрузка корзины...');
-    // }
-
-    // ------- Promise-метод ---------
-    // fetchCart() {
-    //     return new Promise((resolve, reject) => {
-    //         makeGetRequest(`${API_URL}/getBasket.json`)
-    //             .then((goods) => {
-    //                 this.goods = JSON.parse(goods);
-    //                 resolve();
-    //                 console.log('Загрузка корзины завершена...')
-    //             })
-    //             .catch((error) => {
-    //                 console.log(`${error}: Невозможно загрузить товары корзины.`);
-    //                 reject(error);
-    //             });
-    //         console.log('Идет загрузка корзины...');
-    //     });
-    // }
-
-    // -------- async-await метод ---------------
 
     async newFetchCart() {
         try {
@@ -222,26 +107,6 @@ class Cart {
         console.log(this.goods)
     };
 
-    // addItemToCart(item) { // - метод для добавления элемента в корзину
-    //     makeGetRequest(`${API_URL}/addToBasket.json`)
-    //         .then((response) => {
-    //             if (response.result !== 0) {
-    //                 const itemIndex = this.goods.contents.findIndex((goodsItem) => goodsItem.id_product === item.id_product);
-    //                 if (itemIndex > -1) {
-    //                     this.goods.contents[itemIndex].quantity += 1;
-    //                 } else {
-    //                     this.goods.contents.push({
-    //                         ...item,
-    //                         quantity: 1
-    //                     });
-    //                 }
-    //                 this.calcItems();
-    //                 this.renderCart();
-    //             } else {
-    //                 console.log(`Не получается загрузить корзину на сервер...`)
-    //             }
-    //         })
-    // };
 
     async addItemToCart(item) { // - метод для добавления элемента в корзину
         try {
@@ -331,10 +196,37 @@ class CartItem {
 
 const cart = new Cart();
 const list = new GoodsList(cart);
-list.newFetchGoods()
-    .then(() => {
-        list.render();
-    });
-
-
+list.newFetchGoods();
 cart.newFetchCart();
+
+const app = new Vue({
+    el: '#app',
+    data: {
+        goods: [],
+        searchLine: ''
+    },
+    computed: {
+        filteredGoods() {
+
+        },
+        total() {
+
+        }
+    },
+    methods: {
+        async newFetchGoods() {
+            try {
+                console.log(`Загрузка товаров...`)
+                const request = await fetch(`${API_URL}/catalogData.json`);
+                const goods = await request.json();
+                this.goods = goods;
+
+                console.log(`Загрузка товаров завершена!`);
+
+            } catch (err) {
+                console.log(`Невозможно загрузить товары!`, err);
+            }
+        }
+
+    }
+});
