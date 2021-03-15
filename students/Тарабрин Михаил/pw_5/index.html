@@ -13,10 +13,11 @@
 <body>
 <div id="app">
     <header>
+
         <span class="logo">eShop</span>
         <input type="text" class="search" v-model="searchValue"/>
         <button v-on:click="isVisibleCart" class="cart-button cartButton">Корзина</button>
-
+        
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span v-on:click="isVisibleCart" class="close">&times;</span>
@@ -25,7 +26,7 @@
                     <p>Цена за штуку: {{item.price}}</p>
                     <p>Количество: {{item.quantity}}</p>
                     <p>Общая стоимость: {{item.price * item.quantity}}</p>
-                    <button v-on:click.prevent="removeItem(item)">Удалить товар</button>
+                    <button v-on:click="removeItem(item)">Удалить товар</button>
                 </div>
                 <div>
                     Всего в корзине товаров на сумму: {{basketTotal}}
