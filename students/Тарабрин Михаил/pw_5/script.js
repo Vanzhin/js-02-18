@@ -59,7 +59,6 @@ new Vue({
         },
         isVisibleCart() {
             let modal = document.querySelector('.modal');
-            modal.style.display = 'block';
             if (modal.style.display === 'block') {
                 modal.style.display = 'none';
             } else {
@@ -76,32 +75,32 @@ new Vue({
                 throw new Error(error);
             }
         },
-        addItem(item) {
-            request('addToBasket.json')
-                .then((response) => {
+        async addItem(item) {
+            try {
+                const res = await fetch(`${API_ROOT}/addToBasket.json`);
+                const response = await res.json();
                     if (response.result !== 0) {
                         const itemIndex = this.basketGoods.findIndex((goodsItem) => goodsItem.id_product === item.id_product);
                         if (itemIndex > -1) {
                             this.basketGoods[itemIndex].quantity += 1;
                         } else {
                             this.basketGoods.push({...item, quantity: 1});
-                        }
-                        console.log(this.basketGoods);
-                    } else {
-                        console.error(`Can't add item to basket`, item, this.basketGoods);
-                    }
-                })
+                        console.log(itemIndex)
+                        }}
+            } catch (err) {
+                console.error(`Can't add item to basket`, item, this.basketGoods, err);;
+            }
         },
-        removeItem(id) {
-            request('deleteFromBasket.json')
-                .then((response) => {
+        async removeItem(item) {
+            try {
+                const res = await fetch(`${API_ROOT}/deleteFromBasket.json`);
+                const response = await res.json();
                     if (response.result !== 0) {
-                        this.basketGoods = this.basketGoods.filter((goodsItem) => goodsItem.id_product !== parseInt(id));
-                        console.log(this.basketGoods);
-                    } else {
-                        console.error(`Can't remove item from basket`, item, this.basketGoods);
-                    }
-                });
+                        this.basketGoods = this.basketGoods.filter((goodsItem) => goodsItem.id_product !== parseInt(item.id_product));
+            }
+        } catch(err) {
+            console.error(`Can't remove item from basket`, item, this.basketGoods, err);
         }
+        },
     },
 });
