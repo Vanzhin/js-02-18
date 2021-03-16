@@ -24,9 +24,31 @@ header {
     background-color: @mainOrange;
     height: 60px;
     padding: 0 10%;
-    box-shadow:0px 5px 9px 0px rgba(0,0,0,0.39);
-
+    box-shadow: 0px 5px 9px 0px rgba(0, 0, 0, 0.39);
+    position: relative;
 }
+
+.searchContainer {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 30px;
+}
+
+.goods-search {
+    padding: 0 15px;
+    border-radius: 15px 0 0 15px;
+    height: 32px;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+.goods-search:focus,
+.goods-search:active {
+    outline: none;
+}
+
 main {
     padding: 30px 10%;
 }
@@ -44,12 +66,14 @@ main {
 
 }
 
-.card-button, .addToCart {
-    background-color: @mainOrange;
-    border: 1px solid @mainWhite;
+.card-button,
+.addToCart,
+.search-button {
+    background-color: #ef5221;
+    border: 1px solid #ffffff;
     font-family: 'Montserrat', sans-serif;
-    color: @mainWhite;
-    padding: 0px 30px;
+    color: #ffffff;
+    padding: 0px 15px;
     font-size: 14px;
     height: 30px;
     border-radius: 15px;
@@ -58,6 +82,20 @@ main {
     align-items: center;
     outline: none;
 }
+
+.search-button {
+    border-radius: 0 15px 15px 0;
+    height: 32px;
+}
+
+.search-button::before {
+    display: block;
+    content: '\f002';
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Brands';
+    font-weight: 900;
+    padding-right: 10px;
+}
+
 
 .card-button::before {
     display: block;
@@ -75,16 +113,20 @@ main {
     padding-left: 10px;
 }
 
-.card-button:hover, .addToCart:hover {
-    background-color: @mainWhite;
-    color: @mainOrange;
-    border: 1px solid @mainOrange;
+.card-button:hover,
+.addToCart:hover,
+.search-button:hover {
+    background-color: #ffffff;
+    color: #ef5221;
+    border: 1px solid #ef5221;
 }
 
-.card-button:active, .addToCart:active {
-    background-color: @lightGrey;
-
+.card-button:active,
+.addToCart:active,
+.search-button:active {
+    background-color: #eceae7;
 }
+
 .card-button:hover::after {
     display: block;
     content: '\f0d8';
@@ -92,13 +134,14 @@ main {
     font-weight: 900;
     padding-left: 10px;
 }
+
 .card-button:active,
 .card-button:hover {
     outline: none;
 }
 
 .goods-list {
-    
+
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
@@ -111,14 +154,108 @@ main {
     border-radius: 5px;
     width: 20%;
     min-width: 300px;
-    height: 300px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
+
 .itemImg {
     min-width: 200px;
+    max-width: 94%;
     min-height: 200px;
+    border: 1px solid #eceae7;
+    box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.21);
+}
+
+.cartSection {
+    position: absolute;
+    right: 140px;
+    top: 70px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    background-color: @mainWhite;
+    box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.21);
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.cartItem {
+    width: 94%;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
     border: 1px solid @lightGrey;
+    color: black;
+    font-size: 12px;
+    margin: 5px 0;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+.cartItemImg{
+    height: 50px;
+
+}
+.cartItem>h3 {
+    flex-grow: 3;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.cartItem>p {
+    flex-grow: 1;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+}
+
+.cartHeader {
+    color: @mainOrange;
+    margin: 10px 0;
+}
+.cartItemNaming {
+    border: none;
+}
+
+.buttonBlock{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+
+.removeButton, .addButton {
+    height: 26px;
+    color: #ddd;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+
+}
+
+.removeButton {
+    background-color: @mainOrange;
+    border-radius: 12px 0 0 12px;
+}
+
+.addButton {
+    background-color: rgb(134, 206, 76);
+    border-radius: 0 12px 12px 0;
+}
+
+.removeButton:hover, .addButton:hover{
+    color: #fff;
+}
+.removeButton:active, .addButton:active{
+    box-shadow: none;
+}
+
+.fullCartPrice {
+    margin: 20px 0 10px;
 }

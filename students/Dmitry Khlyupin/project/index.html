@@ -6,11 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eShop</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/vue@next"></script>
+    
     <script src="https://kit.fontawesome.com/422f9eb0c9.js" crossorigin="anonymous"></script>
 
     <!-- <link rel="stylesheet" href="./fontawesome/css/all.css"> -->
@@ -21,29 +22,44 @@
         <header>
             <div class="logo"><a href="#">eShop</a> </div>
             <div class="searchContainer">
-                <input type="text" class="goods-search" />
-                <button class="search-button" type="button">Искать</button>
+                <input type="text" class="goods-search" v-model="searchLine"/>
+                <button class="search-button" type="button" v-on:click="filterGoods">Искать</button>
             </div>
-            <div class="card-button">
-                Корзина</div>
+            <div class="card-button" v-on:click="cartVisibility = !cartVisibility">
+                Корзина
+            </div>
+            <div v-if="cartVisibility" class="cartSection">
+                <h3 class="cartHeader" v-if="cartGoods.length>0">Ваша корзина:</h3>
+                <h3 class="cartHeader" v-if="cartGoods.length===0">Ваша корзина пуста!</h3>
+                <div class="cartItem cartItemNaming" v-if="cartGoods.length>0">
+                    <div></div>
+                    <h3>Наименование</h3>   
+                    <p>Цена</p>
+                    <p>Количество</p>
+                </div>
+                <div class="cartItem" v-for="item in cartGoods">
+                    <img v-bind:src="pathToImage(item.id_product)" class="cartItemImg" alt="No image"></img>
+                    <h3>{{item.product_name}}</h3>
+                    <p>{{item.price}}</p>
+                    <p>{{item.quantity}}</p>
+                    <div class="buttonBlock">
+                        <div class="removeButton" v-on:click="removeItemFromCart(item.id_product)"><i class="fas  fa-minus"></i></div>
+                        <div class="addButton" v-on:click="addItemToCart(item)"><i class="fas  fa-plus"></i></div>
+                    </div>
+                    
+                </div>
+                <div v-if="cartGoods.length>0" class="fullCartPrice">Полная стоимость товаров: {{fullPrice}} рублей </div>
+            </div> 
 
         </header>
         <main>
             <div class="goods-list">
-                <div class="goods-item" v-for="item in goods">
-                    <!-- <img src="./img/${this.item.id_product}.jpg" class="itemImg" alt="No image">
-                    </img> -->
-                    <h3>
-                        {{item.product_name}}
-                    </h3>
-                    <p>
-                        {{item.price}}
-                    </p>
-                    <div class="addToCart">
-                        В корзину
-                    </div>
+                <div class="goods-item" v-for="item in filteredGoods">
+                    <img v-bind:src="pathToImage(item.id_product)" class="itemImg" alt="No image"></img>
+                    <h3> {{item.product_name}} </h3>
+                    <p> {{item.price}} </p>
+                    <div class="addToCart" v-on:click="addItemToCart(item)"> В корзину </div>
                 </div>
-
             </div>
             <div class="description"></div>
         </main>
