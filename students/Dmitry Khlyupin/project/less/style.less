@@ -83,6 +83,10 @@ main {
     outline: none;
 }
 
+.card-button span {
+    margin-right: 10px;
+}
+
 .search-button {
     border-radius: 0 15px 15px 0;
     height: 32px;
@@ -105,20 +109,13 @@ main {
     padding-right: 10px;
 }
 
-.card-button::after {
-    display: block;
-    content: '\f0d7';
-    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Brands';
-    font-weight: 900;
-    padding-left: 10px;
-}
-
 .card-button:hover,
 .addToCart:hover,
 .search-button:hover {
     background-color: #ffffff;
     color: #ef5221;
-    border: 1px solid #ef5221;
+    border: 1px solid @mainOrange;
+    cursor: pointer;
 }
 
 .card-button:active,
@@ -127,12 +124,20 @@ main {
     background-color: #eceae7;
 }
 
-.card-button:hover::after {
-    display: block;
-    content: '\f0d8';
-    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Brands';
-    font-weight: 900;
-    padding-left: 10px;
+.cardButtonActive {
+    color: @mainOrange;
+    background-color: #eceae7;
+    border: 1px solid @mainOrange;
+    font-family: 'Montserrat', sans-serif;
+    color: @mainOrange;
+    padding: 0px 15px;
+    font-size: 14px;
+    height: 30px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
 }
 
 .card-button:active,
@@ -231,7 +236,7 @@ main {
 .removeButton, .addButton {
     height: 26px;
     color: #ddd;
-    padding: 0 10px;
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -241,12 +246,14 @@ main {
 
 .removeButton {
     background-color: @mainOrange;
-    border-radius: 12px 0 0 12px;
+    border-radius: 13px 0 0 13px;
+    padding: 0 7px 0 10px;
 }
 
 .addButton {
     background-color: rgb(134, 206, 76);
-    border-radius: 0 12px 12px 0;
+    border-radius: 0 13px 13px 0;
+    padding: 0 10px 0 7px;
 }
 
 .removeButton:hover, .addButton:hover{
@@ -258,4 +265,38 @@ main {
 
 .fullCartPrice {
     margin: 20px 0 10px;
+}
+
+.emptyBlock {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+}
+
+.clearFilterBtn {
+    margin: 20px 0;
+    height: 32px;
+    color: @mainWhite;
+    background-color:@mainOrange;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    border-radius: 16px;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+    border: 1px solid @mainOrange;
+}
+
+.clearFilterBtn:hover {
+    color: @mainOrange;
+    border: 1px solid @mainOrange;
+    background-color: @mainWhite;
+}
+
+.clearFilterBtn:active, .clearFilterBtn:focus{
+    box-shadow: none;
+    outline: none;
 }
