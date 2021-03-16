@@ -44,6 +44,7 @@ main {
   font-size: 30px;
   font-weight: bold;
   color: #ffffff;
+  margin-right: 50px;
 }
 .logo::first-letter {
   color: #190b09;

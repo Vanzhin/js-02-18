@@ -21,10 +21,12 @@
     <div id="app">
         <header>
             <div class="logo"><a href="#">eShop</a> </div>
+            <button v-if="filteredGoods.length < goods.length" class="clearFilterBtn" v-on:click="clearFilter">Очистить поиск</button>
             <div class="searchContainer">
                 <input type="text" class="goods-search" v-model="searchLine"/>
                 <button class="search-button" type="button" v-on:click="filterGoods">Искать</button>
             </div>
+            
             <div class="card-button" v-bind:class="{ cardButtonActive: cartVisibility }" v-on:click="cartVisibility = !cartVisibility">
                 <span>Корзина </span>
                 <i v-if="!cartVisibility" class="fas fa-angle-double-down"></i>
