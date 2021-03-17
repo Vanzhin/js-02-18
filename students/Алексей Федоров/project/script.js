@@ -25,261 +25,134 @@ const request = (path = '', method = 'GET', body) => {
     })
 }
 
-{
-class GoodsItem {   // товар
-    constructor(item){
-        this.item = item;
-    }
+Vue.component('goodslist', {
+    props: ['goods'],
+    template: `
+        <div class="goods-list">
+            <goods-item v-for="good in goods" 
+                :key="good.id"
+                :good="good"
+                v-on:tobasket="$emit( 'addtobas', good)"
+            />
+            <goods-list-no v-if="goods.length == 0"/>
+        </div>
+    `
 
-    render (a) { return `
+});
+
+Vue.component('goods-item', {
+    props: ['good'],
+    template: `
         <div class="goods-item">
-            <h3>${this.item.product_name}</h3>
-            <p>${this.item.price}$</p>
-            <button class="product-button" type="button" data="${a}">Добавить</button>
-        </div>`;
-    }
+            <h3>{{ good.product_name }}</h3>
+            <p>{{ good.price }}</p>
+            <button class="product-button"                 
+                v-on:click="$emit('tobasket')"
+            >Добавить</button>
+        </div>
+    `
+});
 
-}
+Vue.component('goods-list-no', {
+    props: ['goods'],
+    template: `
+        <p class="goods-list-no" >Нет данных.</p>
+    `
+});
 
-class GoodsList {   // список товаров
-    constructor(basket) {
-        this.goods = [];
-        this.basket = basket;
-        this.filteredGoods = [];
+Vue.component('cart-button-block', {
+    props: ['basketOpen','quantity'],
+    template: `
+        <div class="cart-button-block">
+            <button class="cart-button" type="button" v-on:click.prevent="$emit( 'basket')">Корзина</button>
+            <div class="cart-button-counter" v-if="!basketOpen"><p id="basket_count"> {{ quantity }} </p></div>
+        </div>
+    `
+});
 
-        document.querySelector('.search').addEventListener('input', (event) => {
-            this.filterGoods(event.target.value);
-        });
-    }
+Vue.component('search-blok', {
+    props: ['searchv'],
+    template: `
+        <div class="search-blok">
+            <input type="text" class="search" v-bind:value="searchv"/>
+            <button class="search-button"  v-on:click.prevent="$emit( 'filter-goods')">Искать</button>
+        </div>
+    `
+});
 
-    fetchData() {
-        return new Promise((resolve, reject) => {
-            request('catalogData.json')
-            .then( (goods) => {
-                this.goods = goods;
-                this.filteredGoods = goods;
-                console.log(this.goods);
-                resolve();
-            })
-            .catch((error) => {
-                console.log(error);
-                reject(error);
-            })
-           
-    });
-    }
+Vue.component('v-basket', {
+    props: ['quantity','total','basketGoods'
+    ],
 
-    fetchGoods()  {
-        this.goods = [
-            { title: 'Shirt', price: 150 },
-            { title: 'Socks', price: 50 },
-            { title: 'Jacket', price: 350 },
-            { title: 'Shoes', price: 250 },
-        ];
-    }
+    template: `
+        <div class="basket">
+            <basket-item
+                v-for="item, index in basketGoods"
+                :key="index"
+                :item="item"
+                :index="index"
+                v-on:remove="$emit('remov', item)"
+                v-on:input="$emit('inputu', {item:item, e:$event} )"
+            ></basket-item>
 
-    render() {  // отрисовка списка товаров
-        let listHtml = '';
-        let counter = 0;
-        this.filteredGoods.forEach(good => {
-            const goodItem = new GoodsItem(good);
-            listHtml += goodItem.render(counter);
-            ++counter;
-        });
-        
-        let goodsList = document.querySelector('.goods-list');
-        goodsList.innerHTML = listHtml;
-        goodsList.addEventListener('click',(event) => {basket.goodsToBasket(event)
-        });        
-    }
+            <p class="basket-totall" v-if="quantity !== 0">
+                В корзине {{ quantity }} шт. на сумму {{ total }}$ 
+            </p>
+            <p class="basket-totall" v-else>
+                Корзина пуста. 
+            </p>
+        </div>
+    `
 
-    filterGoods(searchValue) {
-        const regexp = new RegExp(searchValue, 'i');
-        this.filteredGoods = this.goods.filter((goodsItem) => regexp.test(goodsItem.product_name));
-        this.render();
-    }
-    
-}
+});
 
-class Basket {  // корзина
-    constructor() {
-        this.goods = [];
-        this.price = 0;
-        this.quantity = 0;
-        this.open = false;
-        this.bask = {};
-    }
+ 
+Vue.component('basket-item', {
+    props: ['index','item'
 
-    countBasketPrice() {   // подсчет стоимости товара в корзине
-        const total = {
-            price: 0,
-            quantity: 0,
-        }
-        this.goods.forEach(good => {
-            total.price += good.price * good.quantity;
-            total.quantity += good.quantity;
-        });
-        this.price = total.price;
-        this.quantity = total.quantity;
-       //console.log(this);
-    }
+    ],
+    template: `
+            <div class="basket-item" >
+                <h3> {{ index + 1 }}. {{ item.product_name }}</h3>
+                <p> {{ item.price }}$</p>
+                <input class="basket-quantity" type="number" required min="0" max="100" 
+                v-on:click.prevent ="(e) => inputQuantityClik(e)" v-bind:value="item.quantity"
+                >
+                <button class="basket-button" type="button"  
+                    v-on:click.prevent="buttonClikDelBask"
+                >x</button>
+            </div>
+    `,
 
-    buttonClik() {  // клик по кнопке корзина
-       
-        request('getBasket.json')
-            .then( (goods) => {
-                this.goods = goods.contents;
-                console.log(this.goods);
-                if (!this.open) {
-                    this.open = true;
-                    this.render();
-                    document.querySelector('.cart-button-counter').style.display='none';
-                } else {
-                    this.open = false;
-                    document.querySelector('.basket').innerHTML = ""; 
-                    document.querySelector('.cart-button-counter').style.display='block';
-                    this.renderQuantity(); // отрисовка колличества товаров на кнопке
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-       
-    }
-
-    render() {   // отрисовка корзины
-        let listHtml = '';
-        let counter = 1;
-        this.goods.forEach(good => {
-            console.log(good);
-            const goodItem = new GoodsBasket(good);
-            listHtml += goodItem.render(counter);
-            counter++;
-        });
-
-        this.countBasketPrice(); 
-        document.querySelector('.basket').innerHTML = "";  
-        
-        listHtml += this.renderTotal(); //добавление в разметку общего количества и стоимости
-
-        document.querySelector('.basket').insertAdjacentHTML("afterbegin", listHtml);
-        document.querySelector('.basket').addEventListener('click',(event) => {basket.goodsRemoveBasket(event)});
-        
-       
-    }
-    
-    // отрисовка количества товаров и общей стоимости товаров в корзине
-    renderTotal() {
-        let listHtml;
-        if (this.quantity===0){
-            listHtml = `
-            <div class="basket-item">
-                <p> Корзина пуста </p>
-            </div>`;
-        } else {
-            listHtml = `
-            <div class="basket-item">
-                <p> В корзине ${this.quantity} шт. на сумму ${this.price}$ </p>
-            </div>`;
-        }
-        return listHtml;
-    }
-
-    renderQuantity() {      // отрисовка колличества товаров в корзине на кнопке
-        document.getElementById('basket_count').innerHTML = this.quantity;
-    }
-
-    goodsToBasket(event) {      // добавление товара в корзину
-       
-        let count = event.target.getAttribute('data');
-        if (count === null) return;
-        request('addToBasket.json').then( (goods) => {
-           
-            console.log(goods);
-            let productName = list.goods[count].product_name;
-            
-            for (let goods of this.goods){
-                if (goods.product_name === productName) {  // если добавленный товар есть в корзине
-                    ++goods.quantity;                      // увеличиваем кол-во штук в корзине
-                                    
-                    this.setOfProcessingBasket();
-                    
-                    return;
-                } 
-            }
-    
-            this.goods.push(list.goods[count]);
-            this.goods[this.goods.length-1].quantity = 1;
-            
-            this.setOfProcessingBasket();
-
-            
-        }, (error) => {
-               console.log(error);
-        });
+    methods: {
+        buttonClikDelBask() {
+          //  console.log('дел корзина   ' );
+            this.$emit('remove');
+        },
+        inputQuantityClik(e) {
+         //   console.log('количество   '+ e.target.value);
+            this.$emit('input', e.target.value);
+        },
 
     }
-    
-    setOfProcessingBasket() {  // набор функций для обработки корзины
-        this.countBasketPrice(); // обсчет стоимости и количества товаров в корзине
-        if (!this.open) this.renderQuantity();  // отрисовка количества товаров на кнопке
-        if (this.open) { 
-            this.render();  // отрисовка наполнения корзины
-            this.renderTotal(); // отрисовка количества товаров
-        }
-    }
 
-    goodsRemoveBasket(event){      // удалить товар из корзины
-        let count = event.target.getAttribute('data');
-        
-        if (count === null) return;
-        request('deleteFromBasket.json ').then( (goods) => {
-            console.log(goods);
-        }, (error) => {
-               console.log(error);
-        });
-    }
+});
 
-}
-
-class GoodsBasket {   // товар для корзины
-   constructor(it) {
-    this.item = it;
-        
-    }
-
-    render(a) { return `
-        <div class="basket-item">
-            <h3>${this.item.product_name}</h3>
-            <p>${this.item.price}$</p>
-            <p>${this.item.quantity}</p>
-            <button class="basket-button" type="button" data="${a}">x</button>
-        </div>`;
-    }
-
-}
-
-//const basket = new Basket();
-//const list = new GoodsList(basket);
-
-//list.fetchData()
-//    .then(() => {
-//        list.render();
-//    });
-}
-
-    new Vue({
+new Vue({
         el: '#app',
         data: {
             goods: [],
             searchValue: '',
             basketGoods: [],
             basketOpen: false,
+            name: 'Kont',
         },
+        
         created() {
             this.fetchGoods();
             this.fetchBasket();
         },
+        
         computed: {
             filteredGoods() {
                 const regexp = new RegExp(this.searchValue, 'i');
@@ -289,12 +162,12 @@ class GoodsBasket {   // товар для корзины
             },
             total() {
                 return this.basketGoods.reduce(
-                    (accumulator, currentElement) => (accumulator + (currentElement.price*currentElement.quantity ))
+                    (accumulator, currentElement) => (accumulator + (currentElement.price * currentElement.quantity ))
                 ,0);
             },
             quantity() {
                 return this.basketGoods.reduce(
-                    (accumulator, currentElement) => (accumulator + (currentElement.quantity ))
+                    (accumulator, currentElement) => (accumulator + (currentElement.quantity))
                 ,0);
             },
 
@@ -314,7 +187,7 @@ class GoodsBasket {   // товар для корзины
                 request('getBasket.json')
                     .then((goods) => {
                         this.basketGoods = goods.contents;
-                        console.log('basket', this.basketGoods);
+                        //console.log('basket', this.basketGoods);
                     })
                     .catch((error) => {
                         console.log(`Can't fetch basket data`, error);
@@ -329,6 +202,7 @@ class GoodsBasket {   // товар для корзины
                                 this.basketGoods[itemIndex].quantity += 1;
                             } else {
                                 this.basketGoods.push({ ...item, quantity: 1 });
+                                console.log(`парпапра`, item, this.basketGoods);
                             }
                             console.log(this.basketGoods);
                         } else {
@@ -349,23 +223,29 @@ class GoodsBasket {   // товар для корзины
                     });
             },
             filterGoods() {
-                console.log('goSearchValue', this.searchValue)
+                console.log('фильтер')
                 this.searchValue = document.querySelector('.search').value; 
-                //filteredGoods();
-                console.log('goSearchValue', this.searchValue)
+                console.log(this.searchValue)
             },
             basketGoodsOpen() {
                 this.basketOpen = ! this.basketOpen
             },
-            inputQuantityClik(e, item){
-                console.log(e.target.value );
-                if (e.target.value > 0) {
-                    item.quantity = +e.target.value}
+            inputQuantityClik(q){
+               // console.log(q.e);
+                if (q.e > 0) {
+                    q.item.quantity = +q.e}
                 else {
-                    this.removeItem(item)
+                    this.removeItem(q.item)
                 }
-            }
+            },
+            addToBasket(q) {
+                console.log('добавить в корзину   ' + q)
+                console.dir(q)
+            },
 
 
         },
     });
+
+
+
