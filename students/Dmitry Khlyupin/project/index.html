@@ -32,6 +32,11 @@
                 <i v-if="!cartVisibility" class="fas fa-angle-double-down"></i>
                 <i v-else class="fas fa-angle-double-up"></i>
             </div>
+            
+
+        </header>
+        <main>
+            <div class="closeCartButton" v-if="cartVisibility" v-on:click="cartVisibility=!cartVisibility"><i class="fas fa-times"></i></div>
             <div v-if="cartVisibility" class="cartSection">
                 <h3 class="cartHeader" v-if="cartGoods.length>0">Ваша корзина:</h3>
                 <h3 class="cartHeader" v-if="cartGoods.length===0">Ваша корзина пуста!</h3>
@@ -52,10 +57,7 @@
                     </div>
                 </div>
                 <div v-if="cartGoods.length>0" class="fullCartPrice">Полная стоимость товаров: {{fullPrice}} рублей </div>
-            </div> 
-
-        </header>
-        <main>
+            </div>
             <div class="goods-list" v-if="filteredGoods.length > 0">
                 <div class="goods-item" v-for="item in filteredGoods" >
                     <img v-bind:src="pathToImage(item.id_product)" class="itemImg" alt="No image"></img>

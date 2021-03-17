@@ -4,10 +4,14 @@
 }
 body {
   font-family: 'Montserrat', sans-serif;
+  position: relative;
 }
 a {
   text-decoration: none;
   color: #ffffff;
+}
+#app {
+  width: 100%;
 }
 header {
   display: flex;
@@ -17,7 +21,11 @@ header {
   height: 60px;
   padding: 0 10%;
   box-shadow: 0px 5px 9px 0px rgba(0, 0, 0, 0.39);
-  position: relative;
+  position: fixed;
+  left: 0;
+  z-index: 100;
+  width: 80%;
+  margin: 0;
 }
 .searchContainer {
   flex-grow: 1;
@@ -38,7 +46,8 @@ header {
   outline: none;
 }
 main {
-  padding: 30px 10%;
+  padding: 60px 10% 30px;
+  position: relative;
 }
 .logo {
   font-size: 30px;
@@ -139,13 +148,28 @@ main {
 .itemImg {
   min-width: 200px;
   max-width: 94%;
-  min-height: 200px;
+  max-height: 70%;
   border: 1px solid #eceae7;
   box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.21);
 }
+.closeCartButton {
+  background-color: #ef5221;
+  color: #ffffff;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  top: 90px;
+  right: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 101;
+  cursor: pointer;
+}
 .cartSection {
   position: absolute;
-  right: 140px;
+  right: 240px;
   top: 70px;
   width: 600px;
   display: flex;
@@ -231,6 +255,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 60px;
 }
 .clearFilterBtn {
   margin: 20px 0;

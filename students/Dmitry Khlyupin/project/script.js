@@ -1,6 +1,6 @@
-const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+const API_URL = 'https://dmhlupin.github.io/';
 
-new Vue({
+const app = new Vue({
     el: '#app',
     data: {
         goods: [],
@@ -24,8 +24,8 @@ new Vue({
     methods: {
         async fetchGoods() {
             try {
-                console.log(`Загрузка товаров...`)
-                const request = await fetch(`${API_URL}/catalogData.json`);
+                console.log(`Загрузка товаров из ${API_URL}/response.json...`)
+                const request = await fetch(`${API_URL}/response.json`);
                 const goods = await request.json();
                 this.goods = goods;
                 this.filteredGoods = goods;
