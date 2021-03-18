@@ -14,31 +14,25 @@
 
      <header class="header">
         <div class="logo"><img src="img/B.png" alt="#"></div>
-        <input type="text" id="search"  placeholder="Ведите название товара"  class="search" v-model="searchValue">
+        <form action="#" class="search"  placeholder="Ведите название товара" >
+            <search v-model="searchValue" id="search"></search>
+        </form>
         <button class="basket-button" type="button" @click="isVisibleBasket = !isVisibleBasket "> Корзина</button>
 
-     <div class="basket" v-if="isVisibleBasket">
-            <div class="basket-item" v-for="item in basketGoods">
-                <h4 class="product-title">{{ item.product_name }}</h4>
-                <p class="product-price">{{ item.price }}  X {{ item.quantity }}</p>
-                <button @click="deletFromBasket(item.id_product)" class="removeButton">Убрать из корзины</button>
-            </div>
-            <p class="total_amount">Сумма корзины:<b>{{ total }}</b></p> 
-        </div> 
+        <v-basket
+            :is-visible-basket="isVisibleBasket"
+            :basket-goods="basketGoods"
+            :total-amount="total_amount"
+            @remove-button="deletFromBasket"
+        />
      </header>
 
-   
-     <main class="main">
-        <section class="goods_list">
-        <div class="item" v-for="item in filteredGoods">
-            <h2 class="product-title">{{ item.product_name }}</h2>
-            <p class="product-price">{{ item.price }} $</p>
-            <button class="by-btn" name="add-to-basket" @click.prevent="addItem(item)">В корзину</button>
-        </div>
-        <!--заглушка-->
-        <div class="there_data" v-if="filteredGoods.length === 0">Нет данных</div>
-     </section>
-     </main>
+     <main>
+        <goods
+            v-bind:filtered-goods="filteredGoods"
+            v-on:add-item="addItem"
+        />
+    </main>
 
     </div>
 </body>

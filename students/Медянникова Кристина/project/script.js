@@ -1,6 +1,6 @@
 'use strict';
 
-/*const API_ROOT = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+const API_ROOT = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 const request = (path = '', method = 'GET', body) => {
      //Объект Promise (промис) используется для отложенных и асинхронных вычислений.
     return new Promise((resolve, reject) => {
@@ -26,21 +26,90 @@ const request = (path = '', method = 'GET', body) => {
         xhr.send(body);
     });
 }
-*/
+
+
+Vue.component('search', {
+    props: ['searchValue'],
+    template: `
+    <input type="text" class="search" 
+        v-bind:searchValue="searchValue"
+        v-on:input="$emit('input', $event.target.value)">
+    `,
+    methods: {
+        handleAddItem(event) {
+            this.$emit('change', event.target.searchValue);
+         }
+      }
+});
+
+Vue.component('v-basket', {
+    props: ['basketGoods', 'total-amount', 'isVisibleBasket'],
+    template: `
+         <div class="basket" v-if="isVisibleBasket">
+            <div class="basket-item" v-for="item in basketGoods">
+                <h4 class="product-title">{{ item.product_name }}</h4>
+                 <p class="product-price">{{ item.price }}  X {{ item.quantity }}</p>
+            <button @click="deletFromBasket(item.id_product)" class="removeButton">Убрать из корзины</button>
+        </div>
+            <p class="total_amount">Сумма корзины:<b>{{ total }}</b></p> 
+        </div> 
+    `
+});
+
+
+Vue.component('goods', {
+    props: ['filteredGoods'],
+    template: `
+        <section class="goods_list">
+            <item
+                v-for="item in filteredGoods"
+                v-bind:item="item"
+                v-on:add="$emit('add-item', $event)"
+            />
+            <there-data v-if="filteredGoods.length === 0" /> 
+        </section>
+    `,
+   methods: {
+         handleAddItem(item) {
+            this.$emit('add-item', item);
+         }
+    }
+});
+
+Vue.component('item', {
+    props: ['item'],
+    template: `
+        <div class="item">
+            <h2 class="product-title">{{ item.product_name }}</h2>
+            <p class="product-price">{{ item.price }} $</p>
+            <button class="by-btn" name="add-to-basket" v-on:click.prevent="$emit('add', item)">В корзину</button>
+        </div>
+    `,
+     methods: {
+         handleAdd() {
+             this.$emit('add', this.item);
+         }
+     }
+});
+
+Vue.component('there-data', {
+    template: `
+        <div class="there--data">
+            Нет данных
+        </div>
+    `,
+});
+
 
 new Vue({
     el: '#app',
     data: {
-        goods_list: [
-            { product_name: 'Футболка', price: 1500 },
-            { product_name: 'Куртка', price: 6000 },
-            { product_name: 'Джинсы', price: 5000 },
-        ],
+        goods_list: [],
         searchValue: '',
-        basketGoods: [],  
+        basketGoods: [],
         isVisibleBasket: false,
-    },
 
+    },
     created() {
         this.fetchGoods();
         this.fetchBasket();
@@ -54,7 +123,8 @@ new Vue({
         },
         total() {
             return this.basketGoods.reduce(
-                (accumulator, currentElement) => accumulator + (currentElement.price * quantity),
+                (accumulator, currentElement) => 
+                    accumulator + (currentElement.price * currentElement.quantity),
                 0
             );
         }
@@ -62,7 +132,7 @@ new Vue({
     methods: {
         async fetchGoods() {
             try {
-                //const res = await fetch(`${API_ROOT}/catalogData.json`);
+                const res = await fetch(`${API_ROOT}/catalogData.json`);
                 const goods_list = await res.json();
                 this.goods_list = goods_list;
             } catch (err) {

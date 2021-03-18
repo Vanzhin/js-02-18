@@ -26,11 +26,12 @@
     transition: 0.5s;
 }
 .basket-button{
-    width: 100px;
-    height: 30px;
+    width: 150px;
+    height: 45px;
     margin-top: 30px;
     margin-right: 50px;
     text-decoration: none;
+    font-size: 15px;
     color: #f16d7f;
     background-color: white;
     border: 2px solid #f16d7f;
@@ -48,30 +49,31 @@
     justify-content: space-between;
     display: flex;
     margin-top: 30px;
+    margin-left: 25%;
+    margin-right: 25%;
 }
 
 .item{
-    width: 200px;
-    height: 120px;
-    margin-left: 50px;
-    margin-right: 50px;
-    border: 2px solid #f16d7f;
+    width: 250px;
+    height: 200px;
     text-align: center;
+    border: 2px solid #f16d7f;
     padding: 20px 20px;
 }
+    
 .item:hover{
     transform: scale(1.15);
 }
 .product-title{
     font-family: Lato;
-    font-size: 13px;
+    font-size: 20px;
     line-height: 1.2;
-    font-weight: 400;
+    font-weight: 700;
     text-transform: uppercase;
 }
 .product-price{
     font-family: Lato;
-    font-size: 13px;
+    font-size: 18px;
     line-height: 1.2;
     font-weight: 400;
     text-transform: uppercase;
@@ -81,6 +83,9 @@
     color: #f16d7f;
     background-color: white;
     border: 1px solid #f16d7f;
+    width: 150px;
+    height: 35px;
+    margin-top: 15px;
 }
 .by-btn:hover{
     transform: scale(1.15);
@@ -89,8 +94,8 @@
 }
 .search{
     width: 300px;
-    height: 35px;
-    margin-top: 30px;
+    height: 30px;
+    margin-top: 15px;
 }
 .removeButton{
     text-decoration: none;
@@ -104,7 +109,7 @@
     background-color: #f16d7f;
     color: white;
 }
-.there_data{
+.there--data{
     font-family: Lato;
     text-transform: uppercase;
     margin-top: 80px;
@@ -112,7 +117,7 @@
     left: 45%;
     font-size: 25px;
 }
-.total_amount{
+.total--amount{
     font-family: Lato;
     font-size: 13px;
     line-height: 1.2;
