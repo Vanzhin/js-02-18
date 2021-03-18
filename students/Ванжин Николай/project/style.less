@@ -26,6 +26,33 @@ header {
         color: cadetblue;
     }
 
+    .search-wrap {
+        display: flex;
+        justify-content: space-between;
+        min-width: 19%;
+    }
+
+    .search {
+        min-width: 20%;
+        min-height: 20px;
+        border-radius: 10px;
+        padding-left: 10px;
+        border: cornsilk;
+    }
+
+    .search-btn {
+        min-width: 20%;
+        min-height: 20px;
+        border-radius: 10px;
+        padding-left: 10px;
+        border: none;
+        color: cornsilk;
+        background-color: #8d73a5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .cart-button {
         position: relative;
 
@@ -54,8 +81,6 @@ header {
             display: flex;
             justify-content: center;
             align-items: center;
-            opacity: 0;
-            transition-property: opacity;
             transition-duration: 0.3s;
         }
     }
@@ -72,6 +97,12 @@ main {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
+
+        .goods-no {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
         .item {
             background-color: @color-blue;
@@ -152,8 +183,57 @@ main {
                 border: none;
                 min-height: 30px;
             }
+
+            .add-btn {
+                border-radius: 5px;
+                font-size: 20px;
+                color: cornsilk;
+                background-color: #8d73a5;
+                border: none;
+                min-height: 30px;
+                min-width: 30px;
+            }
+
+            .reduce-btn {
+                border-radius: 5px;
+                font-size: 20px;
+                color: cornsilk;
+                background-color: #8d73a5;
+                border: none;
+                min-height: 30px;
+                min-width: 30px;
+            }
         }
 
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        max-width: m;
+        align-items: center;
+        border-radius: 10px;
+        background: lightgrey;
+        color: cornsilk;
+        justify-content: space-evenly;
+        min-height: 300px;
+
+        input {
+            border: none;
+            border-radius: 10px;
+            min-height: 20px;
+            min-width: 200px;
+        }
+
+        button {
+            min-height: 40px;
+            min-width: 100px;
+            font-size: 14px;
+            color: cornsilk;
+            background-color: cadetblue;
+            border: none;
+            border-radius: 10px;
+        }
     }
 
     // .contact-info {

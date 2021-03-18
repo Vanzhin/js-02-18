@@ -18,6 +18,30 @@ header .logo {
   font-weight: bold;
   color: cadetblue;
 }
+header .search-wrap {
+  display: flex;
+  justify-content: space-between;
+  min-width: 19%;
+}
+header .search {
+  min-width: 20%;
+  min-height: 20px;
+  border-radius: 10px;
+  padding-left: 10px;
+  border: cornsilk;
+}
+header .search-btn {
+  min-width: 20%;
+  min-height: 20px;
+  border-radius: 10px;
+  padding-left: 10px;
+  border: none;
+  color: cornsilk;
+  background-color: #8d73a5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 header .cart-button {
   position: relative;
 }
@@ -44,8 +68,6 @@ header .cart-button .cart-qiantity {
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  transition-property: opacity;
   transition-duration: 0.3s;
 }
 main {
@@ -57,6 +79,11 @@ main .goods {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+}
+main .goods .goods-no {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 main .goods .item {
   background-color: cadetblue;
@@ -123,4 +150,48 @@ main .basket .basket-item-wrap .delete-btn {
   background-color: #8d73a5;
   border: none;
   min-height: 30px;
+}
+main .basket .basket-item-wrap .add-btn {
+  border-radius: 5px;
+  font-size: 20px;
+  color: cornsilk;
+  background-color: #8d73a5;
+  border: none;
+  min-height: 30px;
+  min-width: 30px;
+}
+main .basket .basket-item-wrap .reduce-btn {
+  border-radius: 5px;
+  font-size: 20px;
+  color: cornsilk;
+  background-color: #8d73a5;
+  border: none;
+  min-height: 30px;
+  min-width: 30px;
+}
+main .contact-info {
+  display: flex;
+  flex-direction: column;
+  max-width: m;
+  align-items: center;
+  border-radius: 10px;
+  background: lightgrey;
+  color: cornsilk;
+  justify-content: space-evenly;
+  min-height: 300px;
+}
+main .contact-info input {
+  border: none;
+  border-radius: 10px;
+  min-height: 20px;
+  min-width: 200px;
+}
+main .contact-info button {
+  min-height: 40px;
+  min-width: 100px;
+  font-size: 14px;
+  color: cornsilk;
+  background-color: cadetblue;
+  border: none;
+  border-radius: 10px;
 }

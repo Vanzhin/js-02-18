@@ -27,212 +27,115 @@ const request = (path = '', method = 'GET', body) => {
 }
 
 
-class GoodsItem {
-	constructor(item) {
-		this.item = item;
-		if (!this.item.picture) {
-			this.item.picture = `https://santehprom-r.ru/image/catalog/photo/armatura/0/prom-r-ru-konv6.png`;
-		};
-	}
-	render() {
-		return `
-	<div class="item">
-	<img src="${this.item.picture}" alt="${this.item.product_name}">
-		<h2>${this.item.product_name}</h2>
-		<p>${this.item.price}</p>
-		<button class="buy" data = "${this.item.id_product}">купить</button>
-	</div>
-`
-	}
-};
 
-class GoodsList {
-	constructor() {
-		this.goods = [];
-	}
-	fetchData() {
-		return new Promise((resolve, reject) => {
-			request('catalogData.json').then((goods) => {
-				this.goods = goods;
-				resolve();
-			}).catch((data) => {
-				console.log(data);
-			});
-		})
-	}
-	getTotalPrice() {
-		const price = this.goods.reduce(function (sum, current) { //цена всех товаров
-			if (!isNaN(current.price)) {
-				return sum + current.price;
-			} else
-				return sum;
-		}, 0);
-		console.log(price);
-	}
-	render() {
-		const goodsString = this.goods.map(element => {
-			const item = new GoodsItem(element);
-			return item.render();
-		});
-		document.querySelector('.goods').innerHTML = goodsString.join('');
-	}
-};
-class BasketItem {
-	constructor(item) {
-		this.item = item;
-	}
+new Vue({
+		el: '#app',
+		data: {
+			goods: [],
+			filterGoods: [],
+			searchValue: '',
+			basketGoods: [],
 
-	changeType() {
+		},
+		created() {
+			this.fetchData();
+			// this.fetchBasket();
+		},
+		methods: {
+			fetchData() {
+				return new Promise(() => {
+					request('catalogData.json').then((goods) => {
+						this.goods = goods;
+						this.filterGoods = goods;
+					}).catch((data) => {
+						console.log(data);
+					});
+				})
+			},
+			fetchBasket() {
+				request('getBasket.json').then((goods) => {
+					this.basketGoods = goods.contents;
+					console.log(this.basketGoods);
+				}).catch((data) => {
+					console.log(data);
+				});
 
-	}
+			},
 
-	removeItem() {
+			addItem(item) {
+				request('addToBasket.json').then((response) => {
+					if (response.result === 1) {
+						if (!this.basketGoods.find((goodsItem) => goodsItem.id_product === parseInt(item.id_product))) {
+							this.basketGoods.push(item);
+							item.quantity = 1;
+						} else {
+							this.basketGoods.find((goodsItem) => goodsItem.id_product === parseInt(item.id_product)).quantity += 1;
+						};
+						console.log(this.basketGoods);
 
-	}
+					}
+				})
 
-	changeQuantity() {
+			},
+			reduceItem(id) {
+				request('deleteFromBasket.json').then((response) => {
+					if (response.result === 1) {
 
-	}
+						let itemQuantity = this.basketGoods.find((goodsItem) => goodsItem.id_product === parseInt(id)).quantity -= 1;
+						console.log(this.basketGoods);
+						if (itemQuantity === 0) {
+							this.removeItem(id)
+						}
 
-	render() {
-		return `
-	<div class="basket-item">
-		<h2>${this.item.product_name}</h2>
-		<p>${this.item.price} RUB</p>
-		<p>количество: ${this.item.quantity}</p>
-		<button class="delete-btn" data = "${this.item.id_product}">удалить</button>
-	</div>
-`
-	}
-};
-class Basket {
-	constructor() {
-		this.basketGoods = [];
-		this.itemToCart = 0;
-	}
-	ButtonClick() {//навешиваю обработчик событий на боди
-		document
-			.querySelector("body")
-			.addEventListener('click', (event) => this.buttonItemHandler(event));
-	}
-	buttonItemHandler(event) { //обрабатываю клик по кнопке
-		if (!document.querySelector('.basket-item') && event.target.className === "cart-btn") {
-			this.fetchData(() => {
-				this.render();
-				this.getTotalPrice();
-				this.getTotalQuantity()
-			})
-		};
-		if (document.querySelector('.basket-item') && event.target.className === "cart-btn") {
-			document.querySelector('.basket').innerHTML = `<div class="basket-item-wrap"></div>`
+					}
+				})
 
-		};
-		if (event.target.className === "buy") {
-			basketlist.addItem(() => {
-				basketlist.renderItemInButton();
-			});
-		};
-		if (event.target.className === "delete-btn") {
-			basketlist.removeItem(() => {
-				basketlist.renderItemInButton();
-			});
-		}
+			},
+
+			removeItem(id) { // удаляю товар из корзины
+				request('deleteFromBasket.json').then((response) => {
+					if (response.result === 1) {
+						if (this.basketGoods.find((goodsItem) => goodsItem.id_product === parseInt(id))) {
+							let newGoods = this.basketGoods.filter((item) => item.id_product !== parseInt(id));
+							this.basketGoods = newGoods;
+
+						};
+					}
+				});
+			},
+			filteredGoods() {
+				const regexp = new RegExp(this.searchValue, 'i');
+				console.log("search done")
+				return this.filterGoods = this.goods.filter((goodsItem) => regexp.test(goodsItem.product_name));
+
+			},
+
+		},
+		computed: {
+
+			total() {
+				return this.basketGoods.reduce(function (sum, current) { //цена всех товаров
+					if (!isNaN(current.price)) {
+						return sum + current.price * current.quantity;
+					} else
+						return sum;
+				}, 0);
+
+			},
+			totalQuantity() {
+				return this.basketGoods.reduce(function (sum, current) { //цена всех товаров
+					if (!isNaN(current.quantity)) {
+						return sum + current.quantity;
+					} else
+						return sum;
+				}, 0);
+			},
+		},
 	}
 
-	fetchData(callback) {
-		request('getBasket.json').then((basketGoods) => {
-			this.basketGoods = basketGoods;
-			callback();
-		}).catch((data) => {
-			console.log(data);
-		});
-	}
-
-	addItem(callback) {
-		request('addToBasket.json').then((itemToCart) => {
-			this.itemToCart += itemToCart.result;
-			callback();
-		}).catch((data) => {
-			console.log(data);
-		});
-
-	}
-	renderItemInButton() { //отрисовываю количество товаров на кнопке, делаю невидимой, если товаров нет
-		document.querySelector('.cart-qiantity > span').innerHTML = `${this.itemToCart}`;
-		if (this.itemToCart === 0) {
-			document.querySelector('.cart-qiantity').style.opacity = "0"
-		} else document.querySelector('.cart-qiantity').style.opacity = "1";
-
-	}
-
-	removeItem(callback) {// удаляю товар из корзины
-		if (this.itemToCart > 0) {
-			request('deleteFromBasket.json').then((deleteItem) => {
-				this.itemToCart -= deleteItem.result;
-				callback();
-			}).catch((data) => {
-				console.log(data);
-			});
-		} else return;
-
-	}
-
-	changeQuantity() {
-
-	}
-
-	applyCoupon() {
-
-	}
-
-	getDeliveryPrice() {
-
-	}
-
-	createOrder() {
-
-	}
-
-	clear() {
-
-	}
-	renderBasketPrice(basketPrice) { //отрисовка общей цены через сервер
-		return document.querySelector('.basket').insertAdjacentHTML('beforeend', `<div class="basket-price">итого: ${basketPrice} RUB</div>`);
-	};
-	getTotalPrice() { //получение общей цены корзины через сервер
-		const basketPrice = this.basketGoods.amount;
-		console.log(basketPrice);
-		this.renderBasketPrice(basketPrice);
-	}
-	renderBasketQuantity(basketQuantity) { //отрисовка общего количества товаров через сервер
-		return document.querySelector('.basket').insertAdjacentHTML('beforeend', `<div class="basket-quantity">общее количество: ${basketQuantity}</div>`);
-	};
-	getTotalQuantity() { //получение общего количества товаров корзины через сервер
-		const basketQuantity = this.basketGoods.countGoods;
-		console.log(basketQuantity);
-		this.renderBasketQuantity(basketQuantity);
-	}
-
-	render() { //отрисовка товаров корзины и их количества через сервер
-		const basketString = this.basketGoods.contents.map(element => {
-			const item = new BasketItem(element);
-			return item.render();
-		});
-		document.querySelector('.basket-item-wrap').innerHTML = basketString.join('');
-	}
-}
+)
 
 
-
-
-
-const list = new GoodsList();
-list.fetchData().then(() => {
-	list.render();
-	list.getTotalPrice();
-});
-const basketlist = new Basket();
-basketlist.ButtonClick();
 
 
 
@@ -303,119 +206,3 @@ basketlist.ButtonClick();
 // 	console.log(`now you are readind ${paperName}`);
 // };
 // readPaper("New York times");
-
-
-
-// class Hamburger {
-// 	#price;
-// 	#calories;
-// 	#size;
-// 	#stuffing;
-// 	#topping;
-// 	#stuff=['cheese','salad','potato'];
-// 	#topp=['spice','mayonnaise'];
-// 	#sizeArr=['small','big'];
-// 	constructor(stuffing = this.#stuff[Math.floor(Math.random()*this.#stuff.length)], size= this.#sizeArr[Math.floor(Math.random()*this.#sizeArr.length)]) {
-// 		this.#size = size;
-// 		this.#stuffing = stuffing;
-// 		if(!this.#stuff.includes(stuffing)){
-// 			this.#stuffing = "";
-// 			console.log(`такой начинки нет, можно выбрать один из вариантов: ${this.#stuff.join(", ")}`)	
-// 		};
-// 		if(!this.#sizeArr.includes(size)){
-// 			this.#size = "";
-// 			console.log(`такого размера нет, можно выбрать один из вариантов: ${this.#sizeArr.join(", ")}`)	
-// 		}
-
-// 	}
-// 	changeStuffing (stuffing){
-// 		this.#stuffing=stuffing;
-// 	}
-// 	changeSize(size){
-// 		this.#size=size;
-// 	}
-// 	addTopping(topping) {
-// 		if(this.#topp.includes(topping)){
-// 			this.#topping = topping;
-// 		} else console.log(`такой добавки нет, можно выбрать один из вариантов: ${this.#topp.join(", ")}`)
-
-// 	} // Добавить добавку }
-// 	removeTopping() {
-// 		if (this.#topping) {
-// 			this.#topping=null;
-// 		} else {
-// 			console.log('добавок еще нет')
-// 		}
-// 	} // Убрать добавку }
-// 	getToppings() {
-// 		console.log(` можно выбрать один из вариантов: ${this.#topp.join(", ")}`);
-// 		if (this.#topping) {
-// 			console.log(`гамбургер уже содержит добавку ${this.#topping}`);
-// 			return this.#topping;
-// 		} else console.log('добавок нет');
-
-
-// 	} // Получить список добавок }
-// 	getSize() {
-// 		if (this.#size) {
-// 			console.log(`размер гамбургера ${this.#size}`);
-// 			return this.#size;
-// 		} else console.log('размер не выбран');
-
-
-// 	} // Узнать размер гамбургера }
-// 	getStuffing() {
-// 		console.log(`можно выбрать начинку: ${this.#stuff.join(", ")}`)
-// 		if (this.#stuffing) {
-// 			console.log(`сейчас начинка гамбургера ${this.#stuffing}`);
-// 			return this.#stuffing;
-// 		} else console.log('начинка не выбрана');
-
-// 	} // Узнать начинку гамбургера }
-
-// 	calculatePriceCalories() {
-// 		this.#price = 0;
-// 		this.#calories = 0;
-// 		if (this.#size === 'small') {
-// 			this.#price += 50;
-// 			this.#calories += 20;
-
-// 		} else if (this.#size === 'big') {
-// 			this.#price += 100;
-// 			this.#calories += 40;
-// 		};
-// 		if (this.#stuffing === 'chease') {
-// 			this.#price += 10;
-// 			this.#calories += 20;
-// 		} else if (this.#stuffing === 'salad') {
-// 			this.#price += 20;
-// 			this.#calories += 5;
-// 		} else if (this.#stuffing === 'potato') {
-// 			this.#price += 15;
-// 			this.#calories += 10;
-// 		};
-// 		if (this.#topping === 'spice') {
-// 			this.#price += 15;
-// 		} else if (this.#topping === 'mayonnaise') {
-// 			this.#price += 20;
-// 			this.#calories += 5;
-// 		}
-
-// 		console.log(`стоимость бургера сейчас ${this.#price} рублей, калорийность бургера сейчас ${this.#calories} калорий`);
-
-// 	} // Узнать цену и калорийность}
-
-// }
-// console.log('Маленький (50 рублей, 20 калорий).Большой (100 рублей, 40 калорий).Гамбургер может быть с одним из нескольких видов начинок (обязательно): С сыром (+10 рублей, +20 калорий).С салатом (+20 рублей, +5 калорий).С картофелем (+15 рублей, +10 калорий). Дополнительно гамбургер можно посыпать приправой (+15 рублей, +0 калорий) и полить майонезом (+20 рублей, +5 калорий)')
-// //const burger = new Hamburger('big', 'chease');
-
-// class SmallHamburger extends Hamburger {
-// 	constructor(stuffing, size = 'small') {
-// 		super(stuffing, size);
-// 	}
-// }
-// class BigHamburger extends Hamburger {
-// 	constructor(stuffing, size = 'big') {
-// 		super(stuffing, size);
-// 	}
-// }

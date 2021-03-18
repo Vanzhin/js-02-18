@@ -78,6 +78,10 @@ class formInformation {
 	}
 	isValidInfo() {
 		this.getInfo();
+		document.getElementById("your-name").style = "background: white;";
+		document.getElementById("your-tel").style = "background: white;";
+		document.getElementById("your-email").style = "background: white;";
+
 		if (!regexpName.test(this.nameInfo)) {
 			document.getElementById("your-name").style = "background: red;"
 			console.log("поле ввода имени необходимо заполнять только буквами")
