@@ -79,3 +79,9 @@ header {
 .basket-total {
     margin-top: 35px;
 }
+
+.error {
+    color: red;
+    font-size: 24px;
+    text-align: center;
+}
