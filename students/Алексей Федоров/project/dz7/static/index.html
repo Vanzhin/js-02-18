@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eShop</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+    
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="wrap wrap_header">
+                <v-basket
+                    v-if="basketOpen"
+                    :quantity="quantity"
+                    :total="total"
+                    :basket-goods="basketGoods"
+                    v-on:remov="removeItem"
+                    v-on:inputu="inputQuantityClik"
+                ></v-basket>
+                
+                <cart-button-block
+                    :basket-open="basketOpen"
+                    :quantity="quantity"
+                    v-on:basket="basketGoodsOpen"
+                />
+                   
+            </div>
+        </header>
+         <hr>
+        <main>
+            <div class="wrap wrap_catalog">
+                <search-blok
+                    v-on:filter-goods="filterGoods"
+                    :search="searchValue"
+                    v-on:addtask="searchValueD=$event"
+                ></search-blok>
+                  <hr>  
+                <goodslist 
+                    v-if="!isError"
+                    :goods="filteredGoods"
+                    v-on:addtobas="addItem"
+
+                ></goodslist>
+                <v-error v-else></v-error>
+            </div>
+        </main>
+
+        <hr>
+       
+        
+    </div>
+
+    <script src="script.js" defer></script>
+   
+    
+    
+</body>
+</html>
