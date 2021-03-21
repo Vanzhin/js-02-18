@@ -25,6 +25,7 @@ body {
 }
 
 .header-wrap {
+	position: relative;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -73,4 +74,19 @@ body {
 	font-size: 30px;
 	font-weight: 700;
 	text-align: center;
+}
+
+.basket-wrap {
+	position: absolute;
+	top: 60px;
+	right: 0px;
+}
+
+.basket-list {
+	
+	min-width: 300px;
+	background-color: lightgray;
+	padding: 5px 10px;
+	border: 1px solid gray;
+	border-radius: 10px;
 }

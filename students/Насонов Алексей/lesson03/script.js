@@ -1,5 +1,25 @@
 const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
+const request = (path ='', method = 'GET', body) => {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          console.log({ response: xhr.responseText });
+          resolve(JSON.parse(xhr.responseText));
+        } else {
+          console.error(xhr.responseText);
+          reject(xhr.responseText);
+        }
+      }
+    }
+
+    xhr.open(method, `${API_URL}/${path}`);
+    xhr.send(body);
+  });
+}
 
 class GoodsItem {
   constructor(title, price) {
@@ -13,8 +33,10 @@ class GoodsItem {
 
 
 class GoodsList {
-  constructor() {
+  constructor(basket) {
     this.goods = [];
+    this.basket = basket;
+    this.filteredGoods = [];
   }
   //fetchGoods() {
   //  this.goods = [
@@ -24,17 +46,42 @@ class GoodsList {
   //      { title: 'Ноутбук', price: 35000 },
   //  ];
   //}
-  fetchGoods() {
-    makeGETRequest(`${API_URL}/catalogData.json`).then(() => {
-
-
-      //cb();
-    }
-    )
+  //fetchGoods(cb) {
+  //  makeGETRequest(`${API_URL}/catalogData.json`).then((responseText) => {
+  //      this.goods = JSON.parse(responseText);
+  //  }
+  //  )
+  //  cb()
+  filterGoods(value) {
+    const regexp = new RegExp(value, 'i');
+    this.filteredGoods = this.goods.filter(good => regexp.test(good.product_name));
+    this.render();
   }
+  fetchData() {
+    return new Promise((resolve, reject) => {
+      request('catalogData.json')
+        .then((goods) => {
+          this.goods = goods;
+          this.filteredGoods = goods;
+          resolve();
+        })
+        .catch((error) => {
+          console.log(`Can't fetch data`, error);
+          reject(error);
+        });
+      });
+  }
+
+  getTotalPrice() {
+    const totalPrice = this.goods.reduce((sum, item) => sum + item.price, 0);
+
+    document.querySelector('.total-price').innerHTML = `Стоимость корзины: ${totalPrice}`;
+  }
+
+
   render() {
     let listHtml = '';
-    this.goods.forEach(good => {
+    this.filteredGoods.forEach(good => {
       const goodItem = new GoodsItem(good.product_name, good.price);
       listHtml += goodItem.render();
     });
@@ -49,12 +96,30 @@ class GoodsList {
   }
 }
 
+//class Basket {
+//  constructor(goodsitem_, count_) {
+//    this.goodsitem = goodsitem_;
+//    this.count = count_;
+//  }
+//}
+
 class Basket {
-  constructor(goodsitem_, count_) {
-    this.goodsitem = goodsitem_;
-    this.count = count_;
+  constructor() {
+    this.goods = [];
+  }
+
+  fetchData() {
+    request('getBasket.json')
+      .then((goods) => {
+        this.goods = goods.contents;
+        console.log(this.goods);
+      })
+      .catch((error) => {
+        console.log(`Can't fetch basket data`, error);
+      });
   }
 }
+
 
 class BasketItem {
   constructor() {
@@ -71,33 +136,18 @@ class BasketItem {
 }
 
 
-function makeGETRequest(url) {
-    return  new Promise((resolve, reject) => {
-        var xhr;
-
-        xhr = new XMLHttpRequest();
-
-        xhr.open('GET', url, false);
-        xhr.send();
-        this.goods = JSON.parse(xhr.responseText);
-        resolve()
-
-    })
-
-    // Здесь пишем асинхронный код
-    // В случае успешного выполнения вызываем колбэк resolve()
-    // В случае ошибки вызываем reject()
-    //});
-}
 
 
+const basket = new Basket();
+basket.fetchData();
 
-//const list = new GoodsList();
-//list.fetchGoods();
-//list.render();
+const list = new GoodsList(basket);
+//list.fetchGoods(() => {
+//  list.render();
+//});
 
-const list = new GoodsList();
-list.fetchGoods(() => {
-  list.render();
-});
-
+list.fetchData()
+  .then(() => {
+    list.render();
+    list.getTotalPrice();
+  });

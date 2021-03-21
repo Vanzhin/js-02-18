@@ -30,7 +30,7 @@ button{
     margin-top: 1px;
 }
 
-.product-button, .cart-button{
+.product-button, .cart-button, .search-button{
     transition: all 0.2s;
     width: 75px;
     cursor: pointer;
@@ -60,6 +60,7 @@ button{
     text-align: center;
     padding: 0 0 20px 0;
 }
+
 .goods-item p, .goods-item h3{
     margin: 10px;
 }
@@ -67,20 +68,28 @@ button{
 .goods-item:hover {
     outline: 2px solid rgb(67, 28, 206);
 }
+
 .goods-item:hover .product-button{
     opacity: 1;
+}
+.goods-list-no{
+    width: 90px;
+    margin: 30px auto 0 auto;
+    background-color: rgb(207, 28, 28);
+    text-align: center;
 }
 
 .wrap {
     max-width: 1140px;
     margin: 0 auto;
 }
+
 .wrap_header{
-    
     display: flex;
     justify-content: flex-end;
     background-color: rgb(194, 188, 188);
 }
+
 .wrap_catalog{
     margin-top: 30px;
 }
@@ -94,9 +103,16 @@ button{
 .basket-item{
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     padding: 10px 0 10px 0;
     
+}
+.basket-totall {
+    margin: 20px;
+}
+.basket-quantity{
+    height: 20px;
+    margin: auto 20px auto 20px;
 }
 
 .basket-item p, .basket-item h3{
@@ -123,6 +139,17 @@ button{
     background-color: cornflowerblue;
     cursor: pointer;
 }
-.search{
+.search-blok{
     margin: 0 auto 0 auto;
+    width: 160px;
+    display: flex;
+}
+
+
+.search-button {
+    margin-left: 20px;
+    padding: 0 10px 0 10px;
+}
+.search-button:hover {
+    background-color: #84b6df;
 }
