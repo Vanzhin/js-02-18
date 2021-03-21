@@ -7,7 +7,19 @@ const request = (path = '', method = 'GET', body) => {
 		} else if (window.ActiveXObject) {
 			xhr = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		isFetchDataObtained
+
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					console.log(xhr.responseText);
+					console.log(JSON.parse(xhr.responseText))
+					resolve(JSON.parse(xhr.responseText));
+				} else {
+					reject(xhr.responseText);
+				}
+			}
+		}
+
 		xhr.open(method, `${API_ROOT}/${path}`);
 
 		xhr.send(body);
