@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>vue</title>
-	<script src="test-vue.js" defer></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>vue</title>
+     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+     <script src="test-vue.js" defer></script>
+ </head>
+ <body>
+     <div id="app">
+         <div>
+			 <v-header></v-header>
 
-
-
-</head>
-<body>
-	<div id="app">
-<h2 v-if="name.length!=0">hello {{nameToUpperCase}}</h2>
-<input type="text" v-model="name">
-<ul>
-	<li v-for='key in names' v-on:click='clickHandler'>{{key}}</li>
-</ul>
-	</div>
-</body>
-</html>
+         </div>
+     </div>
+ </body>
+ </html>

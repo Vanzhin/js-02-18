@@ -75,6 +75,12 @@ main {
   display: flex;
   flex-direction: column;
 }
+main .error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 main .goods {
   display: flex;
   flex-wrap: wrap;
