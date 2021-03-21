@@ -35,7 +35,9 @@
     </error>
     <goods-list 
         v-bind:filter-goods='filterGoods' 
-        v-on:add-item='addItem'>
+        v-on:add-item='addItem'
+        v-bind:is-fetch-data-obtained='isFetchDataObtained'>
+        
     </goods-list>
     <basket 
     v-if="isBasketVisible"
