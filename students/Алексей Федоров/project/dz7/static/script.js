@@ -233,7 +233,7 @@ new Vue({
                     }
                 })
                     .then((response) => {
-                        console.log(response.status);
+                        console.log('' + response.status);
                         if (response.status !== 0) {
                             const itemIndex = this.basketGoods.findIndex((goodsItem) => goodsItem.id === item.id);
                             if (itemIndex > -1) {
@@ -276,8 +276,6 @@ new Vue({
             },
 
             inputQuantityClik(q){
-                console.log(q);
-                
                 if (q.e > 0) {
                     fetch(`${API_ROOT}/basket-quantity`, {
                         method: 'POST',
