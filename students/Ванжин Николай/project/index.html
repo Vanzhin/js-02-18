@@ -17,44 +17,39 @@
     <div id="app">
        <header>
         <div class="logo">eShop</div>
-        <div class="search-wrap">
-            <input type="text" placeholder="поиск по каталогу" class="search" v-on:input="e=>searchValue=e.target.value">
-            <button class="search-btn" v-on:click="filteredGoods"><span>найти</span></button>
-        </div>
         
-        <div class="cart-button" v-on:click="fetchBasket()"><button class="cart-btn">Корзина</button>
+        <search   
+        v-on:search="valueFromChild" 
+        @search='filteredGoods'>
+    </search>       
+        <div class="cart-button" ><button v-on:click="fetchBasket(changeVisibility)" class="cart-btn">Корзина</button>
             <div class="cart-qiantity" v-if="basketGoods.length>0">
                 <span>{{totalQuantity}}</span></div></div>
     </header>
     <main>
-        <div class="goods">
-            <div class="goods-no" v-if="filterGoods.length==0"><h2>Нет данных</h2>
-            <img src="https://autostol63.ru/image/catalog/podbor-tovara1.jpg" style="width: 100px;" alt="no data"></div>
-            <div class="item" v-for="item in filterGoods" >
-                <img src="https://santehprom-r.ru/image/catalog/photo/armatura/0/prom-r-ru-konv6.png" :alt="item.product_name">
-                    <h2>{{item.product_name}}</h2>
-                    <p>{{item.price}}</p>
-                    <button name="add-to-basket" class="buy" v-on:click.prevent="addItem(item)">купить</button>
-                </div>
-        </div>
-        <div class="basket" v-if="basketGoods.length>0">
-            <h2>В корзине:</h2>
-            <div class="basket-item-wrap">
-                <div class="basket-item" v-for="item in basketGoods" v-if="item.quantity>0">
-                    		<h2>{{item.product_name}}</h2>
-                    		<p>{{item.price}} RUB</p>
-                             <p>количество: {{item.quantity}}</p>
-                             <button class="add-btn" v-on:click="addItem(item)">+</button>
-                             <button class="reduce-btn" v-on:click="reduceItem(item.id_product)">-</button>
-                    		<button class="delete-btn" v-on:click="removeItem(item.id_product)">удалить</button>
-                         </div>
-                         
-            </div>
-            <div class="basket-total-price">
-                <p>Товаров на сумму: {{total}} RUB</p>
+        <error 
+        v-if="!isFetchDataObtained"
+        v-bind:error-data='errorServer' 
 
-            </div>
-        </div>
+        >
+    </error>
+    <goods-list 
+        v-bind:filter-goods='filterGoods' 
+        v-on:add-item='addItem'
+        v-bind:is-fetch-data-obtained='isFetchDataObtained'>
+        
+    </goods-list>
+    <basket 
+    v-if="isBasketVisible"
+    v-bind:basket-goods='basketGoods' 
+    v-on:add-item='addItem'
+    v-on:reduce-item='reduceItem'
+    v-on:delete-item='removeItem'
+    v-bind:total-summ='total' 
+
+    >
+</basket>
+       
         <div  class="contact-info">
            <label for="your-name">enter your name</label> <input type="text" id="your-name">
            <label for="your-tel">enter your tel</label> <input type="text" id="your-tel">
