@@ -1,3 +1,11 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f9fafc;
+}
+
 header {
     background-color: #316099;
     padding: 25px;
@@ -12,7 +20,7 @@ header {
     margin: auto 0;
 }
 
-.card-button {
+.basket-button {
     border: 0px;
     font-size: 16px;
     line-height: 26px;
@@ -24,6 +32,15 @@ header {
     background: #5A98D0;
     padding: 10px 40px;
     align-self: flex-end;
+}
+
+.basket-button:focus {
+    outline: none;
+    background: #0c50a0;
+}
+
+.basket-button:hover {
+    background: #3b7eb9;
 }
 
 .goods {
@@ -45,34 +62,30 @@ header {
     margin: 0px 30px;
 }
 
-.basket-blok {
-    background-color: #5A98D0;
+.goods--empty {
+    font-weight: bold;
+    text-align: center;
+    flex-basis: 100%;
+    margin-top: 40px;
 }
 
-.basket-item {
-    display: flex;
-    padding: 0 15px;
-    box-sizing: border-box;
+.basket {
+    position: absolute;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0,0,0,.2);
+    padding: 20px;
+    width: 300px;
+    top: 80px;
+    right: 20px;
 }
 
-.button-remove {
-    margin: 10px;
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-    font-weight: 900;
-    padding-top: -5px;
-    border: crimson;
-    background-color: crimson;
-    color: honeydew;
+.basket-total {
+    margin-top: 35px;
 }
-.button-remove p{
-    margin: 0;
-    margin-left: -1px;
-    margin-top: -4px;
-    padding: 0;
-}
-.button-remove:hover{
-    background-color: red;
-    cursor: pointer;
+
+.error {
+    color: red;
+    font-size: 24px;
+    text-align: center;
 }
