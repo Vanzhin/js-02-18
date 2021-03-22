@@ -87,42 +87,46 @@ class Basket {
     }
 
     addItem(item) {
-        // console.log(this.basket)
-        promisedRequest('getBasket.json')
-            .then((answerFromServer) => {
-                this.basket = JSON.parse(answerFromServer);
-                // console.log(this.basket.contents[0]);
-                // console.log(JSON.parse(answerFromServer));
-                this.basket.contents.forEach((element) => {
-                    let count = 0
-                    console.log(this.basket);
-                    if (element.id_product === item.id_product) {
-                        console.log(this.basket)
-                        this.basket.contents[count++].quantity += 1;
-                        // console.log(this.basket.contents)
-                        // console.log(this.basket[element])
-                        // count++
-                        // console.log(this.basket.contents[count++])
-                        return this.basket
-                    }
-
-                })
-
-
-                // })
-                // if (this.basket.id_product.includes(item.id_product)) {
-                //     this.basket.quantity += 1;
-                // }
-                // console.log(item.id_product in this.basket.id_product);
-                // console.log(this.basket.contents.forEach(element => console.log(element)))
-                // forEach(elem => { if (Number(item) === elem.id_product){console.log('uspekh')}})
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        console.log(dir)
+        // this.basket.add(item)
         // return this.basket
+            // if (element.id_product === item.id_product) {
+            //     element.quantity += item.quantity
+            //     this.basket = element
+            //     console.log(this.basket)
+            // }
+        }
 
-    }
+
+        // promisedRequest('getBasket.json')
+        //     .then((answerFromServer) => {
+        //         this.basket = JSON.parse(answerFromServer);
+        //         this.basket.contents.forEach((element) => {
+        //             let count = 0
+        //             console.log(this.basket);
+        //             if (element.id_product === item.id_product) {
+        //                 console.log(this.basket)
+        //                 this.basket.contents[count++].quantity += 1;
+        //                 return this.basket
+        //             }
+        //
+        //         })
+        //
+        //
+        //         // })
+        //         // if (this.basket.id_product.includes(item.id_product)) {
+        //         //     this.basket.quantity += 1;
+        //         // }
+        //         // console.log(item.id_product in this.basket.id_product);
+        //         // console.log(this.basket.contents.forEach(element => console.log(element)))
+        //         // forEach(elem => { if (Number(item) === elem.id_product){console.log('uspekh')}})
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     })
+        // // return this.basket
+
+    // }
 
     removeItem() {
 

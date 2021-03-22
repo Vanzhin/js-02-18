@@ -31,10 +31,10 @@ received.addEventListener('click', (event) => {
     let correctMail = /^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2})$/;
     let correctPhone = /^\+7\(\d{3}\)\d{3}\-\d{4}$/;
     
-    if (arr.name.length == 0) {
+    if (arr.name.length === 0) {
         document.testForm.name.style = 'border: 2px solid red; color: red'
         document.testForm.name.value = 'fill that field'
-    } else if (arr.textArea.length == 0) {
+    } else if (arr.textArea.length === 0) {
         document.testForm.letter.style = 'border: 2px solid red; color: red'
         document.testForm.letter.value = 'fill that field'
     } else if (!(correctMail.test(arr.mail))){

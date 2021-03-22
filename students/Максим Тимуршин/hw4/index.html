@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>eShop</title>
+	<script>
+		'use strict';
+
+		let str = `RegExr was created by 'gskinner.com', and is proudly hosted by 'Media Temple'. Edit the 'Expression & Text' to see matche's. Roll over matche's or the 'expression for details'. 'PCRE & JavaScript' flavor's of 'RegEx' are supported. Validate your expression with Test's mode. The side bar include's a 'Cheatsheet', full Reference, and Help. You can also 'Save & Share' with the Community, and view pattern's you create or favorite in 'My Pattern's'. Explore result's with the 'Tools below'. 'Replace & List' output custom result's. Detail's list's capture groups. Explain describe's your expression in plain 'English'.`;
+
+		/*
+		1. Дан большой текст, в котором для оформления прямой речи используются одинарные кавычки. Придумать шаблон, который заменяет одинарные кавычки на двойные.
+		*/
+		let regExp1 = /'/g;
+		console.log( str.replace(regExp1, '"') );
+
+		/*
+		2. Улучшить шаблон так, чтобы в конструкциях типа aren't одинарная кавычка не заменялась на двойную.
+		*/
+		let regExp2 = /'\B|\B'/g;
+		console.log( str.replace(regExp2, '"') );
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
