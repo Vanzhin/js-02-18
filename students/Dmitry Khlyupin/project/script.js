@@ -21,14 +21,15 @@ Vue.component('cart-items',{
                 v-on:removeItem="$emit('remove', $event)"
                 >
                     
-            </cart-item>  
+            </cart-item>
+            <div v-if="cart.length>0" class="fullCartPrice">Полная стоимость товаров: {{full}} рублей </div>  
         </div>
     `
 })
 
 
 Vue.component('cart-item',{
-    props:['item'],
+    props:['item','full'],
     template: `
         <div class="cartItem">
             <img v-bind:src="pathToImage(item.id_product)" class="cartItemImg" alt="No image"></img>
