@@ -72,7 +72,7 @@ header {
 .basket {
     position: absolute;
     top: 100px;
-    right: 36px;
+    right: 29px;
     padding: 3%;
     background-color: #BFB1A0;
     text-align: center;
@@ -80,12 +80,14 @@ header {
     font-size: 14px;
     font-weight: 800;
     line-height: 23px;
-    color: #C0D4C9;
+    color: #4E5454;
 }
 .basket_item { 
-    background-color: #5A5A4D;
+    background-color: #ADC5B7;
     padding: 40px;
     margin-bottom: 10px;
+    border: #E3DFD4 2px solid;
+    min-width: 130px;
 }
 .delete_button {
     color: #4E5454;
@@ -126,4 +128,9 @@ header {
     color: #657163;
     transform: scale(1.1);
     transition: 0.4s;
+}
+.error {
+    color: brown;
+    font-size: 24px;
+    text-align: center;
 }
