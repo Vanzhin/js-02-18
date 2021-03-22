@@ -16,64 +16,39 @@
 
     <!-- <link rel="stylesheet" href="./fontawesome/css/all.css"> -->
 </head>
-
 <body>
     <div id="app">
         <header>
             <div class="logo"><a href="#">eShop</a> </div>
             <button v-if="filteredGoods.length < goods.length" class="clearFilterBtn" v-on:click="clearFilter">Очистить поиск</button>
-            <div class="searchContainer">
-                <input type="text" class="goods-search" v-model="searchLine"/>
-                <button class="search-button" type="button" v-on:click="filterGoods">Искать</button>
-            </div>
-            
+            <search  @start-search = "filterGoods" :sline="searchLine"></search>
             <div class="card-button" v-bind:class="{ cardButtonActive: cartVisibility }" v-on:click="cartVisibility = !cartVisibility">
                 <span>Корзина </span>
                 <i v-if="!cartVisibility" class="fas fa-angle-double-down"></i>
                 <i v-else class="fas fa-angle-double-up"></i>
             </div>
-            
 
         </header>
         <main>
             <div class="closeCartButton" v-if="cartVisibility" v-on:click="cartVisibility=!cartVisibility"><i class="fas fa-times"></i></div>
-            <div v-if="cartVisibility" class="cartSection">
-                <h3 class="cartHeader" v-if="cartGoods.length>0">Ваша корзина:</h3>
-                <h3 class="cartHeader" v-if="cartGoods.length===0">Ваша корзина пуста!</h3>
-                <div class="cartItem cartItemNaming" v-if="cartGoods.length>0">
-                    <div></div>
-                    <h3>Наименование</h3>   
-                    <p>Цена</p>
-                    <p>Количество</p>
-                </div>
-                <div class="cartItem" v-for="item in cartGoods">
-                    <img v-bind:src="pathToImage(item.id_product)" class="cartItemImg" alt="No image"></img>
-                    <h3>{{item.product_name}}</h3>
-                    <p>{{item.price}}</p>
-                    <p>{{item.quantity}}</p>
-                    <div class="buttonBlock">
-                        <div class="removeButton" v-on:click="removeItemFromCart(item.id_product)"><i class="fas  fa-minus"></i></div>
-                        <div class="addButton" v-on:click="addItemToCart(item)"><i class="fas  fa-plus"></i></div>
-                    </div>
-                </div>
-                <div v-if="cartGoods.length>0" class="fullCartPrice">Полная стоимость товаров: {{fullPrice}} рублей </div>
-            </div>
-            <div class="goods-list" v-if="filteredGoods.length > 0">
-                <div class="goods-item" v-for="item in filteredGoods" >
-                    <img v-bind:src="pathToImage(item.id_product)" class="itemImg" alt="No image"></img>
-                    <h3> {{item.product_name}} </h3>
-                    <p> {{item.price}} </p>
-                    <div class="addToCart" v-on:click="addItemToCart(item)"> В корзину </div>
-                </div>
-                
-            </div>
-            <div class="emptyBlock" v-else>
-                <p>Нет таких товаров! </p>
-                <button class="clearFilterBtn" v-on:click="clearFilter">Очистить поиск</button>
-            </div>
-            
+            <cart-items 
+                v-if='cartVisibility'
+                :cart="cartGoods"
+                :full="fullPrice"
+                @remove="removeItem"
+                @add="addItem"                
+                >
+            </cart-items>
+            <goods-list 
+                v-if="filteredGoods.length > 0"
+                v-if="connected"
+                :fgoods="filteredGoods"
+                @add="addItem"
+                >
+            </goods-list>
+            <goods-error v-else-if="!connected"></goods-error>
+            <goods-empty v-else></goods-empty>
         </main>
     </div>
 </body>
-
 </html>
