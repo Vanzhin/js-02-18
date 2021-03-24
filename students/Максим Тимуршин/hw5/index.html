@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>eShop</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+	<script src="script.js" defer></script>
+</head>
+<body>
+
+	<div id="app">
+		<header class="header">
+			<div class="container header-wrap">
+	
+				<span class="logo">eShop</span>
+	
+				<input class="search" type="text" v-model="searchValue">
+				
+				<button class="basket-btn" @click="showBasket">Корзина</button>
+				<div class="basket-wrap" v-if="isVisibleCart">
+					<div class="basket-list" v-if="basketGoods.length > 0">
+						<div class="basket-item" v-for="item of basketGoods">
+							<h2>{{ item.product_name }}</h2>
+							<p>Количество: {{ item.quantity }}</p>
+							<p>Цена за единицу {{ item.price }}</p>
+							<p v-if="item.price * item.quantity > item.price">Полная цена {{ item.price * item.quantity }}</p>
+							<button @click="item.quantity++">+</button>
+							<button @click="item.quantity--">-</button>
+							<button @click="removeItem(item.id_product)">Удалить из корзины</button>
+						</div>
+						<h3>Стоимость корзины: {{ totalBasket }}</h3>
+					</div>
+					<div class="basket-list" v-else>Нет данных</div>
+				</div>
+	
+			</div>
+		</header>
+	
+		<main class="main">
+			<div class="container">
+				
+				<section class="goods">
+					<div class="item" v-for="item in filteredGoods">
+						<h2>{{ item.product_name }}</h2>
+						<p>{{ item.price }}</p>
+						<button class="add-btn" v-on:click.prevent="addItem(item)">Добавить в корзину</button>
+					</div>
+				</section>
+				<p class="total-price"></p>
+	
+			</div>
+		</main>
+	</div>
+
+</body>
+</html>

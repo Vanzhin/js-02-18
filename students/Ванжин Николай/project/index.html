@@ -7,15 +7,59 @@
      <link rel="stylesheet" href="style.css">
     <title>eShop</title>
     <script src="script.js" defer></script>
+    <script src="regexp.js" defer></script>
+    <script src="hamburger.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
+
 </head>
 <body>
-    <header>
+    <div id="app">
+       <header>
         <div class="logo">eShop</div>
-        <button class="card-button">Корзина</button>
+        
+        <search   
+        v-on:search="valueFromChild" 
+        @search='filteredGoods'>
+    </search>       
+        <div class="cart-button" ><button v-on:click="fetchBasket(changeVisibility)" class="cart-btn">Корзина</button>
+            <div class="cart-qiantity" v-if="basketGoods.length>0">
+                <span>{{totalQuantity}}</span></div></div>
     </header>
     <main>
-        <div class="goods"></div>
-    </main>
+        <error 
+        v-if="!isFetchDataObtained"
+        v-bind:error-data='errorServer' 
+
+        >
+    </error>
+    <goods-list 
+        v-bind:filter-goods='filterGoods' 
+        v-on:add-item='addItem'
+        v-bind:is-fetch-data-obtained='isFetchDataObtained'>
+        
+    </goods-list>
+    <basket 
+    v-if="isBasketVisible"
+    v-bind:basket-goods='basketGoods' 
+    v-on:add-item='addItem'
+    v-on:reduce-item='reduceItem'
+    v-on:delete-item='removeItem'
+    v-bind:total-summ='total' 
+
+    >
+</basket>
+       
+        <div  class="contact-info">
+           <label for="your-name">enter your name</label> <input type="text" id="your-name">
+           <label for="your-tel">enter your tel</label> <input type="text" id="your-tel">
+           <label for="your-email">enter your email</label> <input type="text" id="your-email">
+           <label for="your-comments">enter your comments</label><input type="text" id="your-comments">
+            <button>отправить</button>
+        </div>
+    </main>  
+    </div>
+   
 </body>
 </html>
 
