@@ -18,32 +18,3 @@ function startGen(star) {
     }
     return ret;
 }
-function httpGet(url) {
-
-    return new Promise(function(resolve, reject) {
-  
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', url, true);
-      xhr.responseType = 'json';
-      xhr.onload = function() {
-        if (this.status == 200) {
-          resolve(this.response);
-        } else {
-          var error = new Error(this.statusText);
-          error.code = this.status;
-          console.log(`url error: ${url}`);
-          console.log(error);
-          reject(error);
-        }
-      };
-  
-      xhr.onerror = function() {
-        console.log(`url error: ${url}`);
-        console.log("Network Error");
-        reject(new Error("Network Error"));
-      };
-  
-      xhr.send();
-    });
-  
-  }

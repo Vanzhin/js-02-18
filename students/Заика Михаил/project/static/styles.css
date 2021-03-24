@@ -1,0 +1,91 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f9fafc;
+}
+
+header {
+    background-color: #316099;
+    padding: 25px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    color: white;
+    font-size: 24px;
+    margin: auto 0;
+}
+
+.basket-button {
+    border: 0px;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+    text-decoration: none;
+    display: inline-block;
+    background: #5A98D0;
+    padding: 10px 40px;
+    align-self: flex-end;
+}
+
+.basket-button:focus {
+    outline: none;
+    background: #0c50a0;
+}
+
+.basket-button:hover {
+    background: #3b7eb9;
+}
+
+.goods {
+    margin: 25px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.item {
+    background: #FFFFFF;
+    box-shadow: 5px 20px 50px rgba(16, 112, 177, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+
+    box-sizing: border-box;
+    width: 200px;
+    height: 300px;
+    margin: 0px 30px;
+}
+
+.goods--empty {
+    font-weight: bold;
+    text-align: center;
+    flex-basis: 100%;
+    margin-top: 40px;
+}
+
+.basket {
+    position: absolute;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0,0,0,.2);
+    padding: 20px;
+    width: 300px;
+    top: 80px;
+    right: 20px;
+}
+
+.basket-total {
+    margin-top: 35px;
+}
+
+.error {
+    color: red;
+    font-size: 24px;
+    text-align: center;
+}

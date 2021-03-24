@@ -1,0 +1,79 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: #f9fafc;
+}
+
+.wrap {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+.header {
+	width: 100%;
+	background-color: rgb(26, 47, 102);
+	border-bottom: 1px solid gray;
+}
+
+.header-wrap {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	min-height: 50px;
+}
+
+.logo {
+	color: #fff;
+}
+
+.basket-btn {
+	background-color: #f9fafc;
+	border: 2px solid rgb(136, 130, 165);
+	padding: 5px 10px;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: .2s;
+}
+
+.basket-btn:hover {
+	background-color: rgb(67, 74, 116);
+}
+
+.basket-btn:active {
+	background-color: rgb(123, 137, 184);
+	color: rgb(26, 47, 102);
+}
+
+.basket-btn:focus {
+	outline: none;
+}
+
+.goods {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.item {
+	text-align: center;
+	min-width: 200px;
+	min-height: 150px;
+	background-color: rgb(186, 181, 212);
+	border: 1px solid rgb(31, 31, 37);
+	border-radius: 15px;
+	padding: 20px 30px;
+	margin: 20px;
+}
+
+.total-price {
+	font-size: 30px;
+	font-weight: 700;
+	text-align: center;
+}

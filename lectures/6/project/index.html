@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eShop</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+    <script src="script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap&subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div id="app">
+        <header>
+            <span class="logo">eShop</span>
+            <input type="text" class="search" v-model="searchValue" />
+            <button class="cart-button">Корзина</button>
+        </header>
+        <main>
+            <section class="goods">
+                <div class="item" v-for="item in filteredGoods">
+                    <h2>{{ item.product_name }}</h2>
+                    <p>{{ item.price }}</p>
+                    <button name="add-to-basket" v-on:click.prevent="addItem(item)">Add to basket</button>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

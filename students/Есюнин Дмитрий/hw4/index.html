@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <title>hw4</title>
+    <style>
+        body {margin: 20px auto;  width: 600px; text-align: justify; min-width: 600px;}
+        div {margin-top: 10px;}
+        .alert, .alert input, .alert textarea {outline: none; -moz-appearance: none; border: 1px solid crimson;}
+        .alert small {color:  crimson;}
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+/*
+
+    Домашняя работа №4, Выполнил Дмитрий Есюнин
+
+
+    1.  Дан большой текст, в котором для оформления прямой речи используются одинарные кавычки. 
+        Придумать шаблон, который заменяет одинарные кавычки на двойные.
+    2.  Улучшить шаблон так, чтобы в конструкциях типа aren't одинарная кавычка не заменялась
+        на двойную.
+    3.  *Создать форму обратной связи с полями: Имя, Телефон, E-mail, текст, кнопка Отправить.
+        При нажатии на кнопку Отправить произвести валидацию полей следующим образом:
+        a.  Имя содержит только буквы.
+        b.  Телефон имеет вид +7(000)000-0000.
+        c.  E-mail имеет вид mymail@mail.ru, или my.mail@mail.ru, или my-mail@mail.ru.
+        d.  Текст произвольный.
+        e.  Если одно из полей не прошло валидацию, 
+            необходимо выделить это поле красной рамкой и сообщить пользователю об ошибке.
+
+
+*/
+
+    task1();
+    task2();
+    task3();
+
+
+    function task1() {
+        let text =`
+        'Дан большой текст!', - произнес преподаватель. -  'Для оформления прямой речи которого используются одинарные кавычки'.
+        Сообщил он на ходу, отчеканив шагами каждое слово.<br>
+        'Задача!' - лектор остановился и посмотрел на аудиторию. - 'Придумать шаблон, который заменяет одинарные кавычки на двойные'.
+        `;
+
+        let newtext = text.replace(/'/g, "\"");
+        let el = createEl("task1");
+        el.innerHTML = newtext;
+    }
+
+
+
+    function task2() {
+        let text =  `
+        'Далее!' - преподаватель посмотрел в свои записи и зачитал. -
+        'Улучшить шаблон так, чтобы в конструкциях типа 'aren't', 'I'm' и 'MacDonald's' одинарная кавычка не заменялась на двойную.'
+        `;
+
+        let newtext = text.replace(/(\W|^)(')/g, "$1\"").replace(/(')(\W|$)/g, "\"$2");
+        let el = createEl("task2");
+        el.innerHTML = newtext;
+
+    }
+
+
+
+    function task3() {
+        let el = createEl("task3");
+        el.innerHTML = `
+        <hr>
+    	<form id="form"">
+            <div class="username"><label>Имя</label><input class="form-control" type="text" name="username" value=""><small></small></div>
+            <div class="telephone"><label>Телефон</label><input class="form-control" type="tel" name="telephone"  value=""><small></small></div>
+            <div class="email"><label>E-mail</label><input class="form-control" type="text" name="email" value=""><small></small></div>
+            <div class="text"><label>Текст</label><textarea class="form-control" name="text" rows="3"></textarea><small></small></div>
+    	    <div class="btn btn-primary" onclick="checkForm()">Отправить</div>
+    	</form>`;
+    }
+
+
+    function checkForm() {
+      
+        let form = document.getElementById("form");
+        if (!form) return;
+        let formData = new FormData(form);
+        let formValid = true;
+        let result = "";
+		
+		let data = {
+			username: {regex: /^[а-яА-Яa-zA-Z]+$/, message: "Принимаются только буквы" },
+			telephone: {regex: /^\+7\(\d{3}\)\d{3}-\d{4}$/, message: "Укажите телефон строго по шаблону +7(000)000-0000" },
+			email: {regex: /^my(\.|-|)mail@mail\.ru$/, message: "E-mail должен иметь вид mymail@mail.ru или my.mail@mail.ru или my-mail@mail.ru" },
+			default: {regex: /./, message: "Укажите текст" }
+		};
+
+        for (let [name, value] of formData) {
+			
+			let el = document.querySelector("." + name);
+			let regex = (data[name]) ? data[name].regex : data.default.regex;
+			let message = (data[name]) ? data[name].message : data.default.message;							            
+			
+            if (regex.test(value)) {
+                el.classList.remove("alert");
+                el.lastChild.innerHTML = "";
+                result += name + " : " + value + "\n";
+            } else {
+                formValid = false;
+                el.classList.add("alert");
+                el.lastChild.innerHTML = message;                    
+            }
+        }
+        
+        if (formValid) setTimeout((result) => alert(result), 250, result);
+    }
+
+
+    function createEl(name, attribute = "id", type = "div") {
+        let el = document.createElement(type);
+        el.setAttribute(attribute, name);
+        document.body.appendChild(el);
+        return el;
+    }
+
+
+</script>
+</body>
+</html>

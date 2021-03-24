@@ -1,4 +1,4 @@
 {
     "status": 200,
-    "displayed": [18, 19, 20, 21]
+    "displayed": [{"id":18,"type":0}, {"id":19,"type":0}, {"id":20,"type":0}, {"id":21,"type":0}]
 }

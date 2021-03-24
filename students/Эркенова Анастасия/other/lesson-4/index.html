@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <header>
+    </header>
+    <main>
+        <form class="form" action="#">
+            <p class="paraform"> Full name </p>
+            <input class="ipt_name" type="text" required pattern="^[А-ЯЁ][а-яё]+$" placeholder=" Рексар "> <br>
+            <p class="paraform"> Your Number </p>
+            <input class="ipt_number" required pattern="(8|\+7)[-\(]\d{3}[-\)]\d{3}-\d{4}"
+                placeholder=" +7(000)000-0000 ">
+            <br>
+            <p class="paraform"> Email</p>
+            <input class="ipt_email" required pattern="[-.\w]+@([\w-]+\.)+[\w-]+"
+                placeholder="mymail@mail.ru, или my.mail@mail.ru, или my-mail@mail.ru. "> <br>
+            <br>
+            <p class="paraform"> Message </p>
+            <textarea class="ipt_textarea" placeholder=" Your Message "></textarea> <br>
+            <button class="btn" type="submit">SUBMIT</button><br>
+        </form>
+    </main>
+</body>
+
+</html>

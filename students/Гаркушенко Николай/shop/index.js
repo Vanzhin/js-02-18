@@ -1,26 +1,143 @@
-const goods = [
-  { id: 1, title: "Монитор", price: 50000, imageList: [] },
-  { id: 2, title: "Клавиатура", price: 1500, imageList: [] },
-  { id: 3, title: "Мышь", price: 700, imageList: [] },
-  { id: 4, title: "Ноутбук", price: 35000, imageList: [] },
-  { id: 5, title: "Монитор", price: 50000, imageList: [] },
-  { id: 6, title: "Клавиатура", price: 1500, imageList: [] },
-  { id: 7, title: "Мышь", price: 700, imageList: [] },
-  { id: 8, title: "Ноутбук", price: 35000, imageList: [] },
-  { id: 9, title: "Монитор", price: 50000, imageList: [] },
-  { id: 10, title: "Клавиатура", price: 1500, imageList: [] },
-  { id: 11, title: "Мышь", price: 700, imageList: [] },
-  { id: 12, title: "Ноутбук", price: 35000, imageList: [] },
-  { id: 13, title: "Монитор", price: 50000, imageList: [] },
-  { id: 14, title: "Клавиатура", price: 1500, imageList: [] },
-  { id: 15, title: "Мышь", price: 700, imageList: [] },
-  { id: 16, title: "Ноутбук", price: 35000, imageList: [] },
-];
+const API_ROOT =
+  "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses";
+const RawGitHubRequest = (path = "", method = "GET", body) => {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
 
-const cartGoods = [
-  { id: 15, title: "Мышь", price: 700, imageList: [] },
-  { id: 16, title: "Ноутбук", price: 35000, imageList: [] },
-];
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        xhr.status === 200
+          ? resolve(JSON.parse(xhr.responseText))
+          : reject(xhr.responseText);
+      }
+    };
+
+    xhr.open(method, `${API_ROOT}/${path}`);
+    xhr.send(body);
+  });
+};
+
+class Cart {
+  constructor() {
+    this.goods = [];
+  }
+
+  getQuantityGood() {
+    return this.goods.length;
+  }
+
+  findGood(good) {
+    const foundedGood = this.goods.find((currentGood) => {
+      return currentGood.getId() === good.getId();
+    });
+    return foundedGood;
+  }
+
+  isExistsGood(good) {
+    return Boolean(this.findGood(good));
+  }
+
+  addGood(good) {
+    const increaseGoodQuantity = (currentGood) =>
+      currentGood.getId() === good.getId()
+        ? currentGood.increaseQuantity(good.getQuantity())
+        : currentGood;
+
+    this.goods = this.isExistsGood(good)
+      ? this.goods.map(increaseGoodQuantity)
+      : [...this.goods, good];
+  }
+
+  removeGood(good) {
+    if (!this.isExistsGood(good)) {
+      return;
+    }
+
+    const decreaseGoodQuantity = (goods, currentGood) => {
+      if (Number(currentGood.getId()) !== Number(good.getId())) {
+        return [...goods, currentGood];
+      }
+
+      if (good.getQuantity() >= currentGood.getQuantity()) {
+        return [...goods];
+      }
+
+      currentGood.decreaseQuantity(good.getQuantity());
+      return [...goods, currentGood];
+    };
+
+    this.goods = this.goods.reduce(decreaseGoodQuantity, []);
+  }
+
+  clear() {
+    this.goods = [];
+  }
+
+  //Добавьте для GoodsList метод, определяющий суммарную стоимость всех товаров.
+  getSumm = function () {
+    return this.goods.reduce((summ, good) => summ + good.getSumm(), 0);
+  };
+}
+
+class Product {
+  constructor(id, name, price, measureUnit, quantity = 1, imageList = []) {
+    this.id = id;
+    this.name = name;
+    this.price = price;
+    this.measureUnit = measureUnit;
+    this.quantity = quantity;
+    this.imageList = imageList;
+  }
+
+  getId() {
+    return this.id;
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  getMainImage() {
+    const imageName =
+      this.imageList.length > 0 ? this.imageList[0] : "default.png";
+    return imageName;
+  }
+
+  getPrice() {
+    this.price;
+  }
+
+  getMeasureUnit() {
+    this.measureUnit;
+  }
+
+  getQuantity() {
+    this.quantity;
+  }
+
+  getImageList() {
+    this.imageList;
+  }
+
+  increaseQuantity(quantity) {
+    this.quantity += quantity;
+    return this;
+  }
+
+  decreaseQuantity(quantity) {
+    this.quantity -= quantity;
+
+    if (this.quantity < 1) {
+      this.quantity = 1;
+    }
+
+    return this;
+  }
+
+  getSum() {
+    return this.price * this.quantity;
+  }
+}
 
 //show case
 const getMainProductImage = (goodImages) => {
@@ -31,10 +148,12 @@ const getMainProductImage = (goodImages) => {
 const renderShowCase = (htmlIdElement, goodList = []) => {
   const createProductListHtmlElement = (good) =>
     `<div class="showcase__product">
-    <img src="assets/img/${getMainProductImage(good.imageList)}">
+    <img src="assets/img/${getMainProductImage(
+      Boolean(good.imageList) ? good.imageList : []
+    )}">
     <h2>${good.title}</h2>
     <p>${good.price}</p>
-    <button id="addToCart">В корзину</button>
+    <button id="addToCart">В корзину</button> 
   </div>`;
 
   const prdouctCartList = goodList
@@ -49,7 +168,9 @@ const renderShowCase = (htmlIdElement, goodList = []) => {
 const renderPanelCartHtmlElement = (htmlIdElement, cartGoods) => {
   const createPanelCartProducsListHtmlElement = (good) =>
     `<div class="panelcart__product" >
-      <img src="assets/img/${getMainProductImage(good.imageList)}">
+      <img src="assets/img/${getMainProductImage(
+        Boolean(good.imageList) ? good.imageList : []
+      )}">
       <div class="panelcart__product-details">
         <div class="panelcart__product-title">${good.title}</div>
         <div class="panelcart__product-price">${good.price}</div>
@@ -68,13 +189,26 @@ const renderPanelCartHtmlElement = (htmlIdElement, cartGoods) => {
 
 // app
 const renderAppElement = () => {
+  //Переделайте GoodsList так, чтобы fetchGoods() возвращал промис, а render() вызывался в обработчике этого промиса.
+
   const appElement = document.getElementById("app");
   appElement.innerHTML = `<div id="appContainer" class="app__container">
                             <div id="showCase" class="showcase"></div>
                             <div id="panelCart" class="panelcart hidden"></div>
                           </div>`;
-  renderShowCase("showCase", goods);
-  renderPanelCartHtmlElement("panelCart", cartGoods);
+  const goodsRequest = RawGitHubRequest("catalogData.json");
+  goodsRequest
+    .then((goods) => {
+      renderShowCase("showCase", goods);
+    })
+    .catch("FATAL ERROR");
+
+  const cartDataRequest = RawGitHubRequest("catalogData.json");
+  cartDataRequest
+    .then((cartGoods) => {
+      renderPanelCartHtmlElement("panelCart", cartGoods);
+    })
+    .catch("FATAL CART ERROR");
 };
 
 renderAppElement();

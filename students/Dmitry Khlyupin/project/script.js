@@ -1,175 +1,99 @@
-// function makeGetRequest(url, callback) {
-//     let xhr;
+const API_URL = 'https://dmhlupin.github.io/';
 
-//     if (window.XMLHttpRequest) {
-//         xhr = new XMLHttpRequest();
-//     } else if (window.ActiveXObject) {
-//         xhr = new ActiveXObject("Microsoft.XMLHTTP");
-//     }
-
-//     xhr.onreadystatechange = function () {
-//         if (xhr.readyState === 4) {
-//             callback(xhr.responseText);
-//         }
-//     }
-
-//     xhr.open('GET', url, true);
-//     xhr.send();
-// }
-
-
-function makeGetRequest(url) {
-    return new Promise ((resolve, reject) => {
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', url, true);
-        xhr.send();
-
-        xhr.onreadystatechange = function () {
-            if(xhr.readyState === 4) {
-                resolve(xhr.responseText);
-            } 
-
-        }
+const app = new Vue({
+    el: '#app',
+    data: {
+        goods: [],
+        cartGoods: [],
+        filteredGoods: [],
+        cartVisibility: false,
+        searchLine: ''
+    },
+    created() {
+        this.fetchCart();
+        this.fetchGoods();
+    },
+    computed: {
+        fullPrice() {
+            return this.cartGoods.reduce((acc, curr) => {
+                return acc + curr.price*curr.quantity
+            }, 0);
+        },
         
-    });
-}
+    },
+    methods: {
+        async fetchGoods() {
+            try {
+                console.log(`Загрузка товаров из ${API_URL}/response.json...`)
+                const request = await fetch(`${API_URL}/response.json`);
+                const goods = await request.json();
+                this.goods = goods;
+                this.filteredGoods = goods;
+                console.log(`Загрузка товаров завершена!`);
+                
+            } catch (err) {
+                console.log(`Невозможно загрузить товары!`, err);
+            }
+        },
+        async fetchCart() {
+            try {
+                console.log(`Загрузка корзины...`);
+                const response = await fetch(`${API_URL}/getBasket.json`);
+                const goods = await response.json();
+                this.cartGoods = goods.contents;
+                console.log(`загрузка корзины завершена!`);  
+                console.log(this.cartGoods);  
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        
+    async addItemToCart(item) { // - метод для добавления элемента в корзину
+        try {
+            const answer = await fetch(`${API_URL}/addToBasket.json`);
+            const response = await answer.json();
+            if (response.result !== 0) {
+                const itemIndex = this.cartGoods.findIndex((goodsItem) => goodsItem.id_product === item.id_product);
+                if (itemIndex > -1) {
+                    this.cartGoods[itemIndex].quantity += 1;
+                } else {
+                    this.cartGoods.push({
+                        ...item,
+                        quantity: 1
+                    });
+                }
+            } else {
+                console.log(`Не получается загрузить корзину на сервер...`)
+            }
 
-const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    removeItemFromCart(id) { // - метод удаления элемента из корзины
+        const itemIndex = this.cartGoods.findIndex((goodsItem) => goodsItem.id_product === id);
+        if (itemIndex > -1) {
+            if (this.cartGoods[itemIndex].quantity > 1) {
+                this.cartGoods[itemIndex].quantity -= 1;
+            } else {
+                this.cartGoods = this.cartGoods.filter((item) => item.id_product !== +id);
+            }
+        } else {
+            console.log(`Нет такого элемента в корзине`)
+        }
 
+    },
+        pathToImage(id) {
+            return `./img/${id}.jpg`;
+        },
+        filterGoods() {
+            const regexp = new RegExp(this.searchLine, 'i');
+            this.filteredGoods = this.goods.filter(good => regexp.test(good.product_name));
+        },
+        clearFilter() {
+            this.searchLine='';
+            this.filterGoods();
+        }
 
-
-
-
-
-class GoodsItem {
-    constructor (product_name, price) {
-        this.product_name = product_name;
-        this.price = price;
     }
-    render() {
-        return `
-        <div class="goods-item">
-            <h3>
-                ${this.product_name}
-            </h3>
-            <p>
-                ${this.price}
-            </p>
-        </div>
-        `;
-    }
-}
-
-class GoodsList {
-    constructor(){
-        this.goods = [];
-    }
-
-    fetchGoods(callback) {
-        makeGetRequest(`${API_URL}/catalogData.json`).then((goods) => {
-            this.goods = JSON.parse(goods);
-            console.log('Загрузка завершена...')
-            callback();
-        });
-        console.log('Идет загрузка...');
-    }
-
-    render() {
-        let listHtml = '';
-        this.goods.forEach(good => {
-            const goodItem = new GoodsItem(good.product_name,good.price);
-            listHtml += goodItem.render();
-        });
-
-        document.querySelector('.goods-list').innerHTML = listHtml;
-
-        //Добавим вывод стоимости всех товаров на страницу
-        document.querySelector('.description').innerHTML = `                                                               
-        <p>Стоимость всех товаров равна: ${this.calcFullPrice()} рублей.</p>  
-        `;
-    }
-
-
-    // метод возвращающий стоимость всех товаров
-    calcFullPrice() {   
-        return this.goods.reduce((acc, curr) => {return acc + curr.price}, 0);
-    }
-}
-
-class Cart {
-    constructor() {
-        this.goods = [];
-    }
-    // Опишем методы корзины:
-    fetchCart(callback) { // Получение корзины с сервера
-        makeGetRequest(`${API_URL}/getBasket.json`).then((goods) => {
-            this.goods = JSON.parse(goods);
-            console.log('Загрузка завершена...')
-            callback();
-        });
-        console.log('Идет загрузка...');
-    }
-
-
-    renderCart() {  // - метод для отрисовки корзины
-        console.log(this.goods)
-    };     
-
-    addItemToCart() { // - метод для добавления элемента в корзину
-
-    };
-
-    removeItemFromCart() { // - метод удаления элемента из корзины
-
-    };
-
-    calcItems() {  // - метод для подсчета количества элементов в корзине и их стоимости 
-
-    };
-
-    clearCart() { // - метод для очистки корзины
-
-    };
-
-    cartToBuy() {  // - метод продолжения покупки
-
-    };
-
-}
-
-class CartItem {
-    constructor(title, price, quantity = 1, discount = 0) { // Я бы ввел еще ID элемента, так как названия могут совпадать, в прошлом курсе так и делал.
-        this.title = title;
-        this.price = price;
-        this.quantity = quantity;
-        this.discount = discount;
-    }
-
-    //  Опишем методы элемента корзины
-    changeItemQuantity() { // - Изменение количества данного элемента в корзине
-
-    };
-
-    changeItemChars() {  // - Изменение характеристик элемента (например, размера)
-
-    };
-
-    renderItem() {  // - отрисовка элемента
-
-    };
-
-    calcDiscount() { // - расчет скидки
-
-    };
-}
-
-
-const list = new GoodsList();
-list.fetchGoods(() => {
-    list.render();
 });
-
-const cart = new Cart();
-cart.fetchCart(() => cart.renderCart());
-
-

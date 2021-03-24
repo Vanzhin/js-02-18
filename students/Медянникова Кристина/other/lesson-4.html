@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="lesson-4.js" defer></script>
+    <title>lesson 4</title>
+</head>
+<body>
+</div>
+
+<div>Задание 1 и 2 </div>
+
+<div class='content-box-btn'>
+    <span id='text-box__content-text'>
+        'Заменить одинарные ковычки на двойные'
+        кроме: wasn’t doesn’t isn’t can’t hadn’t
+    </span>
+    <br>
+    <button id='btn-text' onclick="changeText()"> Заменить ' на " </button>
+    <br>
+    <span id='text-box__after-text'></span>  
+</div>
+
+
+<div style='margin-top: 35px;'>Задание 3</div>
+
+<div class='form-content'  style='margin-top: -20px;'>
+    <h2 style= 'margin-top: 50px;'> Форма обратной связи </h2>		 
+    <form name='regform' onsubmit='return formValidation(event)'>
+    <h3 id='form-content__feedback__headline'></h3>
+        <p>Имя: 
+            <span class='error_text form-content__feedback' ></span></p><br> 
+             <input type='text' size=50 name='name' class='form-content__feedback'>
+            
+        <p>E-mail: 
+            <span class='error_text form-content__feedback'></span>	</p><br> 
+            <input type='text' size=50 name='email' class='form-content__feedback'> 
+            
+        <p>Телефон: 
+            <span class='error_text form-content__feedback'></span>	</p><br>
+            <input type='text' size=50 name='telephone' onclick="this.value=''" value='+7(000)000-0000' class='form-content__feedback'> <br>
+            
+            <input style='margin-top: 35px;' type='submit' value='Отправить' name='submitButton'>	 
+        </p>		 
+    </form> 
+
+
+
+
+
+
+    
+</body>
+</html>

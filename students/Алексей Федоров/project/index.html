@@ -6,36 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eShop</title>
     <link rel="stylesheet" href="style.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" defer></script>
+    
 </head>
 <body>
+    <div id="app">
+        <header>
+            <div class="wrap wrap_header">
+                <v-basket
+                    v-if="basketOpen"
+                    :quantity="quantity"
+                    :total="total"
+                    :basket-goods="basketGoods"
+                    v-on:remov="removeItem"
+                    v-on:inputu="inputQuantityClik"
+                ></v-basket>
+                
+                <cart-button-block
+                    :basket-open="basketOpen"
+                    :quantity="quantity"
+                    v-on:basket="basketGoodsOpen"
+                />
+                   
+            </div>
+        </header>
+        <main>
+            <div class="wrap wrap_catalog">
+                <search-blok
+                    v-on:filter-goods="filterGoods"
+                    :search="searchValue"
+                ></search-blok>
+                   
+                <goodslist 
+                    :goods="filteredGoods"
+                    v-on:addtobas="addItem"
+                ></goodslist>
+                
+            </div>
+        </main>
 
-    <header>
-        <div class="wrap wrap_header">
-            <div class="basket-blok">
-                <div class="basket"></div>
-                <div class="basket"><p id="basket-totall"></p></div>
-            </div>
-            
-            <div class="cart-button-block">
-                <button class="cart-button" type="button" onclick="basket.buttonClik()">Корзина</button>
-                <div class="cart-button-counter"><p id="basket_count">0</p></div>
-            </div>
-        </div>
-    </header>
-    <main>
-        <div class="wrap wrap_catalog">
-            <div class="goods-list"></div>
-        </div>
-    </main>
-<!--
-    <div>
-        <p>нажмите чтобы рассчитать стоимость и калорийность гамбургера</p>
-        <button class="cart-button" type="button" onclick="fastFood()">Фастфуд</button>
+        <hr>
+       
+        
     </div>
--->  
-    <script src="script.js"></script>
-    <script src="fastscript.js"></script>
+
+    <script src="script.js" defer></script>
+   
     
     
 </body>

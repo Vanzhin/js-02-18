@@ -155,6 +155,21 @@ class CCartSmallHTML {
             this.list = this.html.getElementsByClassName("btn-cart__ddc-list")[0];
             this.count = this.html.getElementsByClassName("btn-cart__count")[0];
             this.grand_total = this.html.getElementsByClassName("total-grand-summ")[0];
+            this.html.addEventListener('click', (event) => {
+                let target = event.path.find(obj => { return (obj.name === 'btn-inc-item' || obj.name === 'btn-remove-item' || obj.name === 'btn-dec-item') });
+                if (target) {
+                    if (target.name === 'btn-inc-item') {
+                        cart.html['small'].incAct(target);
+                        event.preventDefault();
+                    } else if (target.name === 'btn-remove-item') {
+                        cart.html['small'].removeAct(target);
+                        event.preventDefault();
+                    } else if (target.name === 'btn-dec-item') {
+                        cart.html['small'].decAct(target);
+                        event.preventDefault();
+                    }
+                }
+            });
         } else {
             return null;
         }
@@ -178,13 +193,13 @@ class CCartSmallHTML {
                             </div>
                         </div>
                         <div class="col">
-                            <a href="cart/incItem/${_obj.id}/${_obj.type}" onclick="cart.html['small'].incAct(this);return false;">
+                            <a href="cart/incItem/${_obj.id}/${_obj.type}" name="btn-inc-item">
                                 <i class="fas fa-plus-circle"></i>
                             </a>
-                            <a href="cart/removeItem/${_obj.id}/${_obj.type}" onclick="cart.html['small'].removeAct(this);return false;">
+                            <a href="cart/removeItem/${_obj.id}/${_obj.type}" name="btn-remove-item">
                                 <i class="fa fa-times-circle"></i>
                             </a>
-                            <a href="cart/decItem/${_obj.id}/${_obj.type}" onclick="cart.html['small'].decAct(this);return false;">
+                            <a href="cart/decItem/${_obj.id}/${_obj.type}" name="btn-dec-item">
                                 <i class="fas fa-minus-circle"></i>
                             </a>
                         </div>
@@ -295,6 +310,26 @@ class CCartBigHTML {
             let cart_obj = document.getElementById("form-shipping");
             this.count = cart_obj.getElementsByClassName("total-grand")[0];
             this.grand_total = cart_obj.getElementsByClassName("total-sub")[0];
+            this.html.addEventListener('click', (event) => {
+                let target = event.path.find(obj => { return (obj.name === 'btn-remove-item') });
+                if (target) {
+                    if (target.name === 'btn-remove-item') {
+                        cart.html['big'].removeAct(target);
+                        event.preventDefault();
+                    }
+                }
+            });
+            ['change', 'onblur'].forEach(function (_event) {
+                this.html.addEventListener(_event, (event) => {
+                    let target = event.path.find(obj => { return (obj.name === 'btn-update-item') });
+                    if (target) {
+                        if (target.name === 'btn-update-item') {
+                            cart.html['big'].updateAct(target);
+                            event.preventDefault();
+                        }
+                    }
+                })
+            },this);
         } else {
             return null;
         }
@@ -319,10 +354,10 @@ class CCartBigHTML {
                                     </div>
                                 </div>
                                 <div class="table-line-item table-line-item-price">$${_obj.price}</div>
-                                <div class="table-line-item table-line-item-quant"><input class="item-quant" type="number" value="${_obj.quantity}" onchange="cart.html['big'].updateAct(this);return false;" onblur="cart.html['big'].updateAct(this);return false;" min="0"></div>
+                                <div class="table-line-item table-line-item-quant"><input class="item-quant" type="number" value="${_obj.quantity}" name="btn-update-item" min="0"></div>
                                 <div class="table-line-item table-line-item-ship">FREE</div>
                                 <div class="table-line-item table-line-item-subt">$${float2str(_obj.price * _obj.quantity)}</div>
-                                <div class="table-line-item table-line-item-act"><a href="cart/removeItem/${_obj.id}/${_obj.type}" onclick="cart.html['big'].removeAct(this);return false;"><i class="fa fa-times-circle"></i></a></div>
+                                <div class="table-line-item table-line-item-act"><a href="cart/removeItem/${_obj.id}/${_obj.type}" name="btn-remove-item"><i class="fa fa-times-circle"></i></a></div>
                             </div>
                         </div>`;
     }
@@ -364,7 +399,9 @@ class CCartBigHTML {
             name: item.name,
             star: item.type[_t].star,
             img: item.type[_t].img.replace(regex, '_small.png'),
-            price: item.type[_t].price
+            price: item.type[_t].price,
+            size: item.type[_t].size,
+            color: item.type[_t].color
         }));
     }
     removeAct(_obj) {

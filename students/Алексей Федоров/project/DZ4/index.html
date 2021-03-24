@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DZ4</title>
+    <script src="script.js" defer></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   
+    <h1>3 задание</h1>
+    <p class="zg">Возможности валидации в формах с использованием паттернов</p>
+    <form action="#" >
+        <label for="name">Имя:</label><input required type="text" name="name" pattern="\S+[А-Яа-я]" placeholder="Иван"><br>
+        <label for="phone">Телефон</label><input required type="tel" name="phone"
+            pattern="\+\d\(\d{3}\)\d{3}-\d{4}" placeholder="+7(000)000-0000"><br>
+        <label for="email">E-mail</label><input required type="email" name="email" pattern="\w+[.-]?\w+@mail.ru" placeholder="mymail@mail.ru"><br>
+        <label for="text">Сообщение</label><input required type="text" name="text"><br>
+        <button>Send</button>
+    </form>
+
+    <h1>3 задание</h1>
+    <p class="zg">Проверка в JS</p>
+    <div class="search">
+        <form action="#">
+            <label for="name">Имя:</label><input required type="text" name="name" placeholder="Иван" ><br>
+            <label for="phone">Телефон</label><input required type="tel" name="phone" placeholder="+7(000)000-0000" ><br>
+            <label for="email">E-mail</label><input required type="email" name="email" placeholder="mymail@mail.ru"><br>
+            <label for="text">Сообщение</label><input required type="text" name="text"><br>
+            
+        </form>
+        <button>Send</button>
+    </div>
+</body>
+</html>

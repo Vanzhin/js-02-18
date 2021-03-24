@@ -1,103 +1,98 @@
-class GoodsItem {
-    constructor(item) {
-        this.item = item;
-    }
+const API_ROOT = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+const request = (path = '', method = 'GET', body) => {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
 
-    render() {
-        return `
-            <div class="item">
-                <h2>${this.item.title}</h2>
-                <p>${this.item.price}</p>
-            </div>
-        `;
-    }
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log({ response: xhr.responseText });
+                    resolve(JSON.parse(xhr.responseText));
+                } else {
+                    console.error(xhr.responseText);
+                    reject(xhr.responseText);
+                }
+            }
+        }
+
+        xhr.open(method, `${API_ROOT}/${path}`);
+
+        xhr.send(body);
+    });
 }
 
-class GoodsList {
-    constructor() {
-        this.goods = [];
-    }
-
-    fetchData() {
-        this.goods = [
-            { title: 'Монитор', price: 50000 },
-            { title: 'Клавиатура', price: 1500 },
-            { title: 'Мышь', price: 700 },
-            { title: 'Ноутбук', price: 35000 },
-        ];
-    }
-
-    render() {
-        const goodsString = this.goods.map(element => {
-            const item = new GoodsItem(element);
-            return item.render();
-        });
-        document.querySelector('.goods').innerHTML = goodsString.join('');
-    }
-}
-
-
-class Cart {
-    items = []
-
-    constructor(items = []) {
-        this.items = items
-    }
-    addItem() {
-        // добавление итема в корзину
-    }
-    removeItem() {
-        // убрать итем из корзины
-    }
-    fetchData() {
-        // запрос данных с сервера
-    }
-
-    render() {
-
-    }
-    calcTotalPrice() {
-        const how = this.items.reduce((result, cur) => {
-            return result + cur.price * cur.count
-        }, 0)
-        const totalPrice = document.createElement('div')
-        totalPrice.innerHTML = `<p> Итоговая цена: ${how} р.</p>`
-        totalPrice.classList.add('totalPrice')
-        return totalPrice
-    }
-    // показалось логичным добавить метод, определяющий суммарную стоимость всех товаров
-    // не для GoodList, а для корзины (Cart)
-}
-
-
-class CartItem {
-    name = ''
-    price = 0
-    count = 1
-
-    constructor(name, price) {
-        this.name = name
-        this.price = price
-    }
-    inc() {
-        this.count++
-    }
-
-    dec() {
-        this.count--
-    }
-    render() {
-
-    }
-    inCartButton() {
-        // кнопка добавления в корзину
-    }
-    minusButton() {
-        // кнопка удаления итема из корзины
-    }
-}
-
-
-const list = new GoodsList();
-list.fetchData();
-list.render();
+new Vue({
+    el: '#app',
+    data: {
+        goods: [],
+        searchValue: '',
+        basketGoods: [],
+        isVisibleCart: false,
+    },
+    created() {
+        this.fetchGoods();
+        this.fetchBasket();
+    },
+    computed: {
+        filteredGoods() {
+            const regexp = new RegExp(this.searchValue, 'i');
+            return this.goods.filter((goodsItem) =>
+                regexp.test(goodsItem.product_name)
+            );
+        },
+        calcTotalPrice() {
+            return this.basketGoods.reduce((result, cur) => {
+                return result + cur.price * cur.quantity
+            }, 0)
+        },
+    },
+    methods: {
+        async fetchGoods() {
+            try {
+                const res = await fetch(`${API_ROOT}/catalogData.json`);
+                const goods = await res.json();
+                this.goods = goods;
+            } catch (err) {
+                console.log(`Can't fetch data`, error);
+                throw new Error(error);
+            }
+        },
+        fetchBasket() {
+            request('getBasket.json')
+                .then((goods) => {
+                    this.basketGoods = goods.contents;
+                    console.log('basket', this.basketGoods);
+                })
+                .catch((error) => {
+                    console.log(`Can't fetch basket data`, error);
+                });
+        },
+        addItem(item) {
+            request('addToBasket.json')
+                .then((response) => {
+                    if (response.result !== 0) {
+                        const itemIndex = this.basketGoods.findIndex((goodsItem) => goodsItem.id_product === item.id_product);
+                        if (itemIndex > -1) {
+                            this.basketGoods[itemIndex].quantity += 1;
+                        } else {
+                            this.basketGoods.push({ ...item, quantity: 1 });
+                        }
+                        console.log(this.basketGoods);
+                    } else {
+                        console.error(`Can't add item to basket`, item, this.basketGoods);
+                    }
+                })
+        },
+        removeItem(id) {
+            request('deleteFromBasket.json')
+                .then((response) => {
+                    if (response.result !== 0) {
+                        this.basketGoods = this.basketGoods.filter((goodsItem) => goodsItem.id_product !== parseInt(id));
+                        console.log(this.basketGoods);
+                    } else {
+                        console.error(`Can't remove item from basket`, item, this.basketGoods);
+                    }
+                });
+        }
+    },
+});
