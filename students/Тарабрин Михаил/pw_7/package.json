@@ -1,0 +1,17 @@
+{
+  "name": "VisiblePartialNlp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "jasmine": "^3.7.0"
+  },
+  "scripts": {
+    "test": "jasmine",
+    "start": "npm index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

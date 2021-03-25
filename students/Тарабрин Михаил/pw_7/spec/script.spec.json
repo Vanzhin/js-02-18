@@ -1,0 +1,26 @@
+const script = require("../index.js");
+const calculator = script.calculator;
+
+describe('function calculator()', () => {
+    it ("receives operator (+,-,*,/) and make action with digits", () => {
+        expect(calculator('3+2')).toBe(5);
+        expect(calculator('3-2')).toBe(1);
+        expect(calculator('3*2')).toBe(6);
+        expect(calculator('4/2')).toBe(2);
+    });
+    it ("without operator function'll return false", () => {
+        expect(calculator('232323')).toBe(false);
+        expect(calculator('avfdasasdf')).toBe(false);
+    });
+    it ("without chars, function'll return false", () => {
+        expect(calculator('232 + abc')).toBe(false);
+        expect(calculator('abc + 232')).toBe(false);
+    });
+    it ("with 0 as second element and a wish to divide elems f => false", () => {
+        expect(calculator('3/0')).toBe(false);
+        expect(calculator('3/2')).toBe(1.5);
+    });
+    it ("if there is more operators, than one, f => false", () => {
+        expect(calculator('1+2+3+5/2')).toBe(false);
+    });
+});
