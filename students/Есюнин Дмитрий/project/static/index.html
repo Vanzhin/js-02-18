@@ -33,7 +33,7 @@
                             </div>
                             <button @click.prevent="addItem(item)">+</button>
                             <button @click.prevent="addItem(item, -1)">-</button>
-                            <button @click.prevent="removeItem(item.id_product)">Удалить</button>
+                            <button @click.prevent="handleRemoveItem(item.id)">Удалить</button>
                         </div>
                         <hr>
                         <h3>Всего товаров на сумму {{ total }}</h3>
@@ -55,11 +55,11 @@
                 <div v-if="filteredGoods.length > 0">
                     <div class="goods-list">
                         <div class="goods-item" v-for="item in filteredGoods">
-                            <img :src="item.images[0]">
+                            <!-- <img :src= item.images[0] > -->
+                            <img v-bind:src="getImageSrc(item)">                            
                             <h3>{{ item.product_name }}</h2>
                                 <p>{{ item.price }}</p>
-                                <button class="addbutton" name="add-to-basket" v-on:click.prevent="addItem(item)">Add to
-                                    basket</button>
+                                <button class="addbutton" name="add-to-basket" v-on:click.prevent="addItem(item)">В корзину</button>
                         </div>
                     </div>
                 </div>

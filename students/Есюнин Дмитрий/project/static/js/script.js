@@ -1,42 +1,4 @@
-
-class GoodList {
-
-  constructor() {
-    this.list = {};
-  }
-
-  fetchData() {
-    this.list = [{
-        id_product: 1001,
-        product_name: 'Shirt',
-        images: ['./img/shirt.jpg'],
-        price: 150
-      },
-      {
-        id_product: 1002,
-        product_name: 'Socks',
-        images: ['./img/socks.jpg', './img/socks.jpg', './img/socks.jpg'],
-        price: 50
-      },
-      {
-        id_product: 1003,
-        product_name: 'Jacket',
-        images: ['./img/jacket.jpg', './img/jacket.jpg'],
-        price: 350
-      },
-      {
-        id_product: 1004,
-        product_name: 'Shoes',
-        images: ['./img/shoes.jpg'],
-        price: 250
-      }
-    ];
-  }
-}
-
-
-
-const API_ROOT = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+const API_ROOT = 'http://localhost:3000/api';
 const request = (path = '', method = 'GET', body) => {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
@@ -162,60 +124,69 @@ new Vue({
     methods: {
         async fetchGoods() {
             try {
-                //const res = await fetch(`${API_ROOT}/catalogData.json`);
-                //const goods = await res.json();
-
-                const goods = new GoodList;
-                goods.fetchData();
-                this.goods = goods.list;
-
-            } catch (err) {
+                const res = await fetch(`${API_ROOT}/goods`);
+                const goods = await res.json();
+                this.goods = goods;
+            } catch (error) {
                 console.log(`Can't fetch data`, error);
+                this.isError = true;
                 throw new Error(error);
             }
         },
         fetchBasket() {
-            request('getBasket.json')
+            request('basket-goods')
                 .then((goods) => {
                     this.basketGoods = goods.contents;
-                    //console.log('basket', this.basketGoods);
+                    console.log('basket', this.basketGoods);
                 })
                 .catch((error) => {
                     console.log(`Can't fetch basket data`, error);
-                });
-        },
-        addItem(item , quantity = 1) {
-            request('addToBasket.json')
-                .then((response) => {
-                    if (response.result !== 0) {
-                        const itemIndex = this.basketGoods.findIndex((goodsItem) => goodsItem.id_product === item.id_product);
-                        if (itemIndex > -1) {
-                            if (this.basketGoods[itemIndex].quantity + quantity <= 0) return this.removeItem(this.basketGoods[itemIndex].id_product);
-                            this.basketGoods[itemIndex].quantity += quantity;
-                        } else {
-                            if (quantity > 0) this.basketGoods.push({ ...item, quantity});
-                        }
-                        
-                        //console.log(this.basketGoods);
-                    } else {
-                        console.error(`Can't add item to basket`, item, this.basketGoods);
-                    }
-                    
-                })
-        },
-        removeItem(id) {
-            request('deleteFromBasket.json')
-                .then((response) => {
-                    if (response.result !== 0) {
-                        this.basketGoods = this.basketGoods.filter((goodsItem) => goodsItem.id_product !== parseInt(id));
-                        //console.log(this.basketGoods);
-                    } else {
-                        console.error(`Can't remove item from basket`, item, this.basketGoods);
-                    }
+                    this.isError = true;
                 });
         },
 
-          
-        
+        addItem(item, quantity = 1) {
+            fetch(`${API_ROOT}/basket-goods`, {
+                method: 'POST',
+                body: JSON.stringify({item, quantity}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then((response) => {
+                    if (response.result !== 0) {
+                        const itemIndex = this.basketGoods.findIndex((goodsItem) => goodsItem.id === item.id);
+                        if (itemIndex > -1) {
+                            if (this.basketGoods[itemIndex].quantity + quantity <= 0) return this.handleRemoveItem(this.basketGoods[itemIndex].id);
+                            this.basketGoods[itemIndex].quantity += quantity;
+                            
+                        } else {
+                            this.basketGoods.push({ ...item, quantity });
+                        }
+                        console.log(this.basketGoods);
+                    } else {
+                        console.error(`Can't add item to basket`, item, this.basketGoods);
+                    }
+                })
+        },
+
+        async handleRemoveItem(id) {
+            const rawResponse = await fetch(`${API_ROOT}/basket-goods/${id}`, {
+                method: 'DELETE',
+            });
+            const response = await rawResponse.json();
+
+            if (response.result !== 0) {
+                this.basketGoods = this.basketGoods.filter((goodsItem) => goodsItem.id !== parseInt(id));
+                console.log(this.basketGoods);
+            } else {
+                console.error(`Can't remove item from basket`, item, this.basketGoods);
+            }
+        },        
+        getImageSrc(item){
+            if (Array.isArray(item['images'])) return item.images[0];
+            return "./img/no-photo-available.jpg";            
+        }
+            
     },
 });
