@@ -61,7 +61,6 @@ Vue.component('search', {
 		template: `<div class="search-wrap">
 	<input type="text" placeholder="поиск по каталогу" class="search" v-on:input="handleInput">
 	<button class="search-btn" v-on:click="handleSearch"><span>найти</span></button>
-
 </div>`,
 		methods: {
 			handleInput(e) {
@@ -89,7 +88,6 @@ Vue.component('search', {
 		v-on:add='handleAddItem'
 		v-on:reduce='handleReduceItem'
 		v-on:delete='handleDeleteItem'
-
 		></basket-item>		 
 	</div>
 	<div class="basket-total-price">
@@ -269,75 +267,3 @@ Vue.component('search', {
 		}
 
 	)
-
-
-
-
-
-
-// const async = (a, callback) => {
-// 	setTimeout(() => {
-// 		const b = a + 1;
-// 		callback(b)
-// 	}, 200);
-// };
-// async (4, (b) => {
-// 	console.log(b)
-// });
-
-// const asyncP = (a) => {
-// 	return new Promise((resolve, reject) => {
-// 		setTimeout(() => {
-// 			if (a) {
-// 				const b = a + 1;
-// 				resolve(b);
-// 			} else {
-// 				reject('Error');
-// 			}
-// 		}, 200);
-// 	});
-// };
-
-
-// asyncP(5).then((b) => {
-// 	console.log(b); // Сработает первый колбэк и выведет в консоль 6
-// }, (error) => {
-// 	console.log(error)
-// });
-
-// asyncP().then((b) => {
-// 	console.log(b);
-// }, (error) => {
-// 	console.log(error) // Сработает второй колбэк и выведет в консоль 'Error'
-// });
-
-
-// const makePizza = function (title, cb) {
-// 	console.log(`Заказ на приготовление пиццы «${title}» получен. Начинаем готовить…`);
-// 	setTimeout(cb, 3000);
-// }
-
-// const readBook = function () {
-// 	console.log('Читаю книгу «Колдун и кристалл»…');
-// }
-
-// const eatPizza = function () {
-// 	console.log('Ура! Пицца готова, пора подкрепиться.');
-// }
-
-// makePizza('Пеперонни', eatPizza);
-// readBook();
-
-// const washCar = (carName, callback) => {
-// 	console.log(`your car ${carName} is washing now`);
-// 	setTimeout(callback, 2000)
-// };
-
-// const carIsReady = function () {
-// 	console.log(`car is washed,you can ride now`);
-// };
-// washCar("Volvo", carIsReady);
-// const readPaper = (paperName) => {
-// 	console.log(`now you are readind ${paperName}`);
-// };
-// readPaper("New York times");
