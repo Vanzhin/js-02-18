@@ -48,6 +48,7 @@ app.delete('/api/cart/:id', (request, response) => {
         }
         const cart = JSON.parse(data);
         const id = +request.params.id;
+        const ip = request.ip;
         
         const itemIndex = cart.contents.findIndex((goodsItem) => goodsItem.id_product === id);
         if (itemIndex > -1) {
@@ -61,7 +62,7 @@ app.delete('/api/cart/:id', (request, response) => {
         }
         cart.countGoods -= 1;
         cart.amount = cart.contents.reduce((acc, curr) => {return acc + curr.price*curr.quantity}, 0);
-        log('delete item', id);
+        log('delete item', id, ip);
         fs.writeFile('./cart.json', JSON.stringify(cart), (err) => {
             if(err){
                 console.log('Write cart.json error!', err);
@@ -99,6 +100,7 @@ app.post('/api/cart', (request, response) => {
         }
         const cart = JSON.parse(data);        
         const item = request.body;
+        const ip = request.ip;
         
         const itemIndex = cart.contents.findIndex((cartItem) => cartItem.id_product === item.id_product);     
         if(itemIndex > -1){
@@ -115,7 +117,7 @@ app.post('/api/cart', (request, response) => {
         cart.countGoods += 1;
         cart.amount += item.price;
        
-        log('add item', item.id_product);
+        log('add item', item.id_product, ip);
         
         fs.writeFile('./cart.json', JSON.stringify(cart), (err) => {
             if(err){
