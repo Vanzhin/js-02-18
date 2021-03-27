@@ -158,7 +158,7 @@ main {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  position: absolute;
+  position: fixed;
   top: 90px;
   right: 260px;
   display: flex;
@@ -168,7 +168,7 @@ main {
   cursor: pointer;
 }
 .cartSection {
-  position: absolute;
+  position: fixed;
   right: 240px;
   top: 70px;
   width: 600px;

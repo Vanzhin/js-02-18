@@ -1,0 +1,42 @@
+[    
+    {
+        "id_product": 5041,
+        "product_name": "Блузка",
+        "price": 1200
+    },
+    {
+        "id_product": 2074,
+        "product_name": "Носки",
+        "price": 50
+    },
+    {
+        "id_product": 3009,
+        "product_name": "Куртка",
+        "price": 3500
+    },
+    {
+        "id_product": 5173,
+        "product_name": "Ботинки",
+        "price": 2500
+    },
+    {
+        "id_product": 123,
+        "product_name": "Ноутбук",
+        "price": 45600
+    },
+    {
+        "id_product": 456,
+        "product_name": "Мышка",
+        "price": 1000
+    },
+    {
+        "id_product": 982,
+        "product_name": "Игровой ПК",
+        "price": 130000
+    },
+    {
+        "id_product": 201,
+        "product_name": "Клавиатура",
+        "price": 2300
+    }               
+]
