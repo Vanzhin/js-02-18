@@ -288,7 +288,7 @@ main{
     color: coral;
 }
 .main-wrapp .goods-list .goods-item p::after {
-    content: "$";
+    content: "руб";
     margin-left:5px;
 }
 

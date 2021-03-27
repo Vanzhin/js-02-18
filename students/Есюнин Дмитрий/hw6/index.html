@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="wrapper">
+    <div class="app">
         <header>
             <div class="header-wrapp">
                 <div class="logo"></div>
@@ -47,10 +47,11 @@
         <main>
             <div class="main-wrapp">
                 <div class="goods-filter">
-                    <div class="search-icon">
-                        <input type="text" class="search" v-model="searchValue" />
+                    <div class="search-icon">                        
+                        <goods-search v-bind:value="searchValue" v-on:change="searchValue = $event"></goods-search>
                     </div>
-                </div>
+                </div> 
+               
                 <div v-if="filteredGoods.length > 0">
                     <div class="goods-list">
                         <div class="goods-item" v-for="item in filteredGoods">

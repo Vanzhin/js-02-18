@@ -1,0 +1,47 @@
+[
+    {
+        "id": 50000,
+        "product_name": "Монитор",
+        "price": 50000
+    },
+    {
+        "id": 1500,
+        "product_name": "Клавиатура",
+        "price": 1500
+    },
+    {
+        "id": 700,
+        "product_name": "Мышь",
+        "price": 700
+    },
+    {
+        "id": 3500,
+        "product_name": "Ноутбук",
+        "price": 35000
+    },
+    {
+        "id": 1001,
+        "product_name": "Shirt",
+        "images": ["./img/shirt.jpg"],
+        "price": 3000
+      },
+    {
+        "id": 1002,
+        "product_name": "Socks",
+        "images": ["./img/socks.jpg"],
+        "price": 500
+      },
+    {
+        "id": 1003,
+        "product_name": "Jacket",
+        "images": ["./img/jacket.jpg"],
+        "price": 5000
+      },
+    {
+        "id": 1004,
+        "product_name": "Shoes",
+        "images": ["./img/shoes.jpg"],
+        "price": 4800
+      }
+]
+
