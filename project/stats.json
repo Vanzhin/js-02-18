@@ -1,1 +1,97 @@
-[{"type":"ADD","productId":1500,"time":"2021-03-22T17:35:08.206Z"},{"type":"DELETE","productId":1500,"time":"2021-03-22T17:36:54.934Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:01:46.709Z"},{"type":"DELETE","productId":1500,"time":"2021-03-22T19:01:50.981Z"},{"type":"DELETE","productId":50000,"time":"2021-03-22T19:01:53.920Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:01:55.880Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:01:58.378Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:01:58.768Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:02:01.297Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:02:02.090Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:02:03.148Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:02:03.373Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:02:03.479Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:02:21.652Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:02:23.135Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:02:25.133Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:02:26.116Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:02:27.055Z"},{"type":"ADD","productId":1500,"time":"2021-03-22T19:02:28.386Z"}]
+[
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T17:35:08.206Z"
+  },
+  {
+    "type": "DELETE",
+    "productId": 1500,
+    "time": "2021-03-22T17:36:54.934Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:01:46.709Z"
+  },
+  {
+    "type": "DELETE",
+    "productId": 1500,
+    "time": "2021-03-22T19:01:50.981Z"
+  },
+  {
+    "type": "DELETE",
+    "productId": 50000,
+    "time": "2021-03-22T19:01:53.920Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:01:55.880Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:01:58.378Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:01:58.768Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:02:01.297Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:02:02.090Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:02:03.148Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:02:03.373Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:02:03.479Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:02:21.652Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:02:23.135Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:02:25.133Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:02:26.116Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:02:27.055Z"
+  },
+  {
+    "type": "ADD",
+    "productId": 1500,
+    "time": "2021-03-22T19:02:28.386Z"
+  }
+]
