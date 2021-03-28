@@ -2,6 +2,7 @@ const fs = require('fs');
 const cors = require('cors');
 const express = require('express');
 const app = express();
+const log = require('./logger');
 
 app.use(express.static('./static'));
 app.use(express.json());
@@ -51,58 +52,62 @@ app.post('/api/basket-goods', (request, response) => {
         const basket = JSON.parse(data);
         const item = request.body;
         console.log(request.body)
-        basket.push(item);
+
+        const itemIndex = basket.findIndex((goodsItem) => goodsItem.id === item.id);
+        if (itemIndex > -1) {
+            basket[itemIndex].quantity += 1;
+        } else {
+            basket.push({ ...item, quantity: 1 });
+        }
+
+        log('ADD', item.id);
 
         fs.writeFile('./basket-goods.json', JSON.stringify(basket), (err) => {
             if (err) {
                 console.log('Write basket-goods.json error!', err);
-                response.json({ 
+                response.json({
                     status: 0,
                     message: 'Write basket-goods.json error!',
                     error: err,
                 });
                 return;
             }
-            response.json({ status: 1});
+            response.json({ status: 1 });
         })
     });
 });
 
-app.post('/api/basket-goods/remove', (request, response) => {
-    console.log('/basket-goods POST route remove handler', request.ip);
+app.delete('/api/basket-goods/:id', (req, res) => {
     fs.readFile('./basket-goods.json', 'utf-8', (err, data) => {
         if (err) {
             console.log('Read basket-goods.json error!', err);
-            response.send('Read basket-goods.json error!');
+            res.send('Read basket-goods.json error!');
             return;
         }
 
-        const basket = JSON.parse(data);
-        let index = basket.findIndex((goodsItem) => goodsItem.id === request.body.id);
-        console.log("before delete");
-        console.log(basket);
+        let basket = JSON.parse(data);
+        const id = parseInt(req.params.id);
+        console.log(req.params);
 
-        console.log(`index = ${index}`);
-        if (index >= 0)
-            basket.splice(index, 1);
-        console.log("after delete");
-        console.log(basket);
+        basket = basket.filter((goodsItem) => goodsItem.id !== id);
+
+        log('DELETE', id);
 
         fs.writeFile('./basket-goods.json', JSON.stringify(basket), (err) => {
             if (err) {
                 console.log('Write basket-goods.json error!', err);
-                response.json({ 
+                res.json({
                     status: 0,
                     message: 'Write basket-goods.json error!',
                     error: err,
                 });
                 return;
             }
-            response.json({ status: 1});
+            res.json({ status: 1 });
         })
     });
 });
 
 app.listen(3000, () => {
-    console.log('App is running @ localhost:3000')
+    console.log('App is running @ http://localhost:3000')
 });

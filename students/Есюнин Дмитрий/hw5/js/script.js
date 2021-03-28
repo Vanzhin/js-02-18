@@ -34,48 +34,6 @@ class GoodList {
   }
 }
 
-function createEl(named, attribute = "id", type = "div") {
-  let el = document.createElement(type);
-  el.setAttribute(attribute, named);
-  document.body.appendChild(el);
-  return el;
-}
-
-createEl("wrapper", "class").innerHTML = `
-<header>
-<div class="header-wrapp">
-  <div class="logo"></div>
-  <div class="cart-button" @click="showBasket()"><span class="qntty unselectable">{{quantity}}</span></div>
-</div>
-</header>
-<main>
-<div class="main-wrapp">
-	<div class="goods-filter">
-		<div class="search-icon">
-			<input type="text" class="search" v-model="searchValue"/>
-		</div>
-	</div>
-	<div v-if="filteredGoods.length > 0">
-		<div class="goods-list" >					
-			<div class="goods-item" v-for="item in filteredGoods">
-				<img :src="item.images[0]">
-				<h3>{{ item.product_name }}</h2>
-				<p>{{ item.price }}</p>
-				<button class="addbutton" name="add-to-basket" v-on:click.prevent="addItem(item)">Add to basket</button>
-			</div>			
-		</div>
-	</div>
-	<div v-else>
-		<h3>Пусто</h3>
-	</div>
-    <div class="modal"></div>
-</div>
-</main>
-<footer>
-<div class="footer-wrapp">
-</div>
-</footer>`;
-
 
 
 const API_ROOT = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
@@ -107,7 +65,8 @@ new Vue({
         goods: [],
         searchValue: '',
         basketGoods: [],
-        
+        basketVisible: false,
+        mytotal:0
     },
     created() {
         this.fetchGoods();
@@ -130,7 +89,7 @@ new Vue({
         },
         total() {
             return this.basketGoods.reduce(
-                (accumulator, currentElement) => accumulator + currentElement.price,
+                (accumulator, currentElement) => accumulator + currentElement.price *  currentElement.quantity,
                 0
             );
         }
@@ -138,8 +97,8 @@ new Vue({
     methods: {
         async fetchGoods() {
             try {
-                // const res = await fetch(`${API_ROOT}/catalogData.json`);
-                // const goods = await res.json();
+                //const res = await fetch(`${API_ROOT}/catalogData.json`);
+                //const goods = await res.json();
 
                 const goods = new GoodList;
                 goods.fetchData();
@@ -160,20 +119,23 @@ new Vue({
                     console.log(`Can't fetch basket data`, error);
                 });
         },
-        addItem(item) {
+        addItem(item , quantity = 1) {
             request('addToBasket.json')
                 .then((response) => {
                     if (response.result !== 0) {
                         const itemIndex = this.basketGoods.findIndex((goodsItem) => goodsItem.id_product === item.id_product);
                         if (itemIndex > -1) {
-                            this.basketGoods[itemIndex].quantity += 1;
+                            if (this.basketGoods[itemIndex].quantity + quantity <= 0) return this.removeItem(this.basketGoods[itemIndex].id_product);
+                            this.basketGoods[itemIndex].quantity += quantity;
                         } else {
-                            this.basketGoods.push({ ...item, quantity: 1 });
+                            if (quantity > 0) this.basketGoods.push({ ...item, quantity});
                         }
+                        
                         //console.log(this.basketGoods);
                     } else {
                         console.error(`Can't add item to basket`, item, this.basketGoods);
                     }
+                    
                 })
         },
         removeItem(id) {
@@ -187,20 +149,7 @@ new Vue({
                     }
                 });
         },
-        showBasket() {
 
-
-            let msg ="Basket";
-
-            alert(msg);
-            
-
-
-
-
-
-            
-        },
           
         
     },

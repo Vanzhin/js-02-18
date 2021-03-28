@@ -21,6 +21,84 @@ const request = (path = '', method = 'GET', body) => {
     });
 }
 
+
+Vue.component('goods-list', {
+    props: ['filteredGoods'],
+    template: `
+    <section class="goods">
+        <goods-item 
+        v-for="item in filteredGoods"
+        v-bind:key="item.id_product" 
+        v-bind:item="item" 
+        v-on:add="handleAddItem"
+        />
+        <goods-empty v-if="filteredGoods.lenght === 0" />
+    </section>
+    `,
+    methods: {
+        handleAddItem(item) {
+            this.$emit('add-item', item)
+        }
+    }
+});
+
+Vue.component('goods-item', {
+    props: ['item'],
+    template: `
+    <div class="item">
+        <h2>{{ item.product_name }}</h2>
+        <p>{{ item.price }}</p>
+        <button class="add-to-basket" name="add-to-basket" v-on:click.prevent="handleAdd(item)">Add to basket</button>
+    </div>
+    `,
+    methods: {
+        handleAdd(item) {
+            this.$emit('add', item)
+        }
+    }
+});
+
+Vue.component('goods-empty', {
+    template: `
+    <div class="goods_empty">
+     «Нет данных» 
+     </div>
+     `,
+});
+Vue.component('goods-search', {
+    props: ['value'],
+    template: `
+    <input type="text" class="search" v-bind:value="value" v-on:input="handleInput" />
+    `,
+    methods: {
+        handleInput(event) {
+            this.$emit('input', event.target.value)
+        }
+    }
+});
+
+Vue.component('basket', {
+    props: ['basketGoods', 'calcTotalPrice'],
+    template: `
+    <div class="basket">
+        <div class="basket_item" v-for="item in basketGoods">
+            <h3>{{ item.product_name }}</h3>
+            <p>{{ item.price }} x {{ item.quantity }}</p>
+            <button class="delete_button" v-on:click="$emit('remove-item', item.id_product)"> - </button>
+        </div>
+        <div class="calcTotalPrice">Общая стоимость: {{ calcTotalPrice }}</div>
+    </div>
+    `,
+});
+
+Vue.component('error', {
+    template: `
+    <div class="error">
+     «Не удаётся выполнить запрос к серверу» 
+    </div>
+    `,
+});
+
 new Vue({
     el: '#app',
     data: {
@@ -28,6 +106,7 @@ new Vue({
         searchValue: '',
         basketGoods: [],
         isVisibleCart: false,
+        isError: false,
     },
     created() {
         this.fetchGoods();
@@ -54,6 +133,7 @@ new Vue({
                 this.goods = goods;
             } catch (err) {
                 console.log(`Can't fetch data`, error);
+                this.isError = true;
                 throw new Error(error);
             }
         },
@@ -65,6 +145,7 @@ new Vue({
                 })
                 .catch((error) => {
                     console.log(`Can't fetch basket data`, error);
+                    this.isError = true;
                 });
         },
         addItem(item) {

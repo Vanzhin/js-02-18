@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>eShop</title>
+    <meta charset="utf-8">
+    <script defer src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script defer src="js/script.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="app">
+        <header>
+            <div class="header-wrapp">
+                <div class="logo"></div>
+                <div class="cart-button" @click="basketVisible=!basketVisible">
+                    <div class="qntty unselectable">{{quantity}}</div>
+                </div>
+            </div>
+            <div class="show-cart" v-if="basketVisible">
+                <div class="cart">
+                    <div class="close-me unselectable" @click="basketVisible=!basketVisible">x</div>
+                    <div  v-if="total>0" >
+                        <div class="basket-item" v-for="item in basketGoods">
+                            <h4>{{ item.product_name }}</h4>
+                            <div class="p">
+                                <p>{{ item.price }}</p>
+                                <p>x</p>
+                                <p>{{ item.quantity }}</p>
+                                <p>=</p>
+                                <p>{{ item.price * item.quantity }}</p>
+                            </div>
+                            <button @click.prevent="addItem(item)">+</button>
+                            <button @click.prevent="addItem(item, -1)">-</button>
+                            <button @click.prevent="handleRemoveItem(item.id)">Удалить</button>
+                        </div>
+                        <hr>
+                        <h3>Всего товаров на сумму {{ total }}</h3>
+                    </div>
+                    <div v-else>
+                        <h3>Корзина пуста</h3>
+                    </div>                    
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="main-wrapp">
+                <div class="goods-filter">
+                    <div class="search-icon">                        
+                        <goods-search v-bind:value="searchValue" v-on:change="searchValue = $event"></goods-search>
+                    </div>
+                </div> 
+               
+                <div v-if="filteredGoods.length > 0">
+                    <div class="goods-list">
+                        <div class="goods-item" v-for="item in filteredGoods">
+                            <!-- <img :src= item.images[0] > -->
+                            <img v-bind:src="getImageSrc(item)">                            
+                            <h3>{{ item.product_name }}</h2>
+                                <p>{{ item.price }}</p>
+                                <button class="addbutton" name="add-to-basket" v-on:click.prevent="addItem(item)">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+                <div v-else>
+                    <h3>Пусто</h3>
+                </div>
+
+
+
+            </div>
+        </main>
+        <footer>
+            <div class="footer-wrapp">
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

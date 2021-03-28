@@ -1,0 +1,167 @@
+*,p{
+    margin: 0;
+    padding: 0;
+}
+button{
+    
+    outline: none;
+}
+.cart-button-block{
+    margin-top: 20px;
+    position: relative;
+    width: 80px;
+    margin-right: 30px;
+    margin-bottom: 21px;
+}
+.cart-button-counter{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    background-color: rgb(221, 27, 27);
+    top: -11px;
+    right: -2px;
+    text-align: center;
+    color: rgb(248, 246, 241);
+    vertical-align: baseline;
+}
+.cart-button-counter p{
+    margin: 0;
+    margin-top: 1px;
+}
+
+.product-button, .cart-button, .search-button{
+    transition: all 0.2s;
+    width: 75px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.cart-button:hover {
+    background-color: #84b6df;
+}
+.product-button{
+    opacity: 0;
+}
+ 
+.product-button:hover {
+    background-color: #84b6df;
+}
+
+.goods-list{
+    display: flex ;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.goods-item{
+    width: 140px;
+    background-color: rgb(165, 222, 224);
+    margin: 10px;
+    text-align: center;
+    padding: 0 0 20px 0;
+}
+
+.goods-item p, .goods-item h3{
+    margin: 10px;
+}
+
+.goods-item:hover {
+    outline: 2px solid rgb(67, 28, 206);
+}
+
+.goods-item:hover .product-button{
+    opacity: 1;
+}
+.goods-list-no{
+    width: 90px;
+    margin: 30px auto 30px auto;
+    background-color: rgb(207, 28, 28);
+    text-align: center;
+}
+
+.wrap {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.wrap_header{
+    display: flex;
+    justify-content: flex-end;
+    background-color: rgb(66, 198, 231);
+}
+
+.wrap_catalog{
+    margin-top: 30px;
+}
+
+.basket-blok, .basket{
+    margin: 0 auto 0 auto;
+    width: 50%;
+    text-align: center;
+}
+
+.basket-item{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0 10px 0;
+    
+}
+.basket-totall {
+    margin: 20px;
+}
+.basket-quantity{
+    height: 20px;
+    margin: auto 20px auto 20px;
+}
+
+.basket-item p, .basket-item h3{
+    margin: 10px;
+}
+
+.basket-button{
+    margin: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    font-weight: 900;
+    padding-top: -5px;
+    border:rgb(12, 12, 12) ;
+    background-color: rgb(12, 12, 12);
+    color: honeydew;
+    text-align: center;
+}
+.basket-button p{
+    margin: 0;
+    margin-top: -4px;
+    padding: 0;
+}
+.basket-item h3{
+    flex-grow: 1;
+    text-align: left;
+}
+
+
+.basket-button:hover{
+    background-color: cornflowerblue;
+    cursor: pointer;
+}
+.search-blok{
+    margin: 0 auto 20px auto;
+    width: 160px;
+    display: flex;
+}
+
+
+.search-button {
+    margin-left: 20px;
+    padding: 0 10px 0 10px;
+}
+.search-button:hover {
+    background-color: #84b6df;
+}
+.error {
+    color: red;
+    font-size: 24px;
+    text-align: center;
+}

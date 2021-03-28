@@ -23,6 +23,8 @@ const request = (path = '', method = 'GET', body) => {
     });
 }
 
+Vue.prototype.$eventHub = new Vue();
+
 Vue.component('goods-list', {
     props: ['filteredGoods'],
     template: `
@@ -41,6 +43,9 @@ Vue.component('goods-list', {
     //         this.$emit('add-item', item);
     //     }
     // }
+    created() {
+        this.$eventHub.$emit('example-event', { someData: 'value' })
+    }
 });
 
 Vue.component('goods-item', {
@@ -91,7 +96,16 @@ Vue.component('goods-search', {
     methods: {
         handleInput(event) {
             this.$emit('change', event.target.value);
-        }
+        },
+        handleExampleEvent(event){
+            console.log('goods-search component, example-event', event)
+        },
+    },
+    created() {
+        this.$eventHub.$on('example-event', this.handleExampleEvent);
+    },
+    beforeDestroy() {
+        this.$eventHub.$off('example-event', this.handleExampleEvent);
     }
 });
 
@@ -190,7 +204,7 @@ new Vue({
                     }
                 })
         },
-        old_handleRemoveItem(id) {
+        oldHandleRemoveItem(id) {
             request('deleteFromBasket.json')
                 .then((response) => {
                     if (response.result !== 0) {
@@ -201,30 +215,18 @@ new Vue({
                     }
                 });
         },
-        handleRemoveItem(id) {
-            const index = this.basketGoods.findIndex((goodsItem) => goodsItem.id === id);
-            const item = this.basketGoods[index];
-            console.log(item);
-            fetch(`${API_ROOT}/basket-goods/remove`, {
-                method: 'POST',
-                body: JSON.stringify(item),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then((response) => {
-                    if (response.result !== 0) {
-                        const itemIndex = this.basketGoods.findIndex((goodsItem) => goodsItem.id === item.id);
-                        console.log(itemIndex);
-                        if (itemIndex >= 0) {
-                            this.basketGoods.splice(itemIndex, 1);
-                            this.fetchBasket()
-                        }
-                    } else {
-                        console.error(`Can't remove item to basket`, item, this.basketGoods);
-                    }
-                })
-        },
-        
+        async handleRemoveItem(id) {
+            const rawResponse = await fetch(`${API_ROOT}/basket-goods/${id}`, {
+                method: 'DELETE',
+            });
+            const response = await rawResponse.json();
+
+            if (response.result !== 0) {
+                this.basketGoods = this.basketGoods.filter((goodsItem) => goodsItem.id !== parseInt(id));
+                console.log(this.basketGoods);
+            } else {
+                console.error(`Can't remove item from basket`, item, this.basketGoods);
+            }
+        }
     },
 });
